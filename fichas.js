@@ -170,7 +170,17 @@ const fichas = [
         nicho: "Fitness kawaii",
         archivo: "pesakawai.jpg"
     }
-];
+    {
+        nombre: "小鹤owo",
+        pinyin: "Xiǎo Hè owo",
+        seguidores: 1.531,
+        likes: 20.08,
+        ratio: 13.12,
+        origen: "Xiamen, Fujian",
+        nicho: "Cosplay de alta precisión + análisis de videojuegos",
+        archivo: "owo.jpg"
+    },
+    ];
 
 // ==============================================
 // FUNCIONES DE ACTUALIZACIÓN DE LA PÁGINA
