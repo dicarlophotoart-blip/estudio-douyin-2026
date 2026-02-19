@@ -3,57 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
-    
+    <title>Estudio Etno‑Ecológico de Nichos en Douyin 2026</title>
+
     <!-- Librerías para el mapa -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
-    
+
     <style>
+        /* ===== ESTILOS GENERALES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
         }
-        
+
         body {
             background-color: #0a0a0a;
             color: #ffffff;
             line-height: 1.6;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
+        /* ===== HEADER ===== */
         .header {
             text-align: center;
             padding: 40px 0;
             border-bottom: 1px solid #333;
         }
-        
+
         .logo img {
             height: 120px;
             filter: drop-shadow(0 0 15px #00ffcc);
             margin-bottom: 10px;
         }
-        
+
         .title {
             font-size: 32px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        
+
         .title small {
             font-size: 18px;
             color: #aaa;
             display: block;
         }
-        
+
+        /* ===== NAVEGACIÓN ===== */
         .nav {
             display: flex;
             justify-content: center;
@@ -61,7 +64,7 @@
             margin: 30px 0;
             flex-wrap: wrap;
         }
-        
+
         .nav-item {
             background: #1a1a1a;
             padding: 12px 24px;
@@ -70,20 +73,22 @@
             border: 1px solid #333;
             transition: 0.3s;
         }
-        
-        .nav-item:hover, .nav-item.active {
+
+        .nav-item:hover,
+        .nav-item.active {
             background: #00ffcc;
             color: #000;
             border-color: #00ffcc;
         }
-        
+
+        /* ===== TARJETAS DE ESTADÍSTICAS ===== */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin: 40px 0;
         }
-        
+
         .stat-card {
             background: #1a1a1a;
             padding: 20px;
@@ -91,22 +96,23 @@
             text-align: center;
             border: 1px solid #333;
         }
-        
+
         .stat-number {
             font-size: 36px;
             font-weight: bold;
             color: #00ffcc;
         }
-        
+
+        /* ===== SECCIONES ===== */
         .section {
             display: none;
             margin: 40px 0;
         }
-        
+
         .section.active {
             display: block;
         }
-        
+
         .section-title {
             font-size: 24px;
             color: #00ffcc;
@@ -114,7 +120,8 @@
             padding-left: 15px;
             margin-bottom: 20px;
         }
-        
+
+        /* ===== TABLA (LISTA MAESTRA) ===== */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -122,27 +129,27 @@
             border-radius: 10px;
             overflow: hidden;
         }
-        
+
         th {
             background: #00ffcc;
             color: #000;
             padding: 12px;
             text-align: left;
         }
-        
+
         td {
             padding: 12px;
             border-bottom: 1px solid #333;
         }
-        
-        /* GALERÍA MINI */
+
+        /* ===== GALERÍA MINI ===== */
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
         }
-        
+
         .card {
             width: 180px;
             height: 240px;
@@ -153,19 +160,19 @@
             cursor: pointer;
             transition: transform 0.2s, border-color 0.2s;
         }
-        
+
         .card:hover {
             transform: scale(1.05);
             border-color: #00ffcc;
         }
-        
+
         .card-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
-        /* MODAL (para ver cards grandes) */
+
+        /* ===== MODAL CON SCROLL ===== */
         .modal {
             display: none;
             position: fixed;
@@ -177,23 +184,7 @@
             z-index: 1000;
             cursor: pointer;
         }
-        
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 90%;
-            max-height: 90%;
-        }
-        
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 30px #00ffcc;
-        }
-        
+
         .close-modal {
             position: absolute;
             top: 20px;
@@ -203,7 +194,31 @@
             cursor: pointer;
             z-index: 1001;
         }
-        
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: auto;
+            overflow-y: auto;          /* ← PERMITE SCROLL VERTICAL */
+            display: flex;
+            justify-content: center;
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: default;
+        }
+
+        .modal-content img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: none;           /* ← SIN LÍMITE DE ALTURA */
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 40px 0;
@@ -211,50 +226,66 @@
             margin-top: 40px;
             color: #888;
         }
-        
+
+        /* ===== RESPONSIVE MÓVIL ===== */
         @media (max-width: 768px) {
-            .title { font-size: 24px; }
-            .logo img { height: 80px; }
-            .gallery { gap: 8px; }
-            .card { width: 140px; height: 187px; }
-            #chinaMap { height: 300px !important; }
+            .title {
+                font-size: 24px;
+            }
+            .logo img {
+                height: 80px;
+            }
+            .gallery {
+                gap: 8px;
+            }
+            .card {
+                width: 140px;
+                height: 187px;
+            }
+            #chinaMap {
+                height: 300px !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
+
+        <!-- ===== HEADER ===== -->
         <div class="header">
             <div class="logo">
-                <img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/unnamed.png" alt="Douyin">
+                <img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/unnamed.png"
+                     alt="Douyin">
                 <div class="title">
-                    ESTUDIO ETNO-ECOLÓGICO DE NICHOS EN DOUYIN 2026
+                    ESTUDIO ETNO‑ECOLÓGICO DE NICHOS EN DOUYIN 2026
                     <small>Juan Carlos Delgado</small>
                 </div>
             </div>
         </div>
-        
-        <!-- STATS -->
+
+        <!-- ===== STATS ===== -->
         <div class="stats">
             <div class="stat-card"><div class="stat-number">17</div><div>Creadoras</div></div>
             <div class="stat-card"><div class="stat-number">4.99M</div><div>Máx seguidores</div></div>
             <div class="stat-card"><div class="stat-number">31.84</div><div>Máx ratio</div></div>
             <div class="stat-card"><div class="stat-number">12</div><div>Regiones</div></div>
         </div>
-        
-        <!-- NAVEGACIÓN -->
+
+        <!-- ===== NAVEGACIÓN ===== -->
         <div class="nav">
             <div class="nav-item active" onclick="showSection('lista')">📋 LISTA</div>
             <div class="nav-item" onclick="showSection('galeria')">🖼️ GALERÍA</div>
             <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
             <div class="nav-item" onclick="showSection('metodologia')">📚 MÉTODO</div>
         </div>
-        
-        <!-- LISTA MAESTRA -->
+
+        <!-- ===== LISTA MAESTRA ===== -->
         <div id="lista" class="section active">
             <h2 class="section-title">📋 LISTA MAESTRA</h2>
             <table>
-                <thead><tr><th>Nombre</th><th>Seguidores</th><th>Likes</th><th>Ratio</th><th>Origen</th></tr></thead>
+                <thead>
+                    <tr><th>Nombre</th><th>Seguidores</th><th>Likes</th><th>Ratio</th><th>Origen</th></tr>
+                </thead>
                 <tbody>
                     <tr><td>钱冰</td><td>4.99M</td><td>130M</td><td>26.07</td><td>Sichuan</td></tr>
                     <tr><td>隙晓暮</td><td>4.80M</td><td>67.7M</td><td>14.10</td><td>?</td></tr>
@@ -276,57 +307,57 @@
                 </tbody>
             </table>
         </div>
-        
-        <!-- GALERÍA MINI -->
+
+        <!-- ===== GALERÍA MINI ===== -->
         <div id="galeria" class="section">
             <h2 class="section-title">🖼️ GALERÍA (haz clic para ver grande)</h2>
             <div class="gallery" id="galeria-cards"></div>
         </div>
-        
-        <!-- MODAL (para ver cards grandes) -->
+
+        <!-- ===== MODAL CON SCROLL ===== -->
         <div id="modal" class="modal" onclick="cerrarModal()">
             <span class="close-modal" onclick="cerrarModal()">&times;</span>
-            <div class="modal-content">
+            <div class="modal-content" onclick="event.stopPropagation()">
                 <img id="modal-img" src="" alt="Card grande">
             </div>
         </div>
-        
-        <!-- MAPA -->
+
+        <!-- ===== MAPA ===== -->
         <div id="mapa" class="section">
             <h2 class="section-title">🗺️ MAPA</h2>
             <div id="chinaMap" style="width:100%; height:400px; background:#1a1a1a; border-radius:10px;"></div>
             <p style="text-align:center; margin-top:20px; color:#888;">* Taiwán es parte de China</p>
         </div>
-        
-        <!-- METODOLOGÍA -->
+
+        <!-- ===== METODOLOGÍA ===== -->
         <div id="metodologia" class="section">
             <h2 class="section-title">📚 METODOLOGÍA</h2>
             <div style="background:#1a1a1a; padding:20px; border-radius:10px;">
                 <p>10 años observando China. Criterios: atracción estética + talento.</p>
             </div>
         </div>
-        
-        <!-- FOOTER -->
+
+        <!-- ===== FOOTER CON AVISO MÓVIL Y CONTADOR ===== -->
         <div class="footer">
-            <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
+            <p>Estudio Etno‑Ecológico de Nichos en Douyin 2026</p>
             <p>Juan Carlos Delgado · Marzo 2026</p>
             <p>17 creadoras · 30,500+ comunidad</p>
-            
+
             <!-- AVISO MÓVIL -->
             <div style="margin:20px auto; max-width:500px; padding:12px; background:#1a1a1a; border-radius:8px; border-left:3px solid #ffaa00;">
                 <p style="color:#ffaa00; font-weight:bold;">📱 VERSIÓN MÓVIL</p>
                 <p style="color:#888; font-size:11px;">Optimizada para computadora. En móvil, la galería se ve en 2 columnas, el mapa puede no cargar.</p>
             </div>
-            
+
             <!-- CONTADOR -->
             <div style="margin-top:20px;">
                 <img src="https://hitwebcounter.com/counter/counter.php?page=18466857&style=0038&nbdigits=6&type=page&initCount=0" alt="visitas">
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Mostrar secciones
+        // Mostrar secciones (pestañas)
         window.showSection = function(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
@@ -334,71 +365,76 @@
             event.target.classList.add('active');
             if (sectionId === 'mapa') setTimeout(initMap, 200);
         };
-        
-        // Inicializar galería con cards mini
+
+        // Inicializar galería mini
         function renderGaleria() {
             const galeria = document.getElementById('galeria-cards');
             const nombres = [
-                "pesakawai", "xiao qi", "cocinera", "bailarina", "liang", 
-                "wusguiajpg", "muralista", "Miaomiao", "Rose", "zhezhe", 
-                "Han Liang", "mimi", "Giovanna", "ngjkkm", "pipa", 
+                "pesakawai", "xiao qi", "cocinera", "bailarina", "liang",
+                "wusguiajpg", "muralista", "Miaomiao", "Rose", "zhezhe",
+                "Han Liang", "mimi", "Giovanna", "ngjkkm", "pipa",
                 "guzheng", "leon blanco"
             ];
-            
+
             nombres.forEach(n => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.onclick = () => abrirModal(n);
-                
+
                 const img = document.createElement('img');
                 img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(n+'.jpg')}`;
                 img.className = 'card-img';
                 img.alt = n;
-                
+
                 card.appendChild(img);
                 galeria.appendChild(card);
             });
         }
-        
-        // Abrir modal con card grande
+
+        // Abrir modal (con scroll)
         function abrirModal(nombre) {
             document.getElementById('modal-img').src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(nombre+'.jpg')}`;
             document.getElementById('modal').style.display = 'block';
         }
-        
+
         // Cerrar modal
         function cerrarModal() {
             document.getElementById('modal').style.display = 'none';
         }
-        
+
         // Cerrar con tecla ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                cerrarModal();
-            }
+            if (e.key === 'Escape') cerrarModal();
         });
-        
-        // Mapa
+
+        // Inicializar mapa
         function initMap() {
             var chart = echarts.init(document.getElementById('chinaMap'));
             var option = {
                 title: { text: 'Distribución', left: 'center', textStyle: { color: '#00ffcc' } },
                 series: [{
-                    type: 'map', map: 'china', roam: true,
+                    type: 'map',
+                    map: 'china',
+                    roam: true,
                     data: [
-                        {name:'四川省', value:4}, {name:'辽宁省', value:2},
-                        {name:'北京市', value:1}, {name:'浙江省', value:1},
-                        {name:'陕西省', value:1}, {name:'福建省', value:1},
-                        {name:'湖南省', value:1}, {name:'内蒙古自治区', value:1},
-                        {name:'香港特别行政区', value:1}, {name:'重庆市', value:1}
+                        {name: '四川省', value: 4},
+                        {name: '辽宁省', value: 2},
+                        {name: '北京市', value: 1},
+                        {name: '浙江省', value: 1},
+                        {name: '陕西省', value: 1},
+                        {name: '福建省', value: 1},
+                        {name: '湖南省', value: 1},
+                        {name: '内蒙古自治区', value: 1},
+                        {name: '香港特别行政区', value: 1},
+                        {name: '重庆市', value: 1}
                     ]
                 }]
             };
             chart.setOption(option);
             window.addEventListener('resize', () => chart.resize());
         }
-        
-        // Inicializar todo
+
+        // Arrancar la galería
         renderGaleria();
     </script>
 </body>
