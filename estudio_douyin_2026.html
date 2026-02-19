@@ -31,10 +31,12 @@
         }
         
         .logo {
-            font-size: 48px;
             margin-bottom: 20px;
-            color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc;
+        }
+        
+        .logo img {
+            height: 80px;
+            filter: drop-shadow(0 0 10px #00ffcc);
         }
         
         .logo span {
@@ -195,15 +197,18 @@
         }
         
         .chart {
-            height: 300px;
+            height: 350px;
             display: flex;
             align-items: flex-end;
             gap: 20px;
             margin-top: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
         }
         
         .bar-container {
             flex: 1;
+            min-width: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -222,6 +227,23 @@
             font-size: 12px;
             color: #888;
             text-align: center;
+        }
+        
+        .bar-label .chino {
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .bar-label .pinyin {
+            font-size: 11px;
+            color: #aaa;
+            margin: 2px 0;
+        }
+        
+        .bar-label .numero {
+            font-size: 12px;
+            color: #00ffcc;
         }
         
         .map {
@@ -273,8 +295,8 @@
             .title {
                 font-size: 24px;
             }
-            .logo {
-                font-size: 36px;
+            .logo img {
+                height: 60px;
             }
         }
     </style>
@@ -283,7 +305,7 @@
     <div class="container">
         <div class="header">
             <div class="logo">
-                ⬤ DOUYIN 抖音
+                <img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/unnamed.png" alt="Douyin 抖音" style="height: 80px; filter: drop-shadow(0 0 10px #00ffcc);">
                 <span>抖音</span>
             </div>
             <div class="title">
@@ -379,22 +401,22 @@
             <div class="chart-container">
                 <h3>Top 5 por seguidores</h3>
                 <div class="chart">
-                    <div class="bar-container"><div class="bar" style="height: 100px;"></div><div class="bar-label">钱冰<br>4.99M</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 76px;"></div><div class="bar-label">Mimi蛋儿<br>3.81M</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 69px;"></div><div class="bar-label">妮老师<br>3.46M</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 66px;"></div><div class="bar-label">刘太阳<br>3.29M</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 64px;"></div><div class="bar-label">飞天小麻花<br>3.18M</div></div>
+                    <div class="bar-container"><div class="bar" style="height: 100px;"></div><div class="bar-label"><span class="chino">钱冰</span><br><span class="pinyin">Qián Bīng</span><br><span class="numero">4.99M</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 76px;"></div><div class="bar-label"><span class="chino">Mimi蛋儿</span><br><span class="pinyin">Mimi Dàn'ér</span><br><span class="numero">3.81M</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 69px;"></div><div class="bar-label"><span class="chino">妮老师</span><br><span class="pinyin">Nī Lǎoshī</span><br><span class="numero">3.46M</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 66px;"></div><div class="bar-label"><span class="chino">刘太阳</span><br><span class="pinyin">Liú Tàiyáng</span><br><span class="numero">3.29M</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 64px;"></div><div class="bar-label"><span class="chino">飞天小麻花</span><br><span class="pinyin">Fēi Tiān Xiǎo Mǎhuā</span><br><span class="numero">3.18M</span></div></div>
                 </div>
             </div>
             
             <div class="chart-container">
                 <h3>Top 5 por ratio</h3>
                 <div class="chart">
-                    <div class="bar-container"><div class="bar" style="height: 100px;"></div><div class="bar-label">妮老师<br>31.84</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 82px;"></div><div class="bar-label">钱冰<br>26.07</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 80px;"></div><div class="bar-label">猫姨<br>25.44</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 71px;"></div><div class="bar-label">郭喆喆<br>22.60</div></div>
-                    <div class="bar-container"><div class="bar" style="height: 67px;"></div><div class="bar-label">Angier<br>21.43</div></div>
+                    <div class="bar-container"><div class="bar" style="height: 100px;"></div><div class="bar-label"><span class="chino">妮老师</span><br><span class="pinyin">Nī Lǎoshī</span><br><span class="numero">31.84</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 82px;"></div><div class="bar-label"><span class="chino">钱冰</span><br><span class="pinyin">Qián Bīng</span><br><span class="numero">26.07</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 80px;"></div><div class="bar-label"><span class="chino">猫姨</span><br><span class="pinyin">Māo Yí</span><br><span class="numero">25.44</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 71px;"></div><div class="bar-label"><span class="chino">郭喆喆</span><br><span class="pinyin">Guō Zhé Zhé</span><br><span class="numero">22.60</span></div></div>
+                    <div class="bar-container"><div class="bar" style="height: 67px;"></div><div class="bar-label"><span class="chino">Angier安琦</span><br><span class="pinyin">Angier Ān Qí</span><br><span class="numero">21.43</span></div></div>
                 </div>
             </div>
         </div>
