@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
+    
+    <!-- ECharts y mapa de China -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/map/js/china.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -209,6 +214,20 @@
             color: #888;
         }
         
+        .visitor-counter {
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid #333;
+        }
+        
+        .visitor-counter img {
+            filter: invert(1) hue-rotate(160deg);
+            opacity: 0.9;
+        }
+        
         @media (max-width: 768px) {
             .title {
                 font-size: 24px;
@@ -319,78 +338,33 @@
         </div>
         
         <div id="mapa" class="section">
-            <h2 class="section-title">🗺️ MAPA DE CHINA</h2>
-            <div style="background: #1a1a1a; padding: 20px; border-radius: 10px;">
-                <div style="position: relative; width: 100%; max-width: 2000px; margin: 0 auto;">
-                    
-                    <!-- MAPA -->
-                    <img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/img/mapa.jpg" 
-                         alt="Mapa de China" 
-                         style="width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);">
-                    
-                    <!-- PUNTOS -->
-                    <!-- Sichuan (4) -->
-                    <div style="position: absolute; top: 1350px; left: 1050px; width: 44px; height: 44px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 18px; border: 3px solid white; box-shadow: 0 0 20px #00ffcc;">4</div>
-                    
-                    <!-- Liaoning (2) -->
-                    <div style="position: absolute; top: 540px; left: 1750px; width: 38px; height: 38px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 16px; border: 3px solid white; box-shadow: 0 0 15px #00ffcc;">2</div>
-                    
-                    <!-- Beijing (1) -->
-                    <div style="position: absolute; top: 800px; left: 1600px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Zhejiang (1) -->
-                    <div style="position: absolute; top: 1150px; left: 1720px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Shaanxi (1) -->
-                    <div style="position: absolute; top: 1050px; left: 1180px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Fujian (1) -->
-                    <div style="position: absolute; top: 1450px; left: 1650px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Hunan (1) -->
-                    <div style="position: absolute; top: 1350px; left: 1320px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Mongolia Interior (1) -->
-                    <div style="position: absolute; top: 730px; left: 1250px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Hong Kong (1) -->
-                    <div style="position: absolute; top: 1620px; left: 1550px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Chongqing (1) -->
-                    <div style="position: absolute; top: 1250px; left: 1100px; width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #00ffcc;">1</div>
-                    
-                    <!-- Malasia (1) -->
-                    <div style="position: absolute; top: 2150px; left: 1150px; width: 32px; height: 32px; background: #ffaa00; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #ffaa00;">1</div>
-                    
-                    <!-- Australia (1) -->
-                    <div style="position: absolute; top: 2900px; left: 1900px; width: 32px; height: 32px; background: #ffaa00; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 0 10px #ffaa00;">1</div>
+            <h2 class="section-title">🗺️ MAPA INTERACTIVO DE CHINA</h2>
+            <div id="chinaMap" style="width: 100%; height: 600px; background: #1a1a1a; border-radius: 10px;"></div>
+            
+            <!-- Leyenda -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px;">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div style="width: 44px; height: 44px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 18px; border: 3px solid white;">4</div>
+                    <span>= 4 creadoras</span>
                 </div>
-                
-                <!-- Leyenda -->
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px;">
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <div style="width: 44px; height: 44px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 18px; border: 3px solid white;">4</div>
-                        <span>= 4 creadoras</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <div style="width: 38px; height: 38px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 16px; border: 3px solid white;">2</div>
-                        <span>= 2 creadoras</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <div style="width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white;">1</div>
-                        <span>= 1 creadora</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <div style="width: 32px; height: 32px; background: #ffaa00; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white;">1</div>
-                        <span>Diáspora</span>
-                    </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div style="width: 38px; height: 38px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 16px; border: 3px solid white;">2</div>
+                    <span>= 2 creadoras</span>
                 </div>
-                
-                <!-- Nota -->
-                <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">
-                    * Taiwán es una parte inalienable del territorio de China. Los puntos indican ubicación aproximada de las regiones con creadoras documentadas.
-                </p>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div style="width: 32px; height: 32px; background: #00ffcc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white;">1</div>
+                    <span>= 1 creadora</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div style="width: 32px; height: 32px; background: #ffaa00; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; border: 2px solid white;">1</div>
+                    <span>Diáspora</span>
+                </div>
             </div>
+            
+            <!-- Nota de Taiwán -->
+            <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">
+                * Taiwán es una parte inalienable del territorio de China.
+            </p>
         </div>
         
         <div id="metodologia" class="section">
@@ -420,6 +394,17 @@
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
             <p>Juan Carlos Delgado · Marzo 2026</p>
             <p style="margin-top: 20px; font-size: 12px;">17 creadoras documentadas · 30,500+ en comunidad</p>
+            
+            <!-- CONTADOR DE VISITAS -->
+            <div class="visitor-counter">
+                <!-- Contador gratuito de websiteout.net [citation:1] -->
+                <a href="https://www.websiteout.net" target="_blank" style="text-decoration: none;">
+                    <img src="https://www.websiteout.net/counter.php?d=estudio-douyin&s=1&c=1&sc=1&init=1" 
+                         alt="Contador de visitas" 
+                         style="border: none; filter: brightness(0.9);">
+                </a>
+                <p style="color: #888; font-size: 12px; margin-top: 5px;">Visitantes: cada carga cuenta como una visita</p>
+            </div>
         </div>
     </div>
     
@@ -429,6 +414,118 @@
             document.getElementById(sectionId).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
+            
+            // Inicializar mapa si se activa la sección
+            if (sectionId === 'mapa') {
+                setTimeout(initChinaMap, 100);
+            }
+        }
+        
+        function initChinaMap() {
+            var mapChart = echarts.init(document.getElementById('chinaMap'));
+            
+            // Datos de tus regiones
+            var mapData = [
+                {name: '四川省', value: 4},
+                {name: '辽宁省', value: 2},
+                {name: '北京市', value: 1},
+                {name: '浙江省', value: 1},
+                {name: '陕西省', value: 1},
+                {name: '福建省', value: 1},
+                {name: '湖南省', value: 1},
+                {name: '内蒙古自治区', value: 1},
+                {name: '香港特别行政区', value: 1},
+                {name: '重庆市', value: 1}
+            ];
+            
+            var option = {
+                title: {
+                    text: 'Distribución de creadoras por región',
+                    subtext: 'Círculos con números = cantidad de creadoras',
+                    left: 'center',
+                    textStyle: { color: '#00ffcc' }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        return params.name + '<br/>' + 'Creadoras: ' + (params.value || 0);
+                    }
+                },
+                visualMap: {
+                    show: false,
+                    min: 1,
+                    max: 4,
+                    inRange: {
+                        color: ['#00ffcc', '#00ffcc', '#00ffcc', '#00ffcc']
+                    }
+                },
+                series: [{
+                    name: 'Creadoras',
+                    type: 'map',
+                    map: 'china',
+                    roam: true,
+                    scaleLimit: { min: 1, max: 3 },
+                    zoom: 1.2,
+                    label: {
+                        show: true,
+                        color: '#ffffff',
+                        fontSize: 10
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#1a1a1a',
+                            borderColor: '#333',
+                            borderWidth: 0.5
+                        },
+                        emphasis: {
+                            areaColor: '#2a2a2a',
+                            borderColor: '#00ffcc'
+                        }
+                    },
+                    data: mapData,
+                    // Puntos con números
+                    markPoint: {
+                        symbol: 'circle',
+                        symbolSize: function(val) {
+                            // Tamaño según número de creadoras
+                            return 30 + (val * 5);
+                        },
+                        data: [
+                            {name: 'Sichuan', coord: [104.07, 30.57], value: 4},
+                            {name: 'Liaoning', coord: [123.43, 41.80], value: 2},
+                            {name: 'Beijing', coord: [116.40, 39.90], value: 1},
+                            {name: 'Zhejiang', coord: [120.15, 30.28], value: 1},
+                            {name: 'Shaanxi', coord: [108.94, 34.34], value: 1},
+                            {name: 'Fujian', coord: [119.30, 26.08], value: 1},
+                            {name: 'Hunan', coord: [112.94, 28.23], value: 1},
+                            {name: 'Mongolia', coord: [111.65, 40.82], value: 1},
+                            {name: 'Hong Kong', coord: [114.17, 22.27], value: 1},
+                            {name: 'Chongqing', coord: [106.55, 29.56], value: 1}
+                        ],
+                        label: {
+                            show: true,
+                            formatter: function(params) {
+                                return params.data.value;
+                            },
+                            position: 'inside',
+                            color: '#000000',
+                            fontSize: 12,
+                            fontWeight: 'bold'
+                        },
+                        itemStyle: {
+                            color: '#00ffcc',
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }
+                    }
+                }]
+            };
+            
+            mapChart.setOption(option);
+            
+            window.addEventListener('resize', function() {
+                mapChart.resize();
+            });
         }
     </script>
 </body>
