@@ -275,28 +275,134 @@ function generarGraficas(topSeguidores, topRatio) {
     });
 }
 
+// ==============================================
+// MAPA DE CHINA CON PUNTOS
+// ==============================================
+
 function generarMapa() {
     const mapa = document.getElementById('mapa-regiones');
+    if (!mapa) return;
+    
+    // Limpiar el contenedor
     mapa.innerHTML = '';
     
-    // Contar regiones
-    const regiones = {};
+    // Crear un contenedor para el mapa echarts
+    const chartContainer = document.createElement('div');
+    chartContainer.id = 'mapa-china';
+    chartContainer.style.width = '100%';
+    chartContainer.style.height = '500px';
+    mapa.appendChild(chartContainer);
+    
+    // Coordenadas de las regiones (capitales de provincia como referencia)
+    const coordenadas = {
+        "Sichuan": [104.07, 30.57],
+        "Chengdu": [104.07, 30.57],
+        "Liaoning": [123.43, 41.80],
+        "Zhejiang": [120.16, 30.29],
+        "Shaanxi": [108.94, 34.34],
+        "Fujian": [119.30, 26.08],
+        "Hunan": [112.94, 28.23],
+        "Mongolia Interior": [111.75, 40.84],
+        "Beijing": [116.40, 39.90],
+        "Hong Kong": [114.17, 22.30],
+        "Chongqing": [106.55, 29.56],
+        "Malasia": [101.69, 3.14],
+        "Australia": [144.96, -37.81],
+        "Sin confirmar": [110.00, 35.00] // Centro aproximado
+    };
+
+    // Contar influencers por región
+    const regionCount = {};
     fichas.forEach(f => {
         const region = f.origen.split(',')[0].trim();
-        regiones[region] = (regiones[region] || 0) + 1;
+        regionCount[region] = (regionCount[region] || 0) + 1;
     });
-    
-    // Ordenar por cantidad
-    const sorted = Object.entries(regiones).sort((a, b) => b[1] - a[1]);
-    
-    sorted.forEach(([region, count]) => {
-        const div = document.createElement('div');
-        div.className = 'map-item';
-        div.innerHTML = `
-            <div class="region">${region}</div>
-            <div>${count} creadora${count > 1 ? 's' : ''}</div>
-        `;
-        mapa.appendChild(div);
+
+    // Crear datos para los puntos del mapa
+    const puntos = [];
+    Object.entries(regionCount).forEach(([region, count]) => {
+        if (coordenadas[region]) {
+            puntos.push({
+                name: region,
+                value: [...coordenadas[region], count]
+            });
+        }
+    });
+
+    // Configuración del mapa
+    const mapChart = echarts.init(document.getElementById('mapa-china'));
+    const option = {
+        title: {
+            text: 'Distribución geográfica de influencers',
+            subtext: 'Tamaño del punto = número de creadoras',
+            left: 'center',
+            textStyle: { color: '#00ffcc' }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                return `${params.name}: ${params.value[2]} creadora${params.value[2] > 1 ? 's' : ''}`;
+            }
+        },
+        visualMap: {
+            min: 1,
+            max: Math.max(...Object.values(regionCount)),
+            calculable: true,
+            inRange: {
+                color: ['#50a3ba', '#00ffcc', '#00cc99']
+            },
+            textStyle: { color: '#fff' }
+        },
+        geo: {
+            map: 'china',
+            roam: true,
+            scaleLimit: {
+                min: 1,
+                max: 3
+            },
+            zoom: 1.2,
+            center: [104.0, 35.0],
+            itemStyle: {
+                areaColor: '#1a1a1a',
+                borderColor: '#333',
+                borderWidth: 0.5
+            },
+            emphasis: {
+                areaColor: '#2a2a2a'
+            }
+        },
+        series: [{
+            name: 'Influencers',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: puntos,
+            symbolSize: function(val) {
+                return 15 + (val[2] * 8);
+            },
+            encode: {
+                tooltip: 2
+            },
+            label: {
+                show: false
+            },
+            itemStyle: {
+                color: '#00ffcc',
+                borderColor: '#fff',
+                borderWidth: 1,
+                shadowBlur: 10,
+                shadowColor: '#00ffcc'
+            },
+            emphasis: {
+                scale: 1.5
+            }
+        }]
+    };
+
+    mapChart.setOption(option);
+
+    // Ajustar al tamaño de la ventana
+    window.addEventListener('resize', function() {
+        mapChart.resize();
     });
 }
 
