@@ -419,7 +419,11 @@
                     markPoint: {
                         symbol: 'circle',
                         symbolSize: function(val) {
-                            return 30 + (val * 5);
+                            var size = 30;
+                            if (val && val.value) {
+                                size = 30 + (val.value * 5);
+                            }
+                            return size;
                         },
                         data: [
                             {name: 'Sichuan', coord: [104.07, 30.57], value: 4},
@@ -431,7 +435,9 @@
                             {name: 'Hunan', coord: [112.94, 28.23], value: 1},
                             {name: 'Mongolia', coord: [111.65, 40.82], value: 1},
                             {name: 'Hong Kong', coord: [114.17, 22.27], value: 1},
-                            {name: 'Chongqing', coord: [106.55, 29.56], value: 1}
+                            {name: 'Chongqing', coord: [106.55, 29.56], value: 1},
+                            {name: 'Malasia', coord: [101.98, 4.21], value: 1},
+                            {name: 'Australia', coord: [133.77, -25.27], value: 1}
                         ],
                         label: {
                             show: true,
@@ -440,12 +446,15 @@
                             },
                             position: 'inside',
                             color: '#000',
-                            fontSize: 12
+                            fontSize: 12,
+                            fontWeight: 'bold'
                         },
                         itemStyle: {
                             color: '#00ffcc',
-                            borderColor: '#fff',
-                            borderWidth: 2
+                            borderColor: '#ffffff',
+                            borderWidth: 2,
+                            shadowBlur: 10,
+                            shadowColor: '#00ffcc'
                         }
                     }
                 }]
