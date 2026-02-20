@@ -235,6 +235,10 @@ function actualizarPagina() {
     if (document.getElementById('max-seguidores')) {
         document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
     }
+    if (document.getElementById('max-ratio')) {
+        const maxRatio = Math.max(...fichas.map(f => f.ratio));
+        document.getElementById('max-ratio').textContent = maxRatio.toFixed(2);
+    }
     
     // Regiones únicas
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
@@ -276,109 +280,165 @@ function actualizarPagina() {
 }
 
 // ==============================================
-// FUNCIÓN PARA GENERAR EL MAPA (CON PUNTOS)
+// FUNCIÓN PARA GENERAR EL MAPA (CORREGIDA)
 // ==============================================
 
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
-    if (!mapDiv) return;
+    if (!mapDiv) {
+        console.error('❌ No se encontró el div #chinaMap');
+        return;
+    }
     
-    const chart = echarts.init(mapDiv);
+    console.log('🗺️ Generando mapa...');
     
-    // Agrupar por provincia para contar y generar puntos únicos
-    const conteo = {};
-    const provinciasUnicas = {};
+    // Limpiar chart previo si existe
+    let chart = echarts.getInstanceByDom(mapDiv);
+    if (chart) {
+        echarts.dispose(chart);
+        console.log('🔄 Chart anterior eliminado');
+    }
     
-    fichas.forEach(f => {
-        if (f.provincia && f.coord) {
-            conteo[f.provincia] = (conteo[f.provincia] || 0) + 1;
-            provinciasUnicas[f.provincia] = provinciasUnicas[f.provincia] || f;
+    chart = echarts.init(mapDiv);
+    
+    // Filtrar solo las fichas con coordenadas válidas
+    const fichasConCoordenadas = fichas.filter(f => f.coord && f.provincia);
+    console.log(`📍 Fichas con coordenadas: ${fichasConCoordenadas.length}`);
+    
+    // Contar creadoras por provincia
+    const conteoPorProvincia = {};
+    fichasConCoordenadas.forEach(f => {
+        conteoPorProvincia[f.provincia] = (conteoPorProvincia[f.provincia] || 0) + 1;
+    });
+    
+    console.log('📊 Distribución por provincia:', conteoPorProvincia);
+    
+    // Datos para el mapa (colorear provincias)
+    const mapaData = Object.entries(conteoPorProvincia).map(([name, value]) => ({
+        name,
+        value
+    }));
+    
+    // Datos para los puntos (scatter) - UN punto por provincia
+    const puntosData = [];
+    const provinciasVistas = new Set();
+    
+    fichasConCoordenadas.forEach(f => {
+        if (!provinciasVistas.has(f.provincia)) {
+            puntosData.push({
+                name: f.provincia,
+                value: [...f.coord, conteoPorProvincia[f.provincia]],
+                provincia: f.provincia
+            });
+            provinciasVistas.add(f.provincia);
         }
     });
     
-    // Datos para colorear provincias
-    const datosProvincias = Object.entries(conteo).map(([prov, val]) => ({
-        name: prov,
-        value: val
-    }));
-    
-    // Puntos (uno por provincia con el total)
-    const puntos = Object.entries(provinciasUnicas).map(([prov, f]) => ({
-        coord: f.coord,
-        value: conteo[prov]
-    }));
+    console.log('🎯 Puntos a mostrar en el mapa:', puntosData);
     
     const option = {
+        backgroundColor: '#1a1a1a',
         title: {
             text: 'Distribución de creadoras en China',
             left: 'center',
-            textStyle: { color: '#00ffcc', fontSize: 16 }
+            textStyle: { 
+                color: '#00ffcc', 
+                fontSize: 16 
+            }
         },
         tooltip: {
             trigger: 'item',
             formatter: function(params) {
-                if (params.seriesName === 'Puntos') {
-                    return 'Creadoras: ' + params.data.value[2];
+                if (params.seriesType === 'scatter' && params.data) {
+                    return `<b>${params.data.provincia}</b><br/>Creadoras: ${params.data.value[2]}`;
                 }
-                return params.name + '<br/>Creadoras: ' + (params.value || 0);
+                return `${params.name}<br/>Creadoras: ${params.value || 0}`;
+            }
+        },
+        geo: {
+            map: 'china',
+            roam: true,
+            zoom: 1.2,
+            label: {
+                show: true,
+                color: '#fff',
+                fontSize: 9
+            },
+            itemStyle: {
+                areaColor: '#1a1a1a',
+                borderColor: '#00ffcc',
+                borderWidth: 1
+            },
+            emphasis: {
+                itemStyle: {
+                    areaColor: '#2a2a2a',
+                    borderColor: '#00ffcc'
+                }
             }
         },
         series: [
             {
-                name: 'Provincias',
+                name: 'Creadoras por provincia',
                 type: 'map',
                 map: 'china',
-                roam: true,
-                zoom: 1.2,
-                label: {
-                    show: true,
-                    color: '#fff',
-                    fontSize: 10
+                geoIndex: 0,
+                data: mapaData,
+                label: { 
+                    show: true, 
+                    color: '#fff', 
+                    fontSize: 9 
                 },
                 itemStyle: {
-                    normal: {
-                        areaColor: '#1a1a1a',
-                        borderColor: '#00ffcc',
-                        borderWidth: 1
-                    },
-                    emphasis: {
-                        areaColor: '#2a2a2a',
-                        borderColor: '#ffffff'
-                    }
+                    areaColor: '#1a1a1a',
+                    borderColor: '#00ffcc',
+                    borderWidth: 1
                 },
-                data: datosProvincias
+                emphasis: {
+                    itemStyle: {
+                        areaColor: '#2a2a2a'
+                    }
+                }
             },
             {
                 name: 'Puntos',
                 type: 'scatter',
-                coordinateSystem: 'geo',
+                coordinateSystem: 'geo',  // ← CLAVE: Usar sistema de coordenadas geo
+                data: puntosData,
                 symbol: 'circle',
-                symbolSize: 45,
-                data: puntos.map(p => ({
-                    value: [p.coord[0], p.coord[1], p.value]
-                })),
+                symbolSize: 50,
                 label: {
                     show: true,
                     formatter: function(params) {
-                        return params.data.value[2];
+                        return params.data.value[2];  // Mostrar el número de creadoras
                     },
                     position: 'inside',
                     color: '#000',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: 'bold'
                 },
                 itemStyle: {
                     color: '#00ffcc',
                     borderColor: '#fff',
-                    borderWidth: 2
+                    borderWidth: 3,
+                    shadowBlur: 10,
+                    shadowColor: '#00ffcc'
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: '#00ffff'
+                    }
                 }
             }
         ]
     };
     
     chart.setOption(option);
+    console.log('✅ Mapa renderizado correctamente');
     
-    window.addEventListener('resize', () => chart.resize());
+    // Responsive
+    window.addEventListener('resize', () => {
+        chart.resize();
+    });
 }
 
 // ==============================================
@@ -391,12 +451,16 @@ window.abrirModal = function(archivo) {
     if (img && modal) {
         img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
         modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 };
 
 window.cerrarModal = function() {
     const modal = document.getElementById('modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 };
 
 document.addEventListener('keydown', function(e) {
@@ -410,6 +474,6 @@ document.addEventListener('keydown', function(e) {
 // ==============================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ Página inicializada con', fichas.length, 'fichas');
     actualizarPagina();
-    console.log('✅ Página inicializada con ' + fichas.length + ' fichas');
 });
