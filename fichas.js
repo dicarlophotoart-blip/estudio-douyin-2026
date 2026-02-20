@@ -27,17 +27,12 @@ const fichas = [
 function actualizarPagina() {
     if (!fichas || fichas.length === 0) return;
     const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
-    const totalEl = document.getElementById('total-fichas');
-    if (totalEl) totalEl.textContent = fichas.length;
-    const maxSegEl = document.getElementById('max-seguidores');
-    if (maxSegEl) maxSegEl.textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
-    const maxRatioEl = document.getElementById('max-ratio');
-    if (maxRatioEl) maxRatioEl.textContent = Math.max(...fichas.map(f => f.ratio)).toFixed(2);
+    if (document.getElementById('total-fichas')) document.getElementById('total-fichas').textContent = fichas.length;
+    if (document.getElementById('max-seguidores')) document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
+    if (document.getElementById('max-ratio')) document.getElementById('max-ratio').textContent = Math.max(...fichas.map(f => f.ratio)).toFixed(2);
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
-    const regionesEl = document.getElementById('total-regiones');
-    if (regionesEl) regionesEl.textContent = regiones.size;
-    const footerEl = document.getElementById('footer-fichas');
-    if (footerEl) footerEl.textContent = fichas.length + ' creadoras · 30,500+ comunidad';
+    if (document.getElementById('total-regiones')) document.getElementById('total-regiones').textContent = regiones.size;
+    if (document.getElementById('footer-fichas')) document.getElementById('footer-fichas').textContent = fichas.length + ' creadoras · 30,500+ comunidad';
     const tbody = document.getElementById('tabla-body');
     if (tbody) {
         tbody.innerHTML = '';
@@ -78,56 +73,26 @@ function generarMapa() {
     if (chart) echarts.dispose(chart);
     chart = echarts.init(mapDiv);
     const fichasConCoordenadas = fichas.filter(f => f.coord && Array.isArray(f.coord) && f.coord.length === 2);
-    const gruposPorCoordenada = {};
+    const grupos = {};
     fichasConCoordenadas.forEach(f => {
-        const key = `${f.coord[0]},${f.coord[1]}`;
-        if (!gruposPorCoordenada[key]) {
-            gruposPorCoordenada[key] = { coord: f.coord, creadoras: [], totalSeguidores: 0 };
-        }
-        gruposPorCoordenada[key].creadoras.push(f);
-        gruposPorCoordenada[key].totalSeguidores += f.seguidores;
+        const key = f.coord[0] + ',' + f.coord[1];
+        if (!grupos[key]) grupos[key] = { coord: f.coord, creadoras: [], total: 0 };
+        grupos[key].creadoras.push(f);
+        grupos[key].total += f.seguidores;
     });
-    const puntosData = Object.values(gruposPorCoordenada).map(grupo => ({
-        name: grupo.creadoras.length > 1 ? `${grupo.creadoras.length} creadoras` : grupo.creadoras[0].nombre,
-        value: [...grupo.coord, grupo.creadoras.length],
-        cantidad: grupo.creadoras.length,
-        creadoras: grupo.creadoras.map(c => ({ nombre: c.nombre, pinyin: c.pinyin, origen: c.origen, nicho: c.nicho, seguidores: c.seguidores, ratio: c.ratio })),
-        totalSeguidores: grupo.totalSeguidores
+    const puntosData = Object.values(grupos).map(g => ({
+        name: g.creadoras.length > 1 ? g.creadoras.length + ' creadoras' : g.creadoras[0].nombre,
+        value: [...g.coord, g.creadoras.length],
+        cantidad: g.creadoras.length,
+        creadoras: g.creadoras.map(c => ({ nombre: c.nombre, pinyin: c.pinyin, origen: c.origen, nicho: c.nicho, seguidores: c.seguidores, ratio: c.ratio })),
+        totalSeguidores: g.total
     }));
     const option = {
         backgroundColor: '#1a1a1a',
         title: { text: 'Distribución de ' + fichasConCoordenadas.length + ' creadoras', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
-        tooltip: {
-            trigger: 'item',
-            formatter: (params) => {
-                const d = params.data;
-                if (!d || !d.creadoras) return '';
-                let html = `<b>${d.cantidad} creadora${d.cantidad > 1 ? 's' : ''}</b><br/>📍 Total: ${d.totalSeguidores.toFixed(3)}M seguidores<br/><br/>`;
-                d.creadoras.forEach((c, i) => {
-                    html += `${i + 1}. <b>${c.nombre}</b> (${c.pinyin})<br/>   📍 ${c.origen}<br/>   🎨 ${c.nicho}<br/>   👥 ${c.seguidores.toFixed(3)}M · 📈 ${c.ratio.toFixed(2)}<br/><br/>`;
-                });
-                return html.slice(0, -4);
-            }
-        },
-        geo: {
-            map: 'china',
-            roam: true,
-            zoom: 1.2,
-            label: { show: true, color: '#fff', fontSize: 9 },
-            itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
-            emphasis: { itemStyle: { areaColor: '#2a2a2a', borderColor: '#00ffcc' } }
-        },
-        series: [{
-            name: 'Puntos',
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: puntosData,
-            symbol: 'circle',
-            symbolSize: (val) => Math.max(12, Math.min(60, val[2] * 10 + Math.sqrt(val[2]) * 5)),
-            label: { show: true, formatter: (p) => p.data.cantidad > 1 ? p.data.cantidad : '', position: 'inside', color: '#000', fontSize: 12, fontWeight: 'bold' },
-            itemStyle: { color: (params) => params.data.cantidad > 1 ? '#ffaa00' : '#00ffcc', borderColor: '#fff', borderWidth: 2, shadowBlur: 10, shadowColor: (params) => params.data.cantidad > 1 ? '#ffaa00' : '#00ffcc' },
-            emphasis: { itemStyle: { color: (params) => params.data.cantidad > 1 ? '#ffcc00' : '#00ffff', borderWidth: 4 } }
-        }]
+        tooltip: { trigger: 'item', formatter: (p) => { const d = p.data; if (!d || !d.creadoras) return ''; let h = '<b>' + d.cantidad + ' creadora' + (d.cantidad > 1 ? 's' : '') + '</b><br/>📍 Total: ' + d.totalSeguidores.toFixed(3) + 'M<br/><br/>'; d.creadoras.forEach((c, i) => { h += (i+1) + '. <b>' + c.nombre + '</b> (' + c.pinyin + ')<br/>   📍 ' + c.origen + '<br/>   🎨 ' + c.nicho + '<br/>   👥 ' + c.seguidores.toFixed(3) + 'M · 📈 ' + c.ratio.toFixed(2) + '<br/><br/>'; }); return h.slice(0, -4); } },
+        geo: { map: 'china', roam: true, zoom: 1.2, label: { show: true, color: '#fff', fontSize: 9 }, itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 }, emphasis: { itemStyle: { areaColor: '#2a2a2a' } } },
+        series: [{ name: 'Puntos', type: 'scatter', coordinateSystem: 'geo', data: puntosData, symbol: 'circle', symbolSize: v => Math.max(12, Math.min(60, v[2]*10 + Math.sqrt(v[2])*5)), label: { show: true, formatter: p => p.data.cantidad > 1 ? p.data.cantidad : '', position: 'inside', color: '#000', fontSize: 12, fontWeight: 'bold' }, itemStyle: { color: p => p.data.cantidad > 1 ? '#ffaa00' : '#00ffcc', borderColor: '#fff', borderWidth: 2, shadowBlur: 10 }, emphasis: { itemStyle: { color: p => p.data.cantidad > 1 ? '#ffcc00' : '#00ffff', borderWidth: 4 } } }]
     };
     chart.setOption(option);
     window.addEventListener('resize', () => chart.resize());
@@ -145,25 +110,25 @@ function generarRanking() {
     const seguidoresData = top10.map(f => f.seguidores);
     const option = {
         backgroundColor: '#1a1a1a',
-        title: { text: 'Top 10: Likes vs Seguidores', subtext: 'Cyan = Likes (M) | Naranja = Seguidores (M)', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 }, subtextStyle: { color: '#888', fontSize: 11 } },
-        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: function(params) { const f = top10[params[0].dataIndex]; return `<b>${f.nombre}</b> (${f.pinyin})<br/>📍 ${f.origen}<br/>❤️ Likes: <b style="color:#00ffcc">${f.likes}M</b><br/>👥 Seguidores: <b style="color:#ffaa00">${f.seguidores.toFixed(2)}M</b><br/>📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`; } },
+        title: { text: 'Top 10: Likes vs Seguidores', subtext: 'Cyan = Likes | Naranja = Seguidores', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 }, subtextStyle: { color: '#888', fontSize: 11 } },
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => { const f = top10[p[0].dataIndex]; return '<b>' + f.nombre + '</b> (' + f.pinyin + ')<br/>📍 ' + f.origen + '<br/>❤️ Likes: <b style="color:#00ffcc">' + f.likes + 'M</b><br/>👥 Seguidores: <b style="color:#ffaa00">' + f.seguidores.toFixed(2) + 'M</b><br/>📈 Ratio: <b style="color:#00ffcc">' + f.ratio.toFixed(2) + '</b>'; } },
         legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
         xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
         yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
         series: [
-            { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: (p) => p.value + 'M' } },
-            { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: (p) => p.value.toFixed(2) + 'M' } }
+            { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
+            { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
         ]
     };
     chart.setOption(option);
-    setTimeout(() => { chart.resize(); }, 100);
+    setTimeout(() => chart.resize(), 100);
 }
 
 window.abrirModal = function(archivo) {
     const img = document.getElementById('modal-img'), modal = document.getElementById('modal');
-    if (img && modal) { img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`; modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+    if (img && modal) { img.src = 'https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(archivo); modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
 };
 window.cerrarModal = function() { const m = document.getElementById('modal'); if (m) { m.style.display = 'none'; document.body.style.overflow = 'auto'; } };
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrarModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
 document.addEventListener('DOMContentLoaded', () => { console.log('✅ Iniciando con', fichas.length, 'creadoras'); actualizarPagina(); setTimeout(() => { if (document.getElementById('chinaMap')) generarMapa(); if (document.getElementById('barChart')) generarRanking(); }, 500); });
