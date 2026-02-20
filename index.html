@@ -146,21 +146,30 @@
             if (modal) { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }
         }
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModal(); });
+        
+        // 🔥 CARGA DEL MAPA - URL CORREGIDA 🔥
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Iniciando aplicación...');
-            fetch('https://fetch('china.json')/areas_v3/bound/100000_full.json')
-                .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
+            
+            // ✅ Cargar china.json DESDE EL MISMO REPOSITORIO (sin CORS)
+            fetch('china.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.json();
+                })
                 .then(chinaJson => {
                     echarts.registerMap('china', chinaJson);
-                    console.log('✅ Mapa de China registrado - Provincias:', chinaJson.features.length);
-                    if (document.getElementById('mapa').classList.contains('active')) {
+                    console.log('✅ Mapa registrado - Features:', chinaJson.features?.length);
+                    if (document.getElementById('mapa')?.classList.contains('active')) {
                         setTimeout(() => { if (typeof generarMapa === 'function') generarMapa(); }, 300);
                     }
                 })
                 .catch(error => {
-                    console.error('❌ Error cargando mapa:', error);
+                    console.error('❌ Error cargando china.json:', error);
                     const mapDiv = document.getElementById('chinaMap');
-                    if (mapDiv) mapDiv.innerHTML = `<div style="text-align:center;padding:100px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>${error.message}</p><p style="margin-top:20px;font-size:12px;">Verifica tu conexión o recarga</p></div>`;
+                    if (mapDiv) {
+                        mapDiv.innerHTML = `<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>${error.message}</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>`;
+                    }
                 });
         });
     </script>
