@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js" integrity="sha512-b4xR+dGhXyR5T96a7n6L8mJv8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- ECharts desde Cloudflare (sin bloqueos) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0a0a0a; color: #ffffff; line-height: 1.6; }
@@ -43,7 +44,7 @@
         .btn:hover { background: #00ffcc; color: #000; }
         .footer { text-align: center; padding: 40px 0; border-top: 1px solid #333; margin-top: 40px; color: #888; }
         #chinaMap { width: 100%; height: 600px !important; min-height: 500px; background: #1a1a1a; border-radius: 10px; }
-        #barChart { width: 100%; height: 500px; background: #1a1a1a; border-radius: 10px; }
+        #barChart { width: 100% !important; height: 500px !important; min-height: 400px !important; background: #1a1a1a; border-radius: 10px; display: block !important; visibility: visible !important; }
         .metodologia-container { background: #1a1a1a; padding: 30px; border-radius: 10px; width: 100%; }
         .metodologia-texto { margin: 20px 0; line-height: 1.8; font-size: 16px; color: #ddd; }
         @media (max-width: 768px) {
@@ -100,7 +101,7 @@
         <div id="ranking" class="section">
             <h2 class="section-title">📊 TOP 10 POR ENGAGEMENT</h2>
             <p class="section-subtitle">"El engagement revela qué resuena en la cultura china"</p>
-          <div id="barChart" style="width: 100%; height: 500px; background: #1a1a1a; border-radius: 10px;"></div>
+            <div id="barChart" style="width: 100%; height: 500px; min-height: 400px; background: #1a1a1a; border-radius: 10px;"></div>
             <p style="text-align: center; margin-top: 15px; color: #888; font-size: 13px;">Ratio = Likes ÷ Seguidores (M) • Mayor ratio = más interacción por seguidor</p>
         </div>
 
@@ -128,6 +129,7 @@
             </div>
         </div>
 
+        <!-- MODAL -->
         <div class="modal" id="modal" onclick="cerrarModal()">
             <span class="close-modal" onclick="cerrarModal()">&times;</span>
             <div class="modal-content" onclick="event.stopPropagation()">
@@ -135,6 +137,7 @@
             </div>
         </div>
 
+        <!-- FOOTER -->
         <div class="footer">
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
             <p>Juan Carlos Delgado · Marzo 2026</p>
@@ -148,6 +151,7 @@
             </div>
         </div>
     </div>
+
     <script src="fichas.js"></script>
     <script>
         function showSection(sectionId) {
