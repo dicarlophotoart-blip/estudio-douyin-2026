@@ -51,19 +51,6 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    const datosProvincias = [
-        { name: '四川省', value: 4 },
-        { name: '辽宁省', value: 2 },
-        { name: '北京市', value: 1 },
-        { name: '浙江省', value: 1 },
-        { name: '陕西省', value: 1 },
-        { name: '福建省', value: 1 },
-        { name: '湖南省', value: 1 },
-        { name: '内蒙古自治区', value: 1 },
-        { name: '香港特别行政区', value: 1 },
-        { name: '重庆市', value: 1 }
-    ];
-    
     const puntos = [
         { coord: [104.07, 30.57], value: 4 },  // Sichuan
         { coord: [123.43, 41.80], value: 2 },  // Liaoning
@@ -79,70 +66,40 @@ function generarMapa() {
     
     const option = {
         title: {
-            text: 'Distribución de creadoras en China',
+            text: 'Puntos de creadoras',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
         tooltip: {
             trigger: 'item',
-            formatter: function(params) {
-                if (params.seriesName === 'Puntos') {
-                    return 'Creadoras: ' + params.data.value[2];
-                }
-                return params.name + '<br/>Creadoras: ' + (params.value || 0);
-            }
+            formatter: 'Creadoras: {c}'
         },
-        series: [
-            {
-                name: 'Provincias',
-                type: 'map',
-                map: 'china',
-                roam: true,
-                zoom: 1.2,
-                label: {
-                    show: true,
-                    color: '#fff',
-                    fontSize: 10
+        series: [{
+            name: 'Puntos',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            symbol: 'circle',
+            symbolSize: 45,
+            data: puntos.map(p => ({
+                name: p.value.toString(),
+                value: [p.coord[0], p.coord[1], p.value]
+            })),
+            label: {
+                show: true,
+                formatter: function(params) {
+                    return params.data.value[2];
                 },
-                itemStyle: {
-                    normal: {
-                        areaColor: '#1a1a1a',
-                        borderColor: '#00ffcc',
-                        borderWidth: 1
-                    },
-                    emphasis: {
-                        areaColor: '#2a2a2a',
-                        borderColor: '#ffffff'
-                    }
-                },
-                data: datosProvincias
+                position: 'inside',
+                color: '#000',
+                fontSize: 16,
+                fontWeight: 'bold'
             },
-            {
-                name: 'Puntos',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                symbol: 'circle',
-                symbolSize: 45,
-                data: puntos.map(p => ({
-                    value: [p.coord[0], p.coord[1], p.value]
-                })),
-                label: {
-                    show: true,
-                    formatter: function(params) {
-                        return params.data.value[2];
-                    },
-                    position: 'inside',
-                    color: '#000',
-                    fontSize: 16,
-                    fontWeight: 'bold'
-                },
-                itemStyle: {
-                    color: '#00ffcc',
-                    borderColor: '#fff',
-                    borderWidth: 2
-                }
+            itemStyle: {
+                color: '#00ffcc',
+                borderColor: '#fff',
+                borderWidth: 2
             }
-        ]
+        }]
     };
     
     chart.setOption(option);
