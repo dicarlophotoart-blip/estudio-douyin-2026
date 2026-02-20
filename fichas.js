@@ -104,22 +104,87 @@ function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
     
-    const { datosProvincias, puntos } = generarDatosMapa();
+    mapDiv.innerHTML = '';
     
     const chart = echarts.init(mapDiv);
-    chart.setOption({
-        title: { text: 'Distribución de creadoras', left: 'center', textStyle: { color: '#00ffcc' } },
+    
+    const option = {
+        title: {
+            text: 'Distribución de creadoras',
+            left: 'center',
+            textStyle: { color: '#00ffcc', fontSize: 16 }
+        },
         series: [{
-            type: 'map', map: 'china', roam: true, zoom: 1.2,
-            data: datosProvincias,
+            name: 'Creadoras',
+            type: 'map',
+            map: 'china',
+            roam: true,
+            zoom: 1.2,
+            label: {
+                show: true,
+                color: '#ffffff',
+                fontSize: 10
+            },
+            itemStyle: {
+                normal: {
+                    areaColor: '#1a1a1a',      // Fondo oscuro
+                    borderColor: '#444444',      // Bordes grises
+                    borderWidth: 0.5
+                },
+                emphasis: {
+                    areaColor: '#2a2a2a',        // Más claro al pasar el mouse
+                    borderColor: '#00ffcc',
+                    borderWidth: 1
+                }
+            },
+            data: [
+                { name: '四川省', value: 4 },
+                { name: '辽宁省', value: 2 },
+                { name: '北京市', value: 1 },
+                { name: '浙江省', value: 1 },
+                { name: '陕西省', value: 1 },
+                { name: '福建省', value: 1 },
+                { name: '湖南省', value: 1 },
+                { name: '内蒙古自治区', value: 1 },
+                { name: '香港特别行政区', value: 1 },
+                { name: '重庆市', value: 1 }
+            ],
             markPoint: {
-                symbol: 'circle', symbolSize: 40,
-                data: puntos.map(p => ({ coord: p.coord, value: p.value })),
-                label: { show: true, formatter: (p) => p.data.value, position: 'inside', color: '#000', fontSize: 14 },
-                itemStyle: { color: '#00ffcc', borderColor: '#fff' }
+                symbol: 'circle',
+                symbolSize: 40,
+                data: [
+                    { coord: [104.07, 30.57], value: 4 },
+                    { coord: [123.43, 41.80], value: 2 },
+                    { coord: [116.40, 39.90], value: 1 },
+                    { coord: [120.15, 30.28], value: 1 },
+                    { coord: [108.94, 34.34], value: 1 },
+                    { coord: [119.30, 26.08], value: 1 },
+                    { coord: [112.94, 28.23], value: 1 },
+                    { coord: [111.65, 40.82], value: 1 },
+                    { coord: [114.17, 22.27], value: 1 },
+                    { coord: [106.55, 29.56], value: 1 }
+                ],
+                label: {
+                    show: true,
+                    formatter: function(params) {
+                        return params.data.value;
+                    },
+                    position: 'inside',
+                    color: '#000000',
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                },
+                itemStyle: {
+                    color: '#00ffcc',
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }
             }
         }]
-    });
+    };
+    
+    chart.setOption(option);
+    
     window.addEventListener('resize', () => chart.resize());
 }
 
