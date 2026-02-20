@@ -52,34 +52,32 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    // 2 puntos en coordenadas conocidas
-    const puntos = [
-        { name: '4', value: [104.07, 30.57, 4] },  // Sichuan
-        { name: '2', value: [116.40, 39.90, 2] }   // Beijing
-    ];
-    
-    const option = {
+    chart.setOption({
         series: [{
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            symbol: 'circle',
-            symbolSize: 45,
-            data: puntos,
-            label: {
-                show: true,
-                formatter: '{@[2]}',
-                position: 'inside',
-                color: '#000',
-                fontSize: 16
-            },
-            itemStyle: {
-                color: '#00ffcc'
+            type: 'map',
+            map: 'china',
+            data: [
+                { name: '四川省', value: 4 },
+                { name: '辽宁省', value: 2 },
+                { name: '北京市', value: 1 }
+            ],
+            markPoint: {
+                symbol: 'circle',
+                symbolSize: 40,
+                data: [
+                    { coord: [104.07, 30.57], value: 4 },
+                    { coord: [123.43, 41.80], value: 2 },
+                    { coord: [116.40, 39.90], value: 1 }
+                ],
+                label: {
+                    show: true,
+                    formatter: '{@value}',
+                    position: 'inside',
+                    color: '#000'
+                },
+                itemStyle: { color: '#00ffcc' }
             }
         }]
-    };
-    
-    chart.setOption(option);
-    
-    window.addEventListener('resize', () => chart.resize());
+    });
 }
 document.addEventListener('DOMContentLoaded', actualizarPagina);
