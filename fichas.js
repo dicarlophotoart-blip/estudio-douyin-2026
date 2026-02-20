@@ -54,7 +54,7 @@ function actualizarPagina() {
 }
 
 // ==============================================
-// FUNCIÓN GENERAR MAPA (CORREGIDA)
+// FUNCIÓN GENERAR MAPA
 // ==============================================
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
@@ -96,7 +96,7 @@ function generarMapa() {
         },
         series: [
             {
-                name: 'Creadoras', type: 'map', map: 'china', geoIndex: 0, data: mapaData,
+                name: 'Creadoras', type: 'map', map: 'china', geoIndex: 0,  mapaData,
                 label: { show: true, color: '#fff', fontSize: 9 },
                 itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
                 emphasis: { itemStyle: { areaColor: '#2a2a2a' } }
@@ -112,6 +112,49 @@ function generarMapa() {
     };
     chart.setOption(option);
     console.log('✅ Mapa renderizado');
+    window.addEventListener('resize', () => chart.resize());
+}
+
+// ==============================================
+// FUNCIÓN GENERAR RANKING (NUEVA)
+// ==============================================
+function generarRanking() {
+    const chartDiv = document.getElementById('barChart');
+    if (!chartDiv) { console.error('❌ No existe div barChart'); return; }
+    console.log('📊 Generando ranking...');
+    let chart = echarts.getInstanceByDom(chartDiv);
+    if (chart) echarts.dispose(chart);
+    chart = echarts.init(chartDiv);
+    const top10 = [...fichas].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
+    const nombres = top10.map(f => f.nombre + '\n' + f.pinyin);
+    const ratios = top10.map(f => f.ratio);
+    const colores = ratios.map((r, i) => {
+        const intensity = 1 - (i * 0.08);
+        return `rgba(0, ${Math.floor(255 * intensity)}, ${Math.floor(204 * intensity)}, 0.9)`;
+    });
+    const option = {
+        backgroundColor: '#1a1a1a',
+        title: { text: 'Top 10 Creadoras por Ratio de Engagement', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow' },
+            formatter: function(params) {
+                const f = top10[params[0].dataIndex];
+                return `<b>${f.nombre}</b> (${f.pinyin})<br/>📍 ${f.origen}<br/>👥 ${f.seguidores}M seguidores<br/>❤️ ${f.likes}M likes<br/>📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
+            }
+        },
+        grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
+        xAxis: { type: 'value', name: 'Ratio', nameLocation: 'middle', nameGap: 30, axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
+        yAxis: { type: 'category',  nombres, axisLine: { show: false }, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+        series: [{
+            name: 'Ratio de Engagement', type: 'bar',  ratios,
+            itemStyle: { color: (params) => colores[params.dataIndex], borderRadius: [0, 4, 4, 0] },
+            label: { show: true, position: 'right', color: '#00ffcc', fontSize: 12, formatter: (params) => params.value.toFixed(2) },
+            emphasis: { itemStyle: { color: '#00ffff', shadowBlur: 10, shadowColor: '#00ffcc' } }
+        }]
+    };
+    chart.setOption(option);
+    console.log('✅ Ranking renderizado');
     window.addEventListener('resize', () => chart.resize());
 }
 
