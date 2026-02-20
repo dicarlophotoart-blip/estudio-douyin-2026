@@ -260,74 +260,34 @@ function generarGaleria() {
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
-    
-    // Limpiar el div por si acaso
-    mapDiv.innerHTML = '';
-    
+
     const mapChart = echarts.init(mapDiv);
-    
-    // Datos para colorear provincias
-    const datosProvincias = [
-        {name: '四川省', value: 4},
-        {name: '辽宁省', value: 2},
-        {name: '北京市', value: 1},
-        {name: '浙江省', value: 1},
-        {name: '陕西省', value: 1},
-        {name: '福建省', value: 1},
-        {name: '湖南省', value: 1},
-        {name: '内蒙古自治区', value: 1},
-        {name: '香港特别行政区', value: 1},
-        {name: '重庆市', value: 1}
-    ];
-    
-    // Puntos con números (coordenadas aproximadas)
+
+    // Puntos con coordenadas exactas
     const puntos = [
-        {name: '4', coord: [104.07, 30.57], value: 4},  // Sichuan
-        {name: '2', coord: [123.43, 41.80], value: 2},  // Liaoning
-        {name: '1', coord: [116.40, 39.90], value: 1},  // Beijing
-        {name: '1', coord: [120.15, 30.28], value: 1},  // Zhejiang
-        {name: '1', coord: [108.94, 34.34], value: 1},  // Shaanxi
-        {name: '1', coord: [119.30, 26.08], value: 1},  // Fujian
-        {name: '1', coord: [112.94, 28.23], value: 1},  // Hunan
-        {name: '1', coord: [111.65, 40.82], value: 1},  // Mongolia Interior
-        {name: '1', coord: [114.17, 22.27], value: 1},  // Hong Kong
-        {name: '1', coord: [106.55, 29.56], value: 1}   // Chongqing
+        { name: '4', coord: [104.07, 30.57], value: 4 },  // Sichuan
+        { name: '2', coord: [123.43, 41.80], value: 2 },  // Liaoning
+        { name: '1', coord: [116.40, 39.90], value: 1 },  // Beijing
+        { name: '1', coord: [120.15, 30.28], value: 1 },  // Zhejiang
+        { name: '1', coord: [108.94, 34.34], value: 1 },  // Shaanxi
+        { name: '1', coord: [119.30, 26.08], value: 1 },  // Fujian
+        { name: '1', coord: [112.94, 28.23], value: 1 },  // Hunan
+        { name: '1', coord: [111.65, 40.82], value: 1 },  // Mongolia Interior
+        { name: '1', coord: [114.17, 22.27], value: 1 },  // Hong Kong
+        { name: '1', coord: [106.55, 29.56], value: 1 }   // Chongqing
     ];
-    
+
     const option = {
         title: {
-            text: 'Distribución de creadoras en China',
-            subtext: 'Los números indican cantidad de fichas',
+            text: 'Distribución de creadoras',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
-        tooltip: {
-            trigger: 'item',
-            formatter: function(params) {
-                if (params.seriesType === 'map') {
-                    return params.name + '<br/>Creadoras: ' + (params.value || 0);
-                }
-                return params.name + '<br/>Creadoras: ' + params.data.value;
-            }
-        },
-        visualMap: {
-            min: 0,
-            max: 4,
-            left: 'left',
-            top: 'bottom',
-            calculable: true,
-            inRange: {
-                color: ['#1a1a1a', '#005f5f', '#00cccc', '#00ffcc', '#80ffcc']
-            },
-            textStyle: { color: '#fff' }
-        },
         series: [{
-            name: 'Creadoras',
             type: 'map',
             map: 'china',
             roam: true,
             zoom: 1.2,
-            scaleLimit: { min: 1, max: 3 },
             label: {
                 show: true,
                 color: '#fff',
@@ -343,7 +303,6 @@ function generarMapa() {
                     borderColor: '#00ffcc'
                 }
             },
-            data: datosProvincias,
             markPoint: {
                 symbol: 'circle',
                 symbolSize: 40,
@@ -366,12 +325,10 @@ function generarMapa() {
             }
         }]
     };
-    
+
     mapChart.setOption(option);
-    
-    window.addEventListener('resize', function() {
-        mapChart.resize();
-    });
+    window.addEventListener('resize', () => mapChart.resize());
+}
 }
 
 // ==============================================
