@@ -1,4 +1,4 @@
-// Base de datos de fichas
+// Base de datos de fichas - 18 creadoras
 const fichas = [
     {
         nombre: "钱冰",
@@ -189,12 +189,20 @@ const fichas = [
 function actualizarPagina() {
     const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
     
-    document.getElementById('total-fichas').textContent = fichas.length;
-    document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
+    if (document.getElementById('total-fichas')) {
+        document.getElementById('total-fichas').textContent = fichas.length;
+    }
+    if (document.getElementById('max-seguidores')) {
+        document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
+    }
     
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
-    document.getElementById('total-regiones').textContent = regiones.size;
-    document.getElementById('footer-fichas').textContent = `${fichas.length} creadoras · 30,500+ comunidad`;
+    if (document.getElementById('total-regiones')) {
+        document.getElementById('total-regiones').textContent = regiones.size;
+    }
+    if (document.getElementById('footer-fichas')) {
+        document.getElementById('footer-fichas').textContent = `${fichas.length} creadoras · 30,500+ comunidad`;
+    }
     
     generarTabla(porSeguidores);
     generarGaleria();
@@ -236,28 +244,18 @@ function generarGaleria() {
 }
 
 // ==============================================
-// FUNCIÓN DEL MAPA (CORREGIDA Y SIMPLE)
+// MAPA CON PUNTOS (VERSIÓN FUNCIONAL)
 // ==============================================
 
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
-    if (!mapDiv) {
-        console.error('No se encuentra el div chinaMap');
-        return;
-    }
-    
-    // Verificar que ECharts esté disponible
-    if (typeof echarts === 'undefined') {
-        console.error('ECharts no está cargado');
-        return;
-    }
+    if (!mapDiv) return;
     
     const mapChart = echarts.init(mapDiv);
     
     const option = {
         title: {
             text: 'Distribución de creadoras en China',
-            subtext: 'Provincias con fichas documentadas',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
@@ -265,23 +263,12 @@ function generarMapa() {
             trigger: 'item',
             formatter: '{b}<br/>Creadoras: {c}'
         },
-        visualMap: {
-            min: 0,
-            max: 4,
-            left: 'left',
-            top: 'bottom',
-            calculable: true,
-            inRange: {
-                color: ['#1a1a1a', '#005f5f', '#00cccc', '#00ffcc', '#80ffcc']
-            }
-        },
         series: [{
             name: 'Creadoras',
             type: 'map',
             map: 'china',
             roam: true,
             zoom: 1.2,
-            scaleLimit: { min: 1, max: 3 },
             label: {
                 show: true,
                 color: '#fff',
@@ -308,7 +295,39 @@ function generarMapa() {
                 {name: '内蒙古自治区', value: 1},
                 {name: '香港特别行政区', value: 1},
                 {name: '重庆市', value: 1}
-            ]
+            ],
+            // Puntos con números
+            markPoint: {
+                symbol: 'circle',
+                symbolSize: 40,
+                data: [
+                    {name: '4', coord: [104.07, 30.57], value: 4},
+                    {name: '2', coord: [123.43, 41.80], value: 2},
+                    {name: '1', coord: [116.40, 39.90], value: 1},
+                    {name: '1', coord: [120.15, 30.28], value: 1},
+                    {name: '1', coord: [108.94, 34.34], value: 1},
+                    {name: '1', coord: [119.30, 26.08], value: 1},
+                    {name: '1', coord: [112.94, 28.23], value: 1},
+                    {name: '1', coord: [111.65, 40.82], value: 1},
+                    {name: '1', coord: [114.17, 22.27], value: 1},
+                    {name: '1', coord: [106.55, 29.56], value: 1}
+                ],
+                label: {
+                    show: true,
+                    formatter: function(params) {
+                        return params.data.value;
+                    },
+                    position: 'inside',
+                    color: '#000',
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                },
+                itemStyle: {
+                    color: '#00ffcc',
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }
+            }
         }]
     };
     
@@ -317,12 +336,32 @@ function generarMapa() {
     window.addEventListener('resize', () => {
         mapChart.resize();
     });
-    
-    console.log('Mapa generado correctamente');
 }
+
+// ==============================================
+// INICIALIZACIÓN
+// ==============================================
+
+// Función para abrir modal (debe estar disponible globalmente)
+window.abrirModal = function(archivo) {
+    const img = document.getElementById('modal-img');
+    if (img) {
+        img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
+        document.getElementById('modal').style.display = 'block';
+    }
+};
+
+window.cerrarModal = function() {
+    document.getElementById('modal').style.display = 'none';
+};
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        window.cerrarModal();
+    }
+});
 
 // Inicializar todo cuando cargue la página
 document.addEventListener('DOMContentLoaded', function() {
     actualizarPagina();
-    console.log('Página inicializada');
 });
