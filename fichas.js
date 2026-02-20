@@ -178,7 +178,7 @@ const fichas = [
         ratio: 13.12,
         origen: "Xiamen, Fujian",
         nicho: "Cosplay de alta precisión + análisis de videojuegos",
-        archivo: "owo.(2)jpg"
+        archivo: "owo .(2)jpg"
     },
     ];
 
