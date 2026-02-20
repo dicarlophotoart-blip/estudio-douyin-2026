@@ -24,7 +24,8 @@
         .stat-label { color: #888; margin-top: 5px; }
         .section { display: none; margin: 40px 0; }
         .section.active { display: block; }
-        .section-title { font-size: 24px; margin-bottom: 20px; color: #00ffcc; border-left: 4px solid #00ffcc; padding-left: 15px; }
+        .section-title { font-size: 24px; margin-bottom: 10px; color: #00ffcc; border-left: 4px solid #00ffcc; padding-left: 15px; }
+        .section-subtitle { font-size: 14px; color: #888; margin-bottom: 20px; padding-left: 15px; font-style: italic; }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
         th { background: #00ffcc; color: #000; padding: 12px; text-align: left; font-weight: bold; }
@@ -75,8 +76,11 @@
             <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
             <div class="nav-item" onclick="showSection('metodologia')">📚 MÉTODO</div>
         </div>
+
+        <!-- LISTA -->
         <div id="lista" class="section active">
             <h2 class="section-title">📋 LISTA MAESTRA</h2>
+            <p class="section-subtitle">"Cada creadora es un dato en el ecosistema Douyin"</p>
             <div class="table-responsive">
                 <table>
                     <thead><tr><th>Nombre</th><th>Seguidores</th><th>Likes</th><th>Ratio</th><th>Origen</th><th>Nicho</th></tr></thead>
@@ -84,28 +88,34 @@
                 </table>
             </div>
         </div>
+
+        <!-- GALERÍA -->
         <div id="galeria" class="section">
             <h2 class="section-title">🖼️ GALERÍA</h2>
+            <p class="section-subtitle">"Cada creadora es un portal a un nicho cultural"</p>
             <div class="gallery" id="galeria-cards"></div>
         </div>
+
+        <!-- RANKING -->
         <div id="ranking" class="section">
             <h2 class="section-title">📊 TOP 10 POR ENGAGEMENT</h2>
+            <p class="section-subtitle">"El engagement revela qué resuena en la cultura china"</p>
             <div id="barChart"></div>
             <p style="text-align: center; margin-top: 15px; color: #888; font-size: 13px;">Ratio = Likes ÷ Seguidores (M) • Mayor ratio = más interacción por seguidor</p>
         </div>
-        <div id="modal" class="modal" onclick="cerrarModal()">
-            <span class="close-modal" onclick="cerrarModal()">&times;</span>
-            <div class="modal-content" onclick="event.stopPropagation()">
-                <img id="modal-img" src="" alt="Card">
-            </div>
-        </div>
+
+        <!-- MAPA -->
         <div id="mapa" class="section">
             <h2 class="section-title">🗺️ MAPA</h2>
+            <p class="section-subtitle">"Cada punto es una ventana a una realidad china"</p>
             <div id="chinaMap"></div>
             <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">* Taiwán es una parte inalienable del territorio de China.</p>
         </div>
+
+        <!-- METODOLOGÍA -->
         <div id="metodologia" class="section">
             <h2 class="section-title">📚 METODOLOGÍA</h2>
+            <p class="section-subtitle">"Observamos proyecciones, no juzgamos identidades"</p>
             <div class="metodologia-container">
                 <p class="metodologia-texto">Soy biólogo de formación. Pero hace más de 10 años que mi objeto de estudio cambió.</p>
                 <p class="metodologia-texto">Administro un grupo con más de 30,500 personas interesadas en la civilización china, su ciencia, su ingeniería y su cultura.</p>
@@ -117,6 +127,14 @@
                 <p class="metodologia-texto" style="margin-top: 30px;">Comunidad: 30,500+ seguidores.</p>
             </div>
         </div>
+
+        <div class="modal" id="modal" onclick="cerrarModal()">
+            <span class="close-modal" onclick="cerrarModal()">&times;</span>
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <img id="modal-img" src="" alt="Card">
+            </div>
+        </div>
+
         <div class="footer">
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
             <p>Juan Carlos Delgado · Marzo 2026</p>
