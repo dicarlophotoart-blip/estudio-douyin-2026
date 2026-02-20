@@ -129,38 +129,99 @@ function generarMapa() {
 }
 
 // ==============================================
-// GENERAR RANKING
+// GENERAR RANKING (DOBLE BARRA: Likes + Seguidores)
 // ==============================================
 function generarRanking() {
     const chartDiv = document.getElementById('barChart');
     if (!chartDiv) return;
+    
     let chart = echarts.getInstanceByDom(chartDiv);
     if (chart) echarts.dispose(chart);
     chart = echarts.init(chartDiv);
+    
+    // Top 10 por ratio
     const top10 = [...fichas].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
     const nombres = top10.map(f => f.nombre + '\n' + f.pinyin);
-    const ratios = top10.map(f => f.ratio);
+    
+    // Datos para las dos series
+    const likesData = top10.map(f => f.likes);
+    const seguidoresData = top10.map(f => f.seguidores);
+    
     const option = {
         backgroundColor: '#1a1a1a',
-        title: { text: 'Top 10 Creadoras por Ratio de Engagement', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
+        title: { 
+            text: 'Top 10: Likes vs Seguidores', 
+            subtext: 'Cyan = Likes (M) | Naranja = Seguidores (M)',
+            left: 'center', 
+            textStyle: { color: '#00ffcc', fontSize: 16 },
+            subtextStyle: { color: '#888', fontSize: 11 }
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: { type: 'shadow' },
             formatter: function(params) {
                 const f = top10[params[0].dataIndex];
-                return `<b>${f.nombre}</b> (${f.pinyin})<br/>📍 ${f.origen}<br/>👥 ${f.seguidores}M seguidores<br/>❤️ ${f.likes}M likes<br/>📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
+                return `<b>${f.nombre}</b> (${f.pinyin})<br/>
+                        📍 ${f.origen}<br/>
+                        ❤️ Likes: <b style="color:#00ffcc">${f.likes}M</b><br/>
+                        👥 Seguidores: <b style="color:#ffaa00">${f.seguidores.toFixed(2)}M</b><br/>
+                        📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
             }
         },
+        legend: {
+             ['Likes (M)', 'Seguidores (M)'],
+            textStyle: { color: '#fff' },
+            top: 40
+        },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-        xAxis: { type: 'value', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-        yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
-        series: [{
-            name: 'Ratio de Engagement', type: 'bar', data: ratios,
-            itemStyle: { color: '#00ffcc', borderRadius: [0, 4, 4, 0] },
-            label: { show: true, position: 'right', color: '#00ffcc', fontSize: 12, formatter: (params) => params.value.toFixed(2) },
-            emphasis: { itemStyle: { color: '#00ffff', shadowBlur: 10, shadowColor: '#00ffcc' } }
-        }]
+        xAxis: { 
+            type: 'value', 
+            name: 'Millones',
+            axisLine: { lineStyle: { color: '#00ffcc' } }, 
+            axisLabel: { color: '#888' }, 
+            splitLine: { lineStyle: { color: '#333', type: 'dashed' } } 
+        },
+        yAxis: { 
+            type: 'category', 
+             nombres, 
+            axisLabel: { color: '#fff', fontSize: 11, margin: 15 } 
+        },
+        series: [
+            {
+                name: 'Likes (M)', 
+                type: 'bar', 
+                 likesData,
+                itemStyle: { 
+                    color: '#00ffcc',
+                    borderRadius: [0, 3, 3, 0] 
+                },
+                label: { 
+                    show: true, 
+                    position: 'right', 
+                    color: '#00ffcc', 
+                    fontSize: 10,
+                    formatter: (p) => p.value + 'M'
+                }
+            },
+            {
+                name: 'Seguidores (M)', 
+                type: 'bar', 
+                 seguidoresData,
+                itemStyle: { 
+                    color: '#ffaa00',
+                    borderRadius: [0, 3, 3, 0] 
+                },
+                label: { 
+                    show: true, 
+                    position: 'right', 
+                    color: '#ffaa00', 
+                    fontSize: 10,
+                    formatter: (p) => p.value.toFixed(2) + 'M'
+                }
+            }
+        ]
     };
+    
     chart.setOption(option);
     setTimeout(() => chart.resize(), 100);
 }
