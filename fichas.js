@@ -169,7 +169,7 @@ const fichas = [
         origen: "Hunan",
         nicho: "Fitness kawaii",
         archivo: "pesakawai.jpg"
-    }
+    },
     {
         nombre: "小鹤owo",
         pinyin: "Xiǎo Hè owo",
