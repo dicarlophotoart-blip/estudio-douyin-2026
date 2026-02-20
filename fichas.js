@@ -179,8 +179,8 @@ const fichas = [
         origen: "Xiamen, Fujian",
         nicho: "Cosplay de alta precisión + análisis de videojuegos",
         archivo: "owo (2).jpg"
-    },
-    ];
+    }
+];
 
 // ==============================================
 // FUNCIONES DE ACTUALIZACIÓN DE LA PÁGINA
@@ -239,7 +239,14 @@ function generarGaleria() {
     fichas.forEach(f => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}" alt="${f.nombre}" class="card-img">`;
+        card.onclick = () => abrirModal(f.archivo);
+        
+        const img = document.createElement('img');
+        img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}`;
+        img.className = 'card-img';
+        img.alt = f.nombre;
+        
+        card.appendChild(img);
         galeria.appendChild(card);
     });
 }
