@@ -1,4 +1,7 @@
-// Base de datos de fichas - 18 creadoras
+// ==============================================
+// BASE DE DATOS: 18 CREADORAS DOCUMENTADAS
+// ==============================================
+
 const fichas = [
     {
         nombre: "钱冰",
@@ -183,26 +186,29 @@ const fichas = [
 ];
 
 // ==============================================
-// FUNCIONES DE ACTUALIZACIÓN
+// FUNCIONES DE ACTUALIZACIÓN DE LA PÁGINA
 // ==============================================
 
 function actualizarPagina() {
     const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
     
-    if (document.getElementById('total-fichas')) {
-        document.getElementById('total-fichas').textContent = fichas.length;
-    }
-    if (document.getElementById('max-seguidores')) {
-        document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
-    }
+    // Actualizar estadísticas
+    const totalFichas = document.getElementById('total-fichas');
+    if (totalFichas) totalFichas.textContent = fichas.length;
+    
+    const maxSeguidores = document.getElementById('max-seguidores');
+    if (maxSeguidores) maxSeguidores.textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
+    
+    const maxRatio = document.getElementById('max-ratio');
+    const porRatio = [...fichas].sort((a, b) => b.ratio - a.ratio);
+    if (maxRatio) maxRatio.textContent = porRatio[0].ratio.toFixed(2);
     
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
-    if (document.getElementById('total-regiones')) {
-        document.getElementById('total-regiones').textContent = regiones.size;
-    }
-    if (document.getElementById('footer-fichas')) {
-        document.getElementById('footer-fichas').textContent = `${fichas.length} creadoras · 30,500+ comunidad`;
-    }
+    const totalRegiones = document.getElementById('total-regiones');
+    if (totalRegiones) totalRegiones.textContent = regiones.size;
+    
+    const footerFichas = document.getElementById('footer-fichas');
+    if (footerFichas) footerFichas.textContent = `${fichas.length} creadoras · 30,500+ comunidad`;
     
     generarTabla(porSeguidores);
     generarGaleria();
@@ -211,6 +217,7 @@ function actualizarPagina() {
 function generarTabla(lista) {
     const tbody = document.getElementById('tabla-body');
     if (!tbody) return;
+    
     tbody.innerHTML = '';
     lista.forEach(f => {
         const row = document.createElement('tr');
@@ -229,39 +236,90 @@ function generarTabla(lista) {
 function generarGaleria() {
     const galeria = document.getElementById('galeria-cards');
     if (!galeria) return;
+    
     galeria.innerHTML = '';
     fichas.forEach(f => {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => abrirModal(f.archivo);
+        
         const img = document.createElement('img');
         img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}`;
         img.className = 'card-img';
         img.alt = f.nombre;
+        
         card.appendChild(img);
         galeria.appendChild(card);
     });
 }
 
 // ==============================================
-// MAPA CON PUNTOS (VERSIÓN FUNCIONAL)
+// MAPA DE CHINA CON PUNTOS (CORREGIDO)
 // ==============================================
 
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
     
+    // Limpiar el div por si acaso
+    mapDiv.innerHTML = '';
+    
     const mapChart = echarts.init(mapDiv);
+    
+    // Datos para colorear provincias
+    const datosProvincias = [
+        {name: '四川省', value: 4},
+        {name: '辽宁省', value: 2},
+        {name: '北京市', value: 1},
+        {name: '浙江省', value: 1},
+        {name: '陕西省', value: 1},
+        {name: '福建省', value: 1},
+        {name: '湖南省', value: 1},
+        {name: '内蒙古自治区', value: 1},
+        {name: '香港特别行政区', value: 1},
+        {name: '重庆市', value: 1}
+    ];
+    
+    // Puntos con números (coordenadas aproximadas)
+    const puntos = [
+        {name: '4', coord: [104.07, 30.57], value: 4},  // Sichuan
+        {name: '2', coord: [123.43, 41.80], value: 2},  // Liaoning
+        {name: '1', coord: [116.40, 39.90], value: 1},  // Beijing
+        {name: '1', coord: [120.15, 30.28], value: 1},  // Zhejiang
+        {name: '1', coord: [108.94, 34.34], value: 1},  // Shaanxi
+        {name: '1', coord: [119.30, 26.08], value: 1},  // Fujian
+        {name: '1', coord: [112.94, 28.23], value: 1},  // Hunan
+        {name: '1', coord: [111.65, 40.82], value: 1},  // Mongolia Interior
+        {name: '1', coord: [114.17, 22.27], value: 1},  // Hong Kong
+        {name: '1', coord: [106.55, 29.56], value: 1}   // Chongqing
+    ];
     
     const option = {
         title: {
             text: 'Distribución de creadoras en China',
+            subtext: 'Los números indican cantidad de fichas',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
         tooltip: {
             trigger: 'item',
-            formatter: '{b}<br/>Creadoras: {c}'
+            formatter: function(params) {
+                if (params.seriesType === 'map') {
+                    return params.name + '<br/>Creadoras: ' + (params.value || 0);
+                }
+                return params.name + '<br/>Creadoras: ' + params.data.value;
+            }
+        },
+        visualMap: {
+            min: 0,
+            max: 4,
+            left: 'left',
+            top: 'bottom',
+            calculable: true,
+            inRange: {
+                color: ['#1a1a1a', '#005f5f', '#00cccc', '#00ffcc', '#80ffcc']
+            },
+            textStyle: { color: '#fff' }
         },
         series: [{
             name: 'Creadoras',
@@ -269,6 +327,7 @@ function generarMapa() {
             map: 'china',
             roam: true,
             zoom: 1.2,
+            scaleLimit: { min: 1, max: 3 },
             label: {
                 show: true,
                 color: '#fff',
@@ -284,34 +343,11 @@ function generarMapa() {
                     borderColor: '#00ffcc'
                 }
             },
-            data: [
-                {name: '四川省', value: 4},
-                {name: '辽宁省', value: 2},
-                {name: '北京市', value: 1},
-                {name: '浙江省', value: 1},
-                {name: '陕西省', value: 1},
-                {name: '福建省', value: 1},
-                {name: '湖南省', value: 1},
-                {name: '内蒙古自治区', value: 1},
-                {name: '香港特别行政区', value: 1},
-                {name: '重庆市', value: 1}
-            ],
-            // Puntos con números
+            data: datosProvincias,
             markPoint: {
                 symbol: 'circle',
                 symbolSize: 40,
-                data: [
-                    {name: '4', coord: [104.07, 30.57], value: 4},
-                    {name: '2', coord: [123.43, 41.80], value: 2},
-                    {name: '1', coord: [116.40, 39.90], value: 1},
-                    {name: '1', coord: [120.15, 30.28], value: 1},
-                    {name: '1', coord: [108.94, 34.34], value: 1},
-                    {name: '1', coord: [119.30, 26.08], value: 1},
-                    {name: '1', coord: [112.94, 28.23], value: 1},
-                    {name: '1', coord: [111.65, 40.82], value: 1},
-                    {name: '1', coord: [114.17, 22.27], value: 1},
-                    {name: '1', coord: [106.55, 29.56], value: 1}
-                ],
+                data: puntos,
                 label: {
                     show: true,
                     formatter: function(params) {
@@ -333,35 +369,41 @@ function generarMapa() {
     
     mapChart.setOption(option);
     
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function() {
         mapChart.resize();
     });
 }
 
 // ==============================================
-// INICIALIZACIÓN
+// FUNCIONES GLOBALES (MODAL)
 // ==============================================
 
-// Función para abrir modal (debe estar disponible globalmente)
 window.abrirModal = function(archivo) {
-    const img = document.getElementById('modal-img');
-    if (img) {
-        img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
-        document.getElementById('modal').style.display = 'block';
+    const modalImg = document.getElementById('modal-img');
+    const modal = document.getElementById('modal');
+    if (modalImg && modal) {
+        modalImg.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
+        modal.style.display = 'block';
     }
 };
 
 window.cerrarModal = function() {
-    document.getElementById('modal').style.display = 'none';
+    const modal = document.getElementById('modal');
+    if (modal) modal.style.display = 'none';
 };
 
+// Cerrar con tecla Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         window.cerrarModal();
     }
 });
 
-// Inicializar todo cuando cargue la página
+// ==============================================
+// INICIALIZACIÓN
+// ==============================================
+
 document.addEventListener('DOMContentLoaded', function() {
     actualizarPagina();
+    console.log('Página inicializada con 18 fichas');
 });
