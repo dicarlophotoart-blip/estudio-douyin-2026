@@ -51,95 +51,28 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    const option = {
-        title: {
-            text: 'Distribución de creadoras',
-            left: 'center',
-            textStyle: { color: '#00ffcc' }
-        },
+    chart.setOption({
         tooltip: {
             trigger: 'item',
-            formatter: function(params) {
-                // Si es un punto (serie 'Puntos')
-                if (params.seriesName === 'Puntos') {
-                    return 'Creadoras: ' + params.data.value[2];
-                }
-                // Si es una provincia
-                return params.name + '<br/>Creadoras: ' + (params.value || 0);
-            }
+            formatter: '{b}<br/>{c}'
         },
-        series: [
-            {
-                name: 'Provincias',
-                type: 'map',
-                map: 'china',
-                roam: true,
-                zoom: 1.2,
-                itemStyle: {
-                    normal: {
-                        areaColor: '#1a1a1a',
-                        borderColor: '#00ffcc',
-                        borderWidth: 1
-                    },
-                    emphasis: {
-                        areaColor: '#2a2a2a',
-                        borderColor: '#ffffff'
-                    }
-                },
+        series: [{
+            type: 'map',
+            map: 'china',
+            roam: true,
+            data: [
+                { name: '四川省', value: 4 },
+                { name: '辽宁省', value: 2 }
+            ],
+            markPoint: {
                 data: [
-                    { name: '四川省', value: 4 },
-                    { name: '辽宁省', value: 2 },
-                    { name: '北京市', value: 1 },
-                    { name: '浙江省', value: 1 },
-                    { name: '陕西省', value: 1 },
-                    { name: '福建省', value: 1 },
-                    { name: '湖南省', value: 1 },
-                    { name: '内蒙古自治区', value: 1 },
-                    { name: '香港特别行政区', value: 1 },
-                    { name: '重庆市', value: 1 }
-                ]
-            },
-            {
-                name: 'Puntos',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                symbol: 'circle',
-                symbolSize: 45,
-                data: [
-                    { value: [104.07, 30.57, 4] },
-                    { value: [123.43, 41.80, 2] },
-                    { value: [116.40, 39.90, 1] },
-                    { value: [120.15, 30.28, 1] },
-                    { value: [108.94, 34.34, 1] },
-                    { value: [119.30, 26.08, 1] },
-                    { value: [112.94, 28.23, 1] },
-                    { value: [111.65, 40.82, 1] },
-                    { value: [114.17, 22.27, 1] },
-                    { value: [106.55, 29.56, 1] }
+                    { coord: [104.07, 30.57], value: 4 },
+                    { coord: [123.43, 41.80], value: 2 }
                 ],
-                label: {
-                    show: true,
-                    formatter: function(params) {
-                        return params.data.value[2];
-                    },
-                    position: 'inside',
-                    color: '#000',
-                    fontSize: 16,
-                    fontWeight: 'bold'
-                },
-                itemStyle: {
-                    color: '#00ffcc',
-                    borderColor: '#fff',
-                    borderWidth: 2
-                }
+                label: { show: true, formatter: '{@value}' }
             }
-        ]
-    };
-    
-    chart.setOption(option);
-    
-    window.addEventListener('resize', () => chart.resize());
+        }]
+    });
 }
-
 
 document.addEventListener('DOMContentLoaded', actualizarPagina);
