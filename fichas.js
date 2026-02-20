@@ -188,11 +188,9 @@ const fichas = [
 
 function actualizarPagina() {
     const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
-    const porRatio = [...fichas].sort((a, b) => b.ratio - a.ratio);
     
     document.getElementById('total-fichas').textContent = fichas.length;
     document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
-    document.getElementById('max-ratio').textContent = porRatio[0].ratio.toFixed(2);
     
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
     document.getElementById('total-regiones').textContent = regiones.size;
@@ -204,6 +202,7 @@ function actualizarPagina() {
 
 function generarTabla(lista) {
     const tbody = document.getElementById('tabla-body');
+    if (!tbody) return;
     tbody.innerHTML = '';
     lista.forEach(f => {
         const row = document.createElement('tr');
@@ -221,6 +220,7 @@ function generarTabla(lista) {
 
 function generarGaleria() {
     const galeria = document.getElementById('galeria-cards');
+    if (!galeria) return;
     galeria.innerHTML = '';
     fichas.forEach(f => {
         const card = document.createElement('div');
@@ -236,22 +236,27 @@ function generarGaleria() {
 }
 
 // ==============================================
-// MAPA SIMPLE Y FUNCIONAL
+// FUNCIÓN DEL MAPA (CORREGIDA Y SIMPLE)
 // ==============================================
 
 function generarMapa() {
-    const mapaDiv = document.getElementById('chinaMap');
-    if (!mapaDiv) return;
+    const mapDiv = document.getElementById('chinaMap');
+    if (!mapDiv) {
+        console.error('No se encuentra el div chinaMap');
+        return;
+    }
     
-    // Limpiar cualquier contenido previo
-    mapaDiv.innerHTML = '';
+    // Verificar que ECharts esté disponible
+    if (typeof echarts === 'undefined') {
+        console.error('ECharts no está cargado');
+        return;
+    }
     
-    // Inicializar ECharts
-    const mapChart = echarts.init(mapaDiv);
+    const mapChart = echarts.init(mapDiv);
     
     const option = {
         title: {
-            text: 'Distribución de creadoras',
+            text: 'Distribución de creadoras en China',
             subtext: 'Provincias con fichas documentadas',
             left: 'center',
             textStyle: { color: '#00ffcc' }
@@ -312,7 +317,12 @@ function generarMapa() {
     window.addEventListener('resize', () => {
         mapChart.resize();
     });
+    
+    console.log('Mapa generado correctamente');
 }
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', actualizarPagina);
+// Inicializar todo cuando cargue la página
+document.addEventListener('DOMContentLoaded', function() {
+    actualizarPagina();
+    console.log('Página inicializada');
+});
