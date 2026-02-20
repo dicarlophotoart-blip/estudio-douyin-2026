@@ -23,6 +23,12 @@ const fichas = [
 ];
 
 // ==============================================
+// CONTROL DE GALERÍA (PARA 50-100 CARDS)
+// ==============================================
+let cardsVisibles = 12;
+const cardsPorCarga = 12;
+
+// ==============================================
 // FUNCIONES DE ACTUALIZACIÓN
 // ==============================================
 function actualizarPagina() {
@@ -43,14 +49,27 @@ function actualizarPagina() {
     const galeria = document.getElementById('galeria-cards');
     if (galeria) {
         galeria.innerHTML = '';
-        fichas.forEach(f => {
+        fichas.slice(0, cardsVisibles).forEach(f => {
             const card = document.createElement('div');
             card.className = 'card';
             card.onclick = () => abrirModal(f.archivo);
             card.innerHTML = `<img src='https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}' class='card-img'>`;
             galeria.appendChild(card);
         });
+        if (cardsVisibles < fichas.length) {
+            const btnMas = document.createElement('div');
+            btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
+            btnMas.innerHTML = `<button class="btn" onclick="cargarMasCards()" style="padding: 12px 30px; font-size: 16px;">📷 Ver más creadoras (${fichas.length - cardsVisibles} restantes)</button>`;
+            galeria.appendChild(btnMas);
+        }
     }
+}
+
+// Nueva función: Cargar más cards
+function cargarMasCards() {
+    cardsVisibles += cardsPorCarga;
+    actualizarPagina();
+    document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
 }
 
 // ==============================================
@@ -145,9 +164,9 @@ function generarRanking() {
         },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
         xAxis: { type: 'value', name: 'Ratio', nameLocation: 'middle', nameGap: 30, axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-        yAxis: { type: 'category', data: nombres, axisLine: { show: false }, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+        yAxis: { type: 'category',  nombres, axisLine: { show: false }, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
         series: [{
-            name: 'Ratio de Engagement', type: 'bar', data: ratios,
+            name: 'Ratio de Engagement', type: 'bar',  ratios,
             itemStyle: { color: (params) => colores[params.dataIndex], borderRadius: [0, 4, 4, 0] },
             label: { show: true, position: 'right', color: '#00ffcc', fontSize: 12, formatter: (params) => params.value.toFixed(2) },
             emphasis: { itemStyle: { color: '#00ffff', shadowBlur: 10, shadowColor: '#00ffcc' } }
