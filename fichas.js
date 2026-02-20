@@ -285,37 +285,33 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    // Datos de provincias (las que tienen coordenadas)
-    const datosProvincias = [];
-    const puntos = [];
+    // Datos de provincias con valores
+    const datosProvincias = [
+        { name: '四川省', value: 4 },
+        { name: '辽宁省', value: 2 },
+        { name: '北京市', value: 1 },
+        { name: '浙江省', value: 1 },
+        { name: '陕西省', value: 1 },
+        { name: '福建省', value: 1 },
+        { name: '湖南省', value: 1 },
+        { name: '内蒙古自治区', value: 1 },
+        { name: '香港特别行政区', value: 1 },
+        { name: '重庆市', value: 1 }
+    ];
     
-    // Agrupar por provincia para contar
-    const conteo = {};
-    const provinciasUnicas = {};
-    
-    fichas.forEach(f => {
-        if (f.provincia && f.coord) {
-            conteo[f.provincia] = (conteo[f.provincia] || 0) + 1;
-            provinciasUnicas[f.provincia] = provinciasUnicas[f.provincia] || f;
-        }
-    });
-    
-    // Crear datos para provincias
-    Object.keys(conteo).forEach(prov => {
-        datosProvincias.push({
-            name: prov,
-            value: conteo[prov]
-        });
-    });
-    
-    // Crear puntos
-    Object.keys(provinciasUnicas).forEach(prov => {
-        const f = provinciasUnicas[prov];
-        puntos.push({
-            coord: f.coord,
-            value: conteo[prov]
-        });
-    });
+    // Puntos con coordenadas y valores
+    const puntos = [
+        { coord: [104.07, 30.57], value: 4 },  // Sichuan
+        { coord: [123.43, 41.80], value: 2 },  // Liaoning
+        { coord: [116.40, 39.90], value: 1 },  // Beijing
+        { coord: [120.15, 30.28], value: 1 },  // Zhejiang
+        { coord: [108.94, 34.34], value: 1 },  // Shaanxi
+        { coord: [119.30, 26.08], value: 1 },  // Fujian
+        { coord: [112.94, 28.23], value: 1 },  // Hunan
+        { coord: [111.65, 40.82], value: 1 },  // Mongolia Interior
+        { coord: [114.17, 22.27], value: 1 },  // Hong Kong
+        { coord: [106.55, 29.56], value: 1 }   // Chongqing
+    ];
     
     const option = {
         title: {
@@ -386,6 +382,7 @@ function generarMapa() {
     };
     
     chart.setOption(option);
+    
     window.addEventListener('resize', () => chart.resize());
 }
 
