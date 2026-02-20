@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
-    <!-- ECharts desde Cloudflare (sin bloqueos) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <!-- ECharts - CDN confiable -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0a0a0a; color: #ffffff; line-height: 1.6; }
@@ -154,14 +154,29 @@
 
     <script src="fichas.js"></script>
     <script>
+        // Verificar que ECharts cargó antes de usarlo
+        if (typeof echarts === 'undefined') {
+            console.error('❌ ECharts no cargó. Verifica tu conexión o CDN.');
+        }
+
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
-            if (sectionId === 'mapa') { setTimeout(() => { if (typeof generarMapa === 'function') generarMapa(); }, 200); }
-            if (sectionId === 'ranking') { setTimeout(() => { if (typeof generarRanking === 'function') generarRanking(); }, 200); }
-            if (sectionId === 'galeria') { setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); }
+            if (sectionId === 'mapa') { 
+                setTimeout(() => { 
+                    if (typeof echarts !== 'undefined' && typeof generarMapa === 'function') generarMapa(); 
+                }, 200); 
+            }
+            if (sectionId === 'ranking') { 
+                setTimeout(() => { 
+                    if (typeof echarts !== 'undefined' && typeof generarRanking === 'function') generarRanking(); 
+                }, 200); 
+            }
+            if (sectionId === 'galeria') { 
+                setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); 
+            }
         }
         function abrirModal(archivo) {
             const img = document.getElementById('modal-img');
@@ -179,22 +194,29 @@
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModal(); });
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Iniciando aplicación...');
-            fetch('china.json')
-                .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
-                .then(chinaJson => {
-                    echarts.registerMap('china', chinaJson);
-                    console.log('✅ Mapa registrado - Features:', chinaJson.features?.length);
-                    if (document.getElementById('mapa')?.classList.contains('active')) {
-                        setTimeout(() => { if (typeof generarMapa === 'function') generarMapa(); }, 300);
-                    }
-                })
-                .catch(error => {
-                    console.error('❌ Error cargando china.json:', error);
-                    const mapDiv = document.getElementById('chinaMap');
-                    if (mapDiv) {
-                        mapDiv.innerHTML = `<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>${error.message}</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>`;
-                    }
-                });
+            console.log('📊 ECharts cargado:', typeof echarts !== 'undefined');
+            
+            // Solo cargar mapa si ECharts está disponible
+            if (typeof echarts !== 'undefined') {
+                fetch('china.json')
+                    .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
+                    .then(chinaJson => {
+                        echarts.registerMap('china', chinaJson);
+                        console.log('✅ Mapa registrado - Features:', chinaJson.features?.length);
+                        if (document.getElementById('mapa')?.classList.contains('active')) {
+                            setTimeout(() => { if (typeof generarMapa === 'function') generarMapa(); }, 300);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('❌ Error cargando china.json:', error);
+                        const mapDiv = document.getElementById('chinaMap');
+                        if (mapDiv) {
+                            mapDiv.innerHTML = `<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>${error.message}</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>`;
+                        }
+                    });
+            } else {
+                console.error('❌ ECharts no está disponible. El mapa y ranking no funcionarán.');
+            }
         });
     </script>
 </body>
