@@ -112,7 +112,16 @@ function generarMapa() {
         title: {
             text: 'Distribución de creadoras',
             left: 'center',
-            textStyle: { color: '#00ffcc', fontSize: 16 }
+            textStyle: { 
+                color: '#00ffcc',
+                fontSize: 18,
+                fontWeight: 'bold',
+                textShadow: '0 0 10px #00ffcc'
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}<br/>Creadoras: {c}'
         },
         series: [{
             name: 'Creadoras',
@@ -123,18 +132,23 @@ function generarMapa() {
             label: {
                 show: true,
                 color: '#ffffff',
-                fontSize: 10
+                fontSize: 10,
+                textShadow: '0 0 5px #00ffcc'
             },
             itemStyle: {
                 normal: {
-                    areaColor: '#1a1a1a',      // Fondo oscuro
-                    borderColor: '#444444',      // Bordes grises
-                    borderWidth: 0.5
+                    areaColor: '#0a0a0a',        // Fondo casi negro
+                    borderColor: '#00ffcc',       // Bordes verdes neón
+                    borderWidth: 0.8,
+                    shadowBlur: 10,
+                    shadowColor: '#00ffcc'
                 },
                 emphasis: {
-                    areaColor: '#2a2a2a',        // Más claro al pasar el mouse
-                    borderColor: '#00ffcc',
-                    borderWidth: 1
+                    areaColor: '#1a1a1a',         // Un poco más claro al pasar el mouse
+                    borderColor: '#ffffff',        // Bordes blancos al resaltar
+                    borderWidth: 1,
+                    shadowBlur: 15,
+                    shadowColor: '#ffffff'
                 }
             },
             data: [
@@ -151,7 +165,7 @@ function generarMapa() {
             ],
             markPoint: {
                 symbol: 'circle',
-                symbolSize: 40,
+                symbolSize: 45,
                 data: [
                     { coord: [104.07, 30.57], value: 4 },
                     { coord: [123.43, 41.80], value: 2 },
@@ -171,13 +185,15 @@ function generarMapa() {
                     },
                     position: 'inside',
                     color: '#000000',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: 'bold'
                 },
                 itemStyle: {
                     color: '#00ffcc',
                     borderColor: '#ffffff',
-                    borderWidth: 2
+                    borderWidth: 2,
+                    shadowBlur: 15,
+                    shadowColor: '#00ffcc'
                 }
             }
         }]
@@ -187,7 +203,6 @@ function generarMapa() {
     
     window.addEventListener('resize', () => chart.resize());
 }
-
 // ==============================================
 // INICIALIZACIÓN
 // ==============================================
