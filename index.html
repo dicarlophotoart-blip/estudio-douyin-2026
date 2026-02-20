@@ -5,30 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
     
-   <!-- Librerías para el mapa (con carga manual desde archivo local) -->
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script>
-// Cargar mapa de China desde archivo local
-fetch('china.json')
-    .then(response => response.json())
-    .then(chinaJson => {
-        echarts.registerMap('china', chinaJson);
-        console.log('✅ Mapa de China cargado desde archivo local');
-        
-        // Si la pestaña mapa ya está activa, regeneramos el mapa
-        if (document.getElementById('mapa') && document.getElementById('mapa').classList.contains('active')) {
-            setTimeout(() => {
-                if (typeof generarMapa === 'function') {
-                    generarMapa();
-                }
-            }, 100);
-        }
-    })
-    .catch(error => {
-        console.error('❌ Error cargando el mapa:', error);
-        document.getElementById('chinaMap').innerHTML = '<p style="color:#ffaa00; text-align:center; margin-top:200px;">Error cargando el mapa. Verifica que china.json existe.</p>';
-    });
-</script>
+    <!-- ECharts desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     
     <style>
         * {
@@ -286,9 +264,11 @@ fetch('china.json')
             color: #888;
         }
         
+        /* MAPA - ALTURA DEFINIDA */
         #chinaMap {
             width: 100%;
-            height: 500px;
+            height: 600px !important;
+            min-height: 500px;
             background: #1a1a1a;
             border-radius: 10px;
         }
@@ -319,7 +299,7 @@ fetch('china.json')
                 gap: 10px;
             }
             #chinaMap {
-                height: 350px !important;
+                height: 400px !important;
             }
         }
     </style>
@@ -398,7 +378,7 @@ fetch('china.json')
         
         <div id="mapa" class="section">
             <h2 class="section-title">🗺️ MAPA</h2>
-            <div id="chinaMap"></div>
+            <div id="chinaMap" style="height: 600px;"></div>
             <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">
                 * Taiwán es una parte inalienable del territorio de China.
             </p>
@@ -458,14 +438,19 @@ fetch('china.json')
         </div>
     </div>
     
+    <!-- Cargar fichas.js PRIMERO -->
     <script src="fichas.js"></script>
+    
+    <!-- Scripts de navegación y mapa -->
     <script>
+        // Función de navegación entre pestañas
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
             
+            // Si es la pestaña del mapa, generar el mapa
             if (sectionId === 'mapa') {
                 setTimeout(() => {
                     if (typeof generarMapa === 'function') {
@@ -475,20 +460,66 @@ fetch('china.json')
             }
         }
         
+        // Funciones del modal
         function abrirModal(archivo) {
             const img = document.getElementById('modal-img');
-            img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
-            document.getElementById('modal').style.display = 'block';
+            const modal = document.getElementById('modal');
+            if (img && modal) {
+                img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
+                modal.style.display = 'block';
+            }
         }
         
         function cerrarModal() {
-            document.getElementById('modal').style.display = 'none';
+            const modal = document.getElementById('modal');
+            if (modal) modal.style.display = 'none';
         }
         
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 cerrarModal();
             }
+        });
+        
+        // Cargar el mapa de China cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Iniciando aplicación...');
+            
+            // Cargar china.json desde CDN (más confiable)
+            fetch('https://cdn.jsdelivr.net/npm/echarts@5.4.3/map/json/china.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(chinaJson => {
+                    echarts.registerMap('china', chinaJson);
+                    console.log('✅ Mapa de China registrado correctamente');
+                    
+                    // Si la pestaña mapa ya está activa, generar el mapa
+                    if (document.getElementById('mapa').classList.contains('active')) {
+                        setTimeout(() => {
+                            if (typeof generarMapa === 'function') {
+                                generarMapa();
+                            }
+                        }, 300);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error cargando el mapa:', error);
+                    const mapDiv = document.getElementById('chinaMap');
+                    if (mapDiv) {
+                        mapDiv.innerHTML = `
+                            <div style="text-align: center; padding: 100px 20px; color: #ffaa00;">
+                                <h3>⚠️ Error cargando el mapa</h3>
+                                <p style="margin: 20px 0;">No se pudo cargar el GeoJSON de China</p>
+                                <p style="font-size: 14px; color: #888;">Error: ${error.message}</p>
+                                <p style="margin-top: 20px; font-size: 12px;">Verifica tu conexión a internet</p>
+                            </div>
+                        `;
+                    }
+                });
         });
     </script>
 </body>
