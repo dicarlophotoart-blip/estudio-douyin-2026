@@ -1,5 +1,5 @@
 // ==============================================
-// BASE DE DATOS: 18 CREADORAS DOCUMENTADAS
+// BASE DE DATOS: 20 CREADORAS DOCUMENTADAS
 // ==============================================
 const fichas = [
     { nombre: "钱冰", pinyin: "Qián Bīng", seguidores: 4.99, likes: 130, ratio: 26.07, origen: "Chengdu, Sichuan", provincia: "四川省", coord: [104.07, 30.57], archivo: "Giovanna.jpg", nicho: "Alto impacto" },
@@ -19,7 +19,9 @@ const fichas = [
     { nombre: "秋月凉 L", pinyin: "Qiū Yuè Liáng", seguidores: 0.94, likes: 15.26, ratio: 16.24, origen: "Sichuan", provincia: "四川省", coord: [104.07, 30.57], archivo: "liang.jpg", nicho: "Hanfu cinematográfico + cosplay" },
     { nombre: "刘荇羽", pinyin: "Liú Xíngyǔ", seguidores: 0.562, likes: 7.2, ratio: 12.80, origen: "Malasia (Tai Shan)", provincia: "", coord: null, archivo: "muralista.jpg", nicho: "Murales en relieve" },
     { nombre: "潇洒小柴", pinyin: "Xiāo Sǎ Xiǎo Chái", seguidores: 0.469, likes: 6.6, ratio: 14.07, origen: "Hunan", provincia: "湖南省", coord: [112.94, 28.23], archivo: "pesakawai.jpg", nicho: "Fitness kawaii" },
-    { nombre: "小鹤 owo", pinyin: "Xiǎo Hè owo", seguidores: 1.531, likes: 20.08, ratio: 13.12, origen: "Xiamen, Fujian", provincia: "福建省", coord: [119.30, 26.08], archivo: "owo (2).jpg", nicho: "Cosplay de alta precisión + análisis de videojuegos" }
+    { nombre: "小鹤 owo", pinyin: "Xiǎo Hè owo", seguidores: 1.531, likes: 20.08, ratio: 13.12, origen: "Xiamen, Fujian", provincia: "福建省", coord: [119.30, 26.08], archivo: "owo (2).jpg", nicho: "Cosplay de alta precisión + análisis de videojuegos" },
+    { nombre: "缘妙妙", pinyin: "Yuán Miàomiào", seguidores: 0.003562, likes: 0.032, ratio: 8.98, origen: "Anhui", provincia: "安徽省", coord: [117.28, 31.86], archivo: "miaoma.jpg", nicho: "Pintura budista + patrimonio inmaterial" },
+    { nombre: "林苒", pinyin: "Lín Rǎn", seguidores: 0.063, likes: 0.247, ratio: 3.92, origen: "Jiangsu", provincia: "江苏省", coord: [120.00, 32.00], archivo: "linra.jpg", nicho: "Hanfu + danza tradicional + cinematografía" }
 ];
 
 // ==============================================
