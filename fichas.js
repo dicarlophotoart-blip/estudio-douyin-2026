@@ -37,7 +37,7 @@ function actualizarPagina() {
     if (tbody) {
         tbody.innerHTML = '';
         porSeguidores.forEach(f => {
-            tbody.innerHTML += `<tr><td>${f.nombre} (${f.pinyin})</td><td>${f.seguidores.toFixed(3)}M</td><td>${f.likes}M</td><td>${f.ratio.toFixed(2)}</td><td>${f.origen}</td><td>${f.nicho}</td></tr>`;
+            tbody.innerHTML += '<tr><td>' + f.nombre + ' (' + f.pinyin + ')</td><td>' + f.seguidores.toFixed(3) + 'M</td><td>' + f.likes + 'M</td><td>' + f.ratio.toFixed(2) + '</td><td>' + f.origen + '</td><td>' + f.nicho + '</td></tr>';
         });
     }
     const galeria = document.getElementById('galeria-cards');
@@ -47,13 +47,13 @@ function actualizarPagina() {
             const card = document.createElement('div');
             card.className = 'card';
             card.onclick = () => abrirModal(f.archivo);
-            card.innerHTML = `<img src='https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}' class='card-img'>`;
+            card.innerHTML = '<img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(f.archivo) + '" class="card-img">';
             galeria.appendChild(card);
         });
         if (cardsVisibles < fichas.length) {
             const btnMas = document.createElement('div');
             btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
-            btnMas.innerHTML = `<button class="btn" onclick="cargarMasCards()" style="padding: 12px 30px; font-size: 16px;">📷 Ver más creadoras (${fichas.length - cardsVisibles} restantes)</button>`;
+            btnMas.innerHTML = '<button class="btn" onclick="cargarMasCards()" style="padding: 12px 30px; font-size: 16px;">📷 Ver más creadoras (' + (fichas.length - cardsVisibles) + ' restantes)</button>';
             galeria.appendChild(btnMas);
         }
     }
