@@ -6,8 +6,28 @@
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
     
     <!-- Librerías para el mapa (versión probada) -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+   <!-- Librerías para el mapa (con carga manual desde archivo local) -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+<script>
+// Cargar mapa de China desde archivo local
+fetch('china.json')
+    .then(response => response.json())
+    .then(chinaJson => {
+        echarts.registerMap('china', chinaJson);
+        console.log('✅ Mapa de China cargado desde archivo local');
+        
+        // Si la pestaña mapa ya está activa, regeneramos el mapa
+        if (document.getElementById('mapa') && document.getElementById('mapa').classList.contains('active')) {
+            setTimeout(() => {
+                if (typeof generarMapa === 'function') generarMapa();
+            }, 100);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Error cargando mapa:', error);
+        document.getElementById('chinaMap').innerHTML = '<p style="color:#ffaa00; text-align:center;">Error cargando mapa. Verifica que china.json existe</p>';
+    });
+</script>
     
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
