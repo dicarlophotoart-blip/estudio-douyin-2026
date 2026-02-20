@@ -96,7 +96,7 @@ function generarMapa() {
         },
         series: [
             {
-                name: 'Creadoras', type: 'map', map: 'china', geoIndex: 0,  mapaData,
+                name: 'Creadoras', type: 'map', map: 'china', geoIndex: 0, data: mapaData,
                 label: { show: true, color: '#fff', fontSize: 9 },
                 itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
                 emphasis: { itemStyle: { areaColor: '#2a2a2a' } }
@@ -116,7 +116,7 @@ function generarMapa() {
 }
 
 // ==============================================
-// FUNCIÓN GENERAR RANKING (NUEVA)
+// FUNCIÓN GENERAR RANKING
 // ==============================================
 function generarRanking() {
     const chartDiv = document.getElementById('barChart');
@@ -145,9 +145,9 @@ function generarRanking() {
         },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
         xAxis: { type: 'value', name: 'Ratio', nameLocation: 'middle', nameGap: 30, axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-        yAxis: { type: 'category',  nombres, axisLine: { show: false }, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+        yAxis: { type: 'category', data: nombres, axisLine: { show: false }, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
         series: [{
-            name: 'Ratio de Engagement', type: 'bar',  ratios,
+            name: 'Ratio de Engagement', type: 'bar', data: ratios,
             itemStyle: { color: (params) => colores[params.dataIndex], borderRadius: [0, 4, 4, 0] },
             label: { show: true, position: 'right', color: '#00ffcc', fontSize: 12, formatter: (params) => params.value.toFixed(2) },
             emphasis: { itemStyle: { color: '#00ffff', shadowBlur: 10, shadowColor: '#00ffcc' } }
