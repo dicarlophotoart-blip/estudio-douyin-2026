@@ -1,4 +1,4 @@
-// Base de datos de fichas - Solo añade nuevas aquí
+// Base de datos de fichas
 const fichas = [
     {
         nombre: "钱冰",
@@ -183,41 +183,28 @@ const fichas = [
 ];
 
 // ==============================================
-// FUNCIONES DE ACTUALIZACIÓN DE LA PÁGINA
+// FUNCIONES DE ACTUALIZACIÓN
 // ==============================================
 
 function actualizarPagina() {
-    // Ordenar por seguidores para los rankings
     const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
     const porRatio = [...fichas].sort((a, b) => b.ratio - a.ratio);
     
-    // Actualizar estadísticas
     document.getElementById('total-fichas').textContent = fichas.length;
     document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
     document.getElementById('max-ratio').textContent = porRatio[0].ratio.toFixed(2);
     
-    // Calcular regiones únicas
     const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
     document.getElementById('total-regiones').textContent = regiones.size;
-    document.getElementById('footer-fichas').textContent = `${fichas.length} creadoras documentadas · 30,500+ en comunidad`;
+    document.getElementById('footer-fichas').textContent = `${fichas.length} creadoras · 30,500+ comunidad`;
     
-    // Generar tabla
     generarTabla(porSeguidores);
-    
-    // Generar galería
     generarGaleria();
-    
-    // Generar gráficas
-    generarGraficas(porSeguidores.slice(0, 5), porRatio.slice(0, 5));
-    
-    // Generar mapa
-    generarMapa();
 }
 
 function generarTabla(lista) {
     const tbody = document.getElementById('tabla-body');
     tbody.innerHTML = '';
-    
     lista.forEach(f => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -235,193 +222,97 @@ function generarTabla(lista) {
 function generarGaleria() {
     const galeria = document.getElementById('galeria-cards');
     galeria.innerHTML = '';
-    
     fichas.forEach(f => {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => abrirModal(f.archivo);
-        
         const img = document.createElement('img');
         img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}`;
         img.className = 'card-img';
         img.alt = f.nombre;
-        
         card.appendChild(img);
         galeria.appendChild(card);
     });
 }
 
-function generarGraficas(topSeguidores, topRatio) {
-    const chartSeg = document.getElementById('chart-seguidores');
-    const chartRat = document.getElementById('chart-ratio');
-    
-    // Gráfica de seguidores
-    chartSeg.innerHTML = '';
-    const maxSeg = topSeguidores[0].seguidores;
-    topSeguidores.forEach(f => {
-        const altura = (f.seguidores / maxSeg) * 100;
-        const div = document.createElement('div');
-        div.className = 'bar-container';
-        div.innerHTML = `
-            <div class="bar" style="height: ${altura}px;"></div>
-            <div class="bar-label">
-                <span class="chino">${f.nombre}</span><br>
-                <span class="pinyin">${f.pinyin}</span><br>
-                <span class="numero">${f.seguidores.toFixed(2)}M</span>
-            </div>
-        `;
-        chartSeg.appendChild(div);
-    });
-    
-    // Gráfica de ratio
-    chartRat.innerHTML = '';
-    const maxRat = topRatio[0].ratio;
-    topRatio.forEach(f => {
-        const altura = (f.ratio / maxRat) * 100;
-        const div = document.createElement('div');
-        div.className = 'bar-container';
-        div.innerHTML = `
-            <div class="bar" style="height: ${altura}px;"></div>
-            <div class="bar-label">
-                <span class="chino">${f.nombre}</span><br>
-                <span class="pinyin">${f.pinyin}</span><br>
-                <span class="numero">${f.ratio.toFixed(2)}</span>
-            </div>
-        `;
-        chartRat.appendChild(div);
-    });
-}
-
 // ==============================================
-// MAPA DE CHINA CON PUNTOS
+// MAPA SIMPLE Y FUNCIONAL
 // ==============================================
 
 function generarMapa() {
-    const mapa = document.getElementById('mapa-regiones');
-    if (!mapa) return;
+    const mapaDiv = document.getElementById('chinaMap');
+    if (!mapaDiv) return;
     
-    // Limpiar el contenedor
-    mapa.innerHTML = '';
+    // Limpiar cualquier contenido previo
+    mapaDiv.innerHTML = '';
     
-    // Crear un contenedor para el mapa echarts
-    const chartContainer = document.createElement('div');
-    chartContainer.id = 'mapa-china';
-    chartContainer.style.width = '100%';
-    chartContainer.style.height = '500px';
-    mapa.appendChild(chartContainer);
+    // Inicializar ECharts
+    const mapChart = echarts.init(mapaDiv);
     
-    // Coordenadas de las regiones (capitales de provincia como referencia)
-    const coordenadas = {
-        "Sichuan": [104.07, 30.57],
-        "Chengdu": [104.07, 30.57],
-        "Liaoning": [123.43, 41.80],
-        "Zhejiang": [120.16, 30.29],
-        "Shaanxi": [108.94, 34.34],
-        "Fujian": [119.30, 26.08],
-        "Hunan": [112.94, 28.23],
-        "Mongolia Interior": [111.75, 40.84],
-        "Beijing": [116.40, 39.90],
-        "Hong Kong": [114.17, 22.30],
-        "Chongqing": [106.55, 29.56],
-        "Malasia": [101.69, 3.14],
-        "Australia": [144.96, -37.81],
-        "Sin confirmar": [110.00, 35.00] // Centro aproximado
-    };
-
-    // Contar influencers por región
-    const regionCount = {};
-    fichas.forEach(f => {
-        const region = f.origen.split(',')[0].trim();
-        regionCount[region] = (regionCount[region] || 0) + 1;
-    });
-
-    // Crear datos para los puntos del mapa
-    const puntos = [];
-    Object.entries(regionCount).forEach(([region, count]) => {
-        if (coordenadas[region]) {
-            puntos.push({
-                name: region,
-                value: [...coordenadas[region], count]
-            });
-        }
-    });
-
-    // Configuración del mapa
-    const mapChart = echarts.init(document.getElementById('mapa-china'));
     const option = {
         title: {
-            text: 'Distribución geográfica de influencers',
-            subtext: 'Tamaño del punto = número de creadoras',
+            text: 'Distribución de creadoras',
+            subtext: 'Provincias con fichas documentadas',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
         tooltip: {
             trigger: 'item',
-            formatter: function(params) {
-                return `${params.name}: ${params.value[2]} creadora${params.value[2] > 1 ? 's' : ''}`;
-            }
+            formatter: '{b}<br/>Creadoras: {c}'
         },
         visualMap: {
-            min: 1,
-            max: Math.max(...Object.values(regionCount)),
+            min: 0,
+            max: 4,
+            left: 'left',
+            top: 'bottom',
             calculable: true,
             inRange: {
-                color: ['#50a3ba', '#00ffcc', '#00cc99']
-            },
-            textStyle: { color: '#fff' }
-        },
-        geo: {
-            map: 'china',
-            roam: true,
-            scaleLimit: {
-                min: 1,
-                max: 3
-            },
-            zoom: 1.2,
-            center: [104.0, 35.0],
-            itemStyle: {
-                areaColor: '#1a1a1a',
-                borderColor: '#333',
-                borderWidth: 0.5
-            },
-            emphasis: {
-                areaColor: '#2a2a2a'
+                color: ['#1a1a1a', '#005f5f', '#00cccc', '#00ffcc', '#80ffcc']
             }
         },
         series: [{
-            name: 'Influencers',
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: puntos,
-            symbolSize: function(val) {
-                return 15 + (val[2] * 8);
-            },
-            encode: {
-                tooltip: 2
-            },
+            name: 'Creadoras',
+            type: 'map',
+            map: 'china',
+            roam: true,
+            zoom: 1.2,
+            scaleLimit: { min: 1, max: 3 },
             label: {
-                show: false
+                show: true,
+                color: '#fff',
+                fontSize: 10
             },
             itemStyle: {
-                color: '#00ffcc',
-                borderColor: '#fff',
-                borderWidth: 1,
-                shadowBlur: 10,
-                shadowColor: '#00ffcc'
+                normal: {
+                    areaColor: '#1a1a1a',
+                    borderColor: '#333'
+                },
+                emphasis: {
+                    areaColor: '#2a2a2a',
+                    borderColor: '#00ffcc'
+                }
             },
-            emphasis: {
-                scale: 1.5
-            }
+            data: [
+                {name: '四川省', value: 4},
+                {name: '辽宁省', value: 2},
+                {name: '北京市', value: 1},
+                {name: '浙江省', value: 1},
+                {name: '陕西省', value: 1},
+                {name: '福建省', value: 1},
+                {name: '湖南省', value: 1},
+                {name: '内蒙古自治区', value: 1},
+                {name: '香港特别行政区', value: 1},
+                {name: '重庆市', value: 1}
+            ]
         }]
     };
-
+    
     mapChart.setOption(option);
-
-    // Ajustar al tamaño de la ventana
-    window.addEventListener('resize', function() {
+    
+    window.addEventListener('resize', () => {
         mapChart.resize();
     });
 }
 
-// Ejecutar cuando cargue la página
+// Inicializar
 document.addEventListener('DOMContentLoaded', actualizarPagina);
