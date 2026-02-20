@@ -43,4 +43,135 @@ function actualizarPagina() {
     if (tbody) {
         tbody.innerHTML = '';
         porSeguidores.forEach(f => {
-            tbody.innerHTML += `<tr><td>${f.nombre} (${f.pinyin})</td><td>${f.seguidores.toFixed(3)}M</td><td>${f.likes}M</td><td>${f.ratio.toFixed(2)}</td><td>${f.origen}</td><td>${f.n
+            tbody.innerHTML += `<tr><td>${f.nombre} (${f.pinyin})</td><td>${f.seguidores.toFixed(3)}M</td><td>${f.likes}M</td><td>${f.ratio.toFixed(2)}</td><td>${f.origen}</td><td>${f.nicho}</td></tr>`;
+        });
+    }
+    const galeria = document.getElementById('galeria-cards');
+    if (galeria) {
+        galeria.innerHTML = '';
+        fichas.slice(0, cardsVisibles).forEach(f => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => abrirModal(f.archivo);
+            card.innerHTML = `<img src='https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(f.archivo)}' class='card-img'>`;
+            galeria.appendChild(card);
+        });
+        if (cardsVisibles < fichas.length) {
+            const btnMas = document.createElement('div');
+            btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
+            btnMas.innerHTML = `<button class="btn" onclick="cargarMasCards()" style="padding: 12px 30px; font-size: 16px;">📷 Ver más creadoras (${fichas.length - cardsVisibles} restantes)</button>`;
+            galeria.appendChild(btnMas);
+        }
+    }
+}
+
+function cargarMasCards() {
+    cardsVisibles += cardsPorCarga;
+    actualizarPagina();
+    document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==============================================
+// GENERAR MAPA
+// ==============================================
+function generarMapa() {
+    const mapDiv = document.getElementById('chinaMap');
+    if (!mapDiv) return;
+    let chart = echarts.getInstanceByDom(mapDiv);
+    if (chart) echarts.dispose(chart);
+    chart = echarts.init(mapDiv);
+    const fichasConCoordenadas = fichas.filter(f => f.coord && f.provincia);
+    const conteoPorProvincia = {};
+    fichasConCoordenadas.forEach(f => { conteoPorProvincia[f.provincia] = (conteoPorProvincia[f.provincia] || 0) + 1; });
+    const mapaData = Object.entries(conteoPorProvincia).map(([name, value]) => ({ name, value }));
+    const puntosData = [];
+    const vistas = new Set();
+    fichasConCoordenadas.forEach(f => {
+        if (!vistas.has(f.provincia)) {
+            puntosData.push({ name: f.provincia, value: [...f.coord, conteoPorProvincia[f.provincia]], provincia: f.provincia });
+            vistas.add(f.provincia);
+        }
+    });
+    const option = {
+        backgroundColor: '#1a1a1a',
+        title: { text: 'Distribución de creadoras en China', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
+        tooltip: {
+            trigger: 'item',
+            formatter: (params) => {
+                if (params.seriesType === 'scatter' && params.data) return `<b>${params.data.provincia}</b><br/>Creadoras: ${params.data.value[2]}`;
+                return `${params.name}<br/>Creadoras: ${params.value || 0}`;
+            }
+        },
+        geo: {
+            map: 'china', roam: true, zoom: 1.2,
+            label: { show: true, color: '#fff', fontSize: 9 },
+            itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
+            emphasis: { itemStyle: { areaColor: '#2a2a2a', borderColor: '#00ffcc' } }
+        },
+        series: [
+            {
+                name: 'Creadoras', type: 'map', map: 'china', geoIndex: 0, data: mapaData,
+                label: { show: true, color: '#fff', fontSize: 9 },
+                itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
+                emphasis: { itemStyle: { areaColor: '#2a2a2a' } }
+            },
+            {
+                name: 'Puntos', type: 'scatter', coordinateSystem: 'geo', data: puntosData,
+                symbol: 'circle', symbolSize: 50,
+                label: { show: true, formatter: (p) => p.data.value[2], position: 'inside', color: '#000', fontSize: 16, fontWeight: 'bold' },
+                itemStyle: { color: '#00ffcc', borderColor: '#fff', borderWidth: 3, shadowBlur: 10, shadowColor: '#00ffcc' },
+                emphasis: { itemStyle: { color: '#00ffff' } }
+            }
+        ]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+}
+
+// ==============================================
+// GENERAR RANKING
+// ==============================================
+function generarRanking() {
+    const chartDiv = document.getElementById('barChart');
+    if (!chartDiv) return;
+    let chart = echarts.getInstanceByDom(chartDiv);
+    if (chart) echarts.dispose(chart);
+    chart = echarts.init(chartDiv);
+    const top10 = [...fichas].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
+    const nombres = top10.map(f => f.nombre + '\n' + f.pinyin);
+    const ratios = top10.map(f => f.ratio);
+    const option = {
+        backgroundColor: '#1a1a1a',
+        title: { text: 'Top 10 Creadoras por Ratio de Engagement', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow' },
+            formatter: function(params) {
+                const f = top10[params[0].dataIndex];
+                return `<b>${f.nombre}</b> (${f.pinyin})<br/>📍 ${f.origen}<br/>👥 ${f.seguidores}M seguidores<br/>❤️ ${f.likes}M likes<br/>📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
+            }
+        },
+        grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
+        xAxis: { type: 'value', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
+        yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+        series: [{
+            name: 'Ratio de Engagement', type: 'bar', data: ratios,
+            itemStyle: { color: '#00ffcc', borderRadius: [0, 4, 4, 0] },
+            label: { show: true, position: 'right', color: '#00ffcc', fontSize: 12, formatter: (params) => params.value.toFixed(2) },
+            emphasis: { itemStyle: { color: '#00ffff', shadowBlur: 10, shadowColor: '#00ffcc' } }
+        }]
+    };
+    chart.setOption(option);
+    setTimeout(() => chart.resize(), 100);
+}
+
+// ==============================================
+// FUNCIONES GLOBALES
+// ==============================================
+window.abrirModal = function(archivo) {
+    const img = document.getElementById('modal-img'), modal = document.getElementById('modal');
+    if (img && modal) { img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`; modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+};
+window.cerrarModal = function() { const m = document.getElementById('modal'); if (m) { m.style.display = 'none'; document.body.style.overflow = 'auto'; } };
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrarModal(); });
+document.addEventListener('DOMContentLoaded', () => { console.log('✅ Página inicializada con', fichas.length, 'fichas'); actualizarPagina(); });
