@@ -5,28 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
     
-  <!-- Librerías para el mapa (con carga manual) -->
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script>
-// Cargar mapa de China manualmente
-fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json')
-    .then(response => response.json())
-    .then(chinaJson => {
-        echarts.registerMap('china', chinaJson);
-        console.log('✅ Mapa de China cargado');
-        
-        // Si el mapa ya estaba abierto, lo regeneramos
-        if (document.getElementById('mapa').classList.contains('active')) {
-            setTimeout(() => {
-                if (typeof generarMapa === 'function') generarMapa();
-            }, 100);
-        }
-    })
-    .catch(error => {
-        console.error('❌ Error cargando mapa:', error);
-        document.getElementById('chinaMap').innerHTML = '<p style="color:#ffaa00; text-align:center; margin-top:200px;">Error cargando mapa. Recarga la página.</p>';
-    });
-</script>
+    <!-- Librerías para el mapa con carga manual -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+    <script>
+        // Cargar mapa de China manualmente
+        fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json')
+            .then(response => response.json())
+            .then(chinaJson => {
+                echarts.registerMap('china', chinaJson);
+                console.log('✅ Mapa de China cargado correctamente');
+                
+                // Si la pestaña mapa ya está activa, regeneramos el mapa
+                if (document.getElementById('mapa') && document.getElementById('mapa').classList.contains('active')) {
+                    setTimeout(() => {
+                        if (typeof generarMapa === 'function') {
+                            generarMapa();
+                        }
+                    }, 100);
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error cargando el mapa:', error);
+                const mapDiv = document.getElementById('chinaMap');
+                if (mapDiv) {
+                    mapDiv.innerHTML = '<p style="color:#ffaa00; text-align:center; margin-top:200px;">Error cargando el mapa. Recarga la página.</p>';
+                }
+            });
+    </script>
     
     <style>
         * {
@@ -291,7 +296,6 @@ fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json')
             border-radius: 10px;
         }
         
-        /* Metodología con ancho completo */
         .metodologia-container {
             background: #1a1a1a;
             padding: 30px;
