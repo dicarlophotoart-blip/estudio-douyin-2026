@@ -133,7 +133,12 @@ function generarMapa() {
 // ==============================================
 function generarRanking() {
     const chartDiv = document.getElementById('barChart');
-    if (!chartDiv) return;
+    if (!chartDiv) {
+        console.error('❌ No existe div barChart');
+        return;
+    }
+    
+    console.log('📊 Generando ranking con doble barra...');
     
     let chart = echarts.getInstanceByDom(chartDiv);
     if (chart) echarts.dispose(chart);
@@ -161,15 +166,11 @@ function generarRanking() {
             axisPointer: { type: 'shadow' },
             formatter: function(params) {
                 const f = top10[params[0].dataIndex];
-                return `<b>${f.nombre}</b> (${f.pinyin})<br/>
-                        📍 ${f.origen}<br/>
-                        ❤️ Likes: <b style="color:#00ffcc">${f.likes}M</b><br/>
-                        👥 Seguidores: <b style="color:#ffaa00">${f.seguidores.toFixed(2)}M</b><br/>
-                        📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
+                return `<b>${f.nombre}</b> (${f.pinyin})<br/>📍 ${f.origen}<br/>❤️ Likes: <b style="color:#00ffcc">${f.likes}M</b><br/>👥 Seguidores: <b style="color:#ffaa00">${f.seguidores.toFixed(2)}M</b><br/>📈 Ratio: <b style="color:#00ffcc">${f.ratio.toFixed(2)}</b>`;
             }
         },
         legend: {
-             ['Likes (M)', 'Seguidores (M)'],
+            data: ['Likes (M)', 'Seguidores (M)'],
             textStyle: { color: '#fff' },
             top: 40
         },
@@ -183,14 +184,14 @@ function generarRanking() {
         },
         yAxis: { 
             type: 'category', 
-             nombres, 
+            data: nombres, 
             axisLabel: { color: '#fff', fontSize: 11, margin: 15 } 
         },
         series: [
             {
                 name: 'Likes (M)', 
                 type: 'bar', 
-                 likesData,
+                data: likesData,
                 itemStyle: { 
                     color: '#00ffcc',
                     borderRadius: [0, 3, 3, 0] 
@@ -206,7 +207,7 @@ function generarRanking() {
             {
                 name: 'Seguidores (M)', 
                 type: 'bar', 
-                 seguidoresData,
+                data: seguidoresData,
                 itemStyle: { 
                     color: '#ffaa00',
                     borderRadius: [0, 3, 3, 0] 
@@ -223,7 +224,10 @@ function generarRanking() {
     };
     
     chart.setOption(option);
-    setTimeout(() => chart.resize(), 100);
+    setTimeout(() => {
+        chart.resize();
+        console.log('✅ Ranking con doble barra renderizado');
+    }, 100);
 }
 
 // ==============================================
