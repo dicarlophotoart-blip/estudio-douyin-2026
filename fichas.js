@@ -45,68 +45,36 @@ function actualizarPagina() {
         });
     }
 }
-
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
     
     const chart = echarts.init(mapDiv);
     
-    const datosProvincias = [
-        { name: '四川省', value: 4 },
-        { name: '辽宁省', value: 2 },
-        { name: '北京市', value: 1 },
-        { name: '浙江省', value: 1 },
-        { name: '陕西省', value: 1 },
-        { name: '福建省', value: 1 },
-        { name: '湖南省', value: 1 },
-        { name: '内蒙古自治区', value: 1 },
-        { name: '香港特别行政区', value: 1 },
-        { name: '重庆市', value: 1 }
-    ];
-    
-    const puntos = [
-        { coord: [104.07, 30.57], value: 4 },
-        { coord: [123.43, 41.80], value: 2 },
-        { coord: [116.40, 39.90], value: 1 },
-        { coord: [120.15, 30.28], value: 1 },
-        { coord: [108.94, 34.34], value: 1 },
-        { coord: [119.30, 26.08], value: 1 },
-        { coord: [112.94, 28.23], value: 1 },
-        { coord: [111.65, 40.82], value: 1 },
-        { coord: [114.17, 22.27], value: 1 },
-        { coord: [106.55, 29.56], value: 1 }
-    ];
-    
     const option = {
         title: {
-            text: 'Distribución de creadoras en China',
+            text: 'Distribución de creadoras',
             left: 'center',
             textStyle: { color: '#00ffcc' }
         },
         tooltip: {
             trigger: 'item',
             formatter: function(params) {
-                if (params.seriesName === 'Creadoras') {
-                    return params.name + '<br/>Creadoras: ' + (params.value || 0);
-                } else if (params.seriesName === 'Puntos') {
-                    return 'Creadoras: ' + params.data.value;
+                // Si es un punto (serie 'Puntos')
+                if (params.seriesName === 'Puntos') {
+                    return 'Creadoras: ' + params.data.value[2];
                 }
-                return params.name;
+                // Si es una provincia
+                return params.name + '<br/>Creadoras: ' + (params.value || 0);
             }
         },
         series: [
             {
-                name: 'Creadoras',
+                name: 'Provincias',
                 type: 'map',
                 map: 'china',
                 roam: true,
                 zoom: 1.2,
-                label: {
-                    show: true,
-                    color: '#fff',
-                    fontSize: 10
-                },
                 itemStyle: {
                     normal: {
                         areaColor: '#1a1a1a',
@@ -115,10 +83,21 @@ function generarMapa() {
                     },
                     emphasis: {
                         areaColor: '#2a2a2a',
-                        borderColor: '#fff'
+                        borderColor: '#ffffff'
                     }
                 },
-                data: datosProvincias
+                data: [
+                    { name: '四川省', value: 4 },
+                    { name: '辽宁省', value: 2 },
+                    { name: '北京市', value: 1 },
+                    { name: '浙江省', value: 1 },
+                    { name: '陕西省', value: 1 },
+                    { name: '福建省', value: 1 },
+                    { name: '湖南省', value: 1 },
+                    { name: '内蒙古自治区', value: 1 },
+                    { name: '香港特别行政区', value: 1 },
+                    { name: '重庆市', value: 1 }
+                ]
             },
             {
                 name: 'Puntos',
@@ -126,10 +105,18 @@ function generarMapa() {
                 coordinateSystem: 'geo',
                 symbol: 'circle',
                 symbolSize: 45,
-                data: puntos.map(p => ({
-                    name: p.value.toString(),
-                    value: [p.coord[0], p.coord[1], p.value]
-                })),
+                data: [
+                    { value: [104.07, 30.57, 4] },
+                    { value: [123.43, 41.80, 2] },
+                    { value: [116.40, 39.90, 1] },
+                    { value: [120.15, 30.28, 1] },
+                    { value: [108.94, 34.34, 1] },
+                    { value: [119.30, 26.08, 1] },
+                    { value: [112.94, 28.23, 1] },
+                    { value: [111.65, 40.82, 1] },
+                    { value: [114.17, 22.27, 1] },
+                    { value: [106.55, 29.56, 1] }
+                ],
                 label: {
                     show: true,
                     formatter: function(params) {
@@ -153,5 +140,6 @@ function generarMapa() {
     
     window.addEventListener('resize', () => chart.resize());
 }
+
 
 document.addEventListener('DOMContentLoaded', actualizarPagina);
