@@ -45,59 +45,35 @@ function actualizarPagina() {
         });
     }
 }
+
 function generarMapa() {
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
     
     const chart = echarts.init(mapDiv);
     
+    // 2 puntos en coordenadas conocidas
     const puntos = [
-        { coord: [104.07, 30.57], value: 4 },  // Sichuan
-        { coord: [123.43, 41.80], value: 2 },  // Liaoning
-        { coord: [116.40, 39.90], value: 1 },  // Beijing
-        { coord: [120.15, 30.28], value: 1 },  // Zhejiang
-        { coord: [108.94, 34.34], value: 1 },  // Shaanxi
-        { coord: [119.30, 26.08], value: 1 },  // Fujian
-        { coord: [112.94, 28.23], value: 1 },  // Hunan
-        { coord: [111.65, 40.82], value: 1 },  // Mongolia Interior
-        { coord: [114.17, 22.27], value: 1 },  // Hong Kong
-        { coord: [106.55, 29.56], value: 1 }   // Chongqing
+        { name: '4', value: [104.07, 30.57, 4] },  // Sichuan
+        { name: '2', value: [116.40, 39.90, 2] }   // Beijing
     ];
     
     const option = {
-        title: {
-            text: 'Puntos de creadoras',
-            left: 'center',
-            textStyle: { color: '#00ffcc' }
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: 'Creadoras: {c}'
-        },
         series: [{
-            name: 'Puntos',
             type: 'scatter',
             coordinateSystem: 'geo',
             symbol: 'circle',
             symbolSize: 45,
-            data: puntos.map(p => ({
-                name: p.value.toString(),
-                value: [p.coord[0], p.coord[1], p.value]
-            })),
+            data: puntos,
             label: {
                 show: true,
-                formatter: function(params) {
-                    return params.data.value[2];
-                },
+                formatter: '{@[2]}',
                 position: 'inside',
                 color: '#000',
-                fontSize: 16,
-                fontWeight: 'bold'
+                fontSize: 16
             },
             itemStyle: {
-                color: '#00ffcc',
-                borderColor: '#fff',
-                borderWidth: 2
+                color: '#00ffcc'
             }
         }]
     };
@@ -106,5 +82,4 @@ function generarMapa() {
     
     window.addEventListener('resize', () => chart.resize());
 }
-
 document.addEventListener('DOMContentLoaded', actualizarPagina);
