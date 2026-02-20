@@ -51,7 +51,6 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    // TODAS LAS PROVINCIAS CON SUS VALORES
     const datosProvincias = [
         { name: '四川省', value: 4 },
         { name: '辽宁省', value: 2 },
@@ -65,7 +64,6 @@ function generarMapa() {
         { name: '重庆市', value: 1 }
     ];
     
-    // TODOS LOS PUNTOS CON SUS COORDENADAS
     const puntos = [
         { coord: [104.07, 30.57], value: 4 },  // Sichuan
         { coord: [123.43, 41.80], value: 2 },  // Liaoning
