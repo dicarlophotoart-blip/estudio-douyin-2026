@@ -46,33 +46,57 @@ function actualizarPagina() {
     }
 }
 function generarMapa() {
+    // 1. Buscar el div donde va el mapa
     const mapDiv = document.getElementById('chinaMap');
     if (!mapDiv) return;
     
+    // 2. Inicializar ECharts
     const chart = echarts.init(mapDiv);
     
-    chart.setOption({
-        tooltip: {
-            trigger: 'item',
-            formatter: '{b}<br/>{c}'
+    // 3. Configurar el mapa
+    const option = {
+        // 3.1 Título
+        title: { 
+            text: 'Distribución de creadoras', 
+            left: 'center' 
         },
+        
+        // 3.2 Tooltip (lo que aparece al pasar el mouse)
+        tooltip: {
+            trigger: 'item',           // Se activa al pasar sobre items
+            formatter: '{b}<br/>{c}'   // Muestra nombre y valor
+        },
+        
+        // 3.3 Serie de datos
         series: [{
-            type: 'map',
-            map: 'china',
-            roam: true,
-            data: [
+            type: 'map',                // Tipo: mapa
+            map: 'china',                // Mapa de China
+            roam: true,                  // Permitir zoom y arrastrar
+            data: [                      // Datos de provincias
                 { name: '四川省', value: 4 },
-                { name: '辽宁省', value: 2 }
+                { name: '辽宁省', value: 2 },
+                { name: '北京市', value: 1 }
+                // ... resto de provincias
             ],
-            markPoint: {
-                data: [
+            markPoint: {                 // Puntos adicionales
+                data: [                  // Datos de los puntos
                     { coord: [104.07, 30.57], value: 4 },
                     { coord: [123.43, 41.80], value: 2 }
+                    // ... resto de puntos
                 ],
-                label: { show: true, formatter: '{@value}' }
+                label: {                 // Etiquetas de los puntos
+                    show: true,
+                    formatter: '{@value}'  // Muestra el valor
+                }
             }
         }]
-    });
+    };
+    
+    // 4. Aplicar la configuración
+    chart.setOption(option);
+    
+    // 5. Redimensionar al cambiar tamaño de ventana
+    window.addEventListener('resize', () => chart.resize());
 }
 
 document.addEventListener('DOMContentLoaded', actualizarPagina);
