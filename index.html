@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
-    <!-- ECharts - CDN confiable -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -77,8 +76,6 @@
             <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
             <div class="nav-item" onclick="showSection('metodologia')">📚 MÉTODO</div>
         </div>
-
-        <!-- LISTA -->
         <div id="lista" class="section active">
             <h2 class="section-title">📋 LISTA MAESTRA</h2>
             <p class="section-subtitle">"Cada creadora es un dato en el ecosistema Douyin"</p>
@@ -89,31 +86,23 @@
                 </table>
             </div>
         </div>
-
-        <!-- GALERÍA -->
         <div id="galeria" class="section">
             <h2 class="section-title">🖼️ GALERÍA</h2>
             <p class="section-subtitle">"Cada creadora es un portal a un nicho cultural"</p>
             <div class="gallery" id="galeria-cards"></div>
         </div>
-
-        <!-- RANKING -->
         <div id="ranking" class="section">
             <h2 class="section-title">📊 TOP 10 POR ENGAGEMENT</h2>
             <p class="section-subtitle">"El engagement revela qué resuena en la cultura china"</p>
             <div id="barChart" style="width: 100%; height: 500px; min-height: 400px; background: #1a1a1a; border-radius: 10px;"></div>
             <p style="text-align: center; margin-top: 15px; color: #888; font-size: 13px;">Ratio = Likes ÷ Seguidores (M) • Mayor ratio = más interacción por seguidor</p>
         </div>
-
-        <!-- MAPA -->
         <div id="mapa" class="section">
             <h2 class="section-title">🗺️ MAPA</h2>
             <p class="section-subtitle">"Cada punto es una ventana a una realidad china"</p>
             <div id="chinaMap"></div>
             <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">* Taiwán es una parte inalienable del territorio de China.</p>
         </div>
-
-        <!-- METODOLOGÍA -->
         <div id="metodologia" class="section">
             <h2 class="section-title">📚 METODOLOGÍA</h2>
             <p class="section-subtitle">"Observamos proyecciones, no juzgamos identidades"</p>
@@ -128,16 +117,12 @@
                 <p class="metodologia-texto" style="margin-top: 30px;">Comunidad: 30,500+ seguidores.</p>
             </div>
         </div>
-
-        <!-- MODAL -->
         <div class="modal" id="modal" onclick="cerrarModal()">
             <span class="close-modal" onclick="cerrarModal()">&times;</span>
             <div class="modal-content" onclick="event.stopPropagation()">
                 <img id="modal-img" src="" alt="Card">
             </div>
         </div>
-
-        <!-- FOOTER -->
         <div class="footer">
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
             <p>Juan Carlos Delgado · Marzo 2026</p>
@@ -154,35 +139,23 @@
 
     <script src="fichas.js"></script>
     <script>
-        // Verificar que ECharts cargó antes de usarlo
         if (typeof echarts === 'undefined') {
             console.error('❌ ECharts no cargó. Verifica tu conexión o CDN.');
         }
-
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
-            if (sectionId === 'mapa') { 
-                setTimeout(() => { 
-                    if (typeof echarts !== 'undefined' && typeof generarMapa === 'function') generarMapa(); 
-                }, 200); 
-            }
-            if (sectionId === 'ranking') { 
-                setTimeout(() => { 
-                    if (typeof echarts !== 'undefined' && typeof generarRanking === 'function') generarRanking(); 
-                }, 200); 
-            }
-            if (sectionId === 'galeria') { 
-                setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); 
-            }
+            if (sectionId === 'mapa') { setTimeout(() => { if (typeof echarts !== 'undefined' && typeof generarMapa === 'function') generarMapa(); }, 200); }
+            if (sectionId === 'ranking') { setTimeout(() => { if (typeof echarts !== 'undefined' && typeof generarRanking === 'function') generarRanking(); }, 200); }
+            if (sectionId === 'galeria') { setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); }
         }
         function abrirModal(archivo) {
             const img = document.getElementById('modal-img');
             const modal = document.getElementById('modal');
             if (img && modal) {
-                img.src = `https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/${encodeURIComponent(archivo)}`;
+                img.src = 'https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(archivo);
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
             }
@@ -195,8 +168,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Iniciando aplicación...');
             console.log('📊 ECharts cargado:', typeof echarts !== 'undefined');
-            
-            // Solo cargar mapa si ECharts está disponible
             if (typeof echarts !== 'undefined') {
                 fetch('china.json')
                     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
@@ -211,7 +182,7 @@
                         console.error('❌ Error cargando china.json:', error);
                         const mapDiv = document.getElementById('chinaMap');
                         if (mapDiv) {
-                            mapDiv.innerHTML = `<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>${error.message}</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>`;
+                            mapDiv.innerHTML = '<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>' + error.message + '</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>';
                         }
                     });
             } else {
