@@ -52,7 +52,7 @@ function generarMapa() {
     
     const chart = echarts.init(mapDiv);
     
-    const datos = [
+    const datosProvincias = [
         { name: '四川省', value: 4 },
         { name: '辽宁省', value: 2 },
         { name: '北京市', value: 1 },
@@ -78,26 +78,78 @@ function generarMapa() {
         { coord: [106.55, 29.56], value: 1 }
     ];
     
-    chart.setOption({
-        series: [{
-            type: 'map',
-            map: 'china',
-            roam: true,
-            zoom: 1.2,
-            itemStyle: {
-                normal: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 },
-                emphasis: { areaColor: '#2a2a2a', borderColor: '#fff' }
+    const option = {
+        title: {
+            text: 'Distribución de creadoras en China',
+            left: 'center',
+            textStyle: { color: '#00ffcc' }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                if (params.seriesName === 'Creadoras') {
+                    return params.name + '<br/>Creadoras: ' + (params.value || 0);
+                } else if (params.seriesName === 'Puntos') {
+                    return 'Creadoras: ' + params.data.value;
+                }
+                return params.name;
+            }
+        },
+        series: [
+            {
+                name: 'Creadoras',
+                type: 'map',
+                map: 'china',
+                roam: true,
+                zoom: 1.2,
+                label: {
+                    show: true,
+                    color: '#fff',
+                    fontSize: 10
+                },
+                itemStyle: {
+                    normal: {
+                        areaColor: '#1a1a1a',
+                        borderColor: '#00ffcc',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        areaColor: '#2a2a2a',
+                        borderColor: '#fff'
+                    }
+                },
+                data: datosProvincias
             },
-            data: datos,
-            markPoint: {
+            {
+                name: 'Puntos',
+                type: 'scatter',
+                coordinateSystem: 'geo',
                 symbol: 'circle',
                 symbolSize: 45,
-                data: puntos,
-                label: { show: true, formatter: (p) => p.data.value, position: 'inside', color: '#000', fontSize: 16 },
-                itemStyle: { color: '#00ffcc', borderColor: '#fff', borderWidth: 2 }
+                data: puntos.map(p => ({
+                    name: p.value.toString(),
+                    value: [p.coord[0], p.coord[1], p.value]
+                })),
+                label: {
+                    show: true,
+                    formatter: function(params) {
+                        return params.data.value[2];
+                    },
+                    position: 'inside',
+                    color: '#000',
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                },
+                itemStyle: {
+                    color: '#00ffcc',
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }
             }
-        }]
-    });
+        ]
+    };
+    
+    chart.setOption(option);
     
     window.addEventListener('resize', () => chart.resize());
 }
