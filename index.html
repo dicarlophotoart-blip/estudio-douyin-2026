@@ -3,145 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Etno-Ecológico de Nichos en Douyin 2026</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" crossorigin="anonymous"></script>
+    <title>Douyin 抖音 | Estudio Etno-Ecológico de Nichos 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0a0a0a; color: #ffffff; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { text-align: center; padding: 40px 0; border-bottom: 1px solid #333; }
-        .logo { margin-bottom: 20px; }
-        .logo img { height: 120px; filter: drop-shadow(0 0 15px #00ffcc); }
-        .logo span { font-size: 24px; color: #888; display: block; margin-top: 5px; }
-        .title { font-size: 32px; font-weight: bold; margin: 20px 0; text-transform: uppercase; letter-spacing: 2px; }
-        .title small { font-size: 18px; color: #aaa; display: block; text-transform: none; letter-spacing: normal; margin-top: 10px; }
-        .nav { display: flex; justify-content: center; gap: 20px; margin: 30px 0; flex-wrap: wrap; }
-        .nav-item { background: #1a1a1a; padding: 12px 24px; border-radius: 30px; cursor: pointer; transition: all 0.3s; border: 1px solid #333; }
-        .nav-item:hover, .nav-item.active { background: #00ffcc; color: #000; border-color: #00ffcc; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 20px; border-bottom: 1px solid #333; margin-bottom: 30px; }
+        header h1 { font-size: 1.8rem; margin-bottom: 10px; color: #00ffcc; }
+        header p { color: #888; font-size: 0.95rem; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
         .stat-card { background: #1a1a1a; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #333; }
-        .stat-number { font-size: 36px; font-weight: bold; color: #00ffcc; }
-        .stat-label { color: #888; margin-top: 5px; }
-        .section { display: none; margin: 40px 0; }
+        .stat-card .number { font-size: 1.8rem; font-weight: bold; color: #00ffcc; }
+        .stat-card .label { font-size: 0.85rem; color: #888; margin-top: 5px; }
+        .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; justify-content: center; }
+        .nav-item { padding: 10px 20px; background: #1a1a1a; border: 1px solid #333; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
+        .nav-item:hover, .nav-item.active { background: #00ffcc; color: #000; border-color: #00ffcc; }
+        .section { display: none; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
-        .section-title { font-size: 24px; margin-bottom: 10px; color: #00ffcc; border-left: 4px solid #00ffcc; padding-left: 15px; }
-        .section-subtitle { font-size: 14px; color: #888; margin-bottom: 20px; padding-left: 15px; font-style: italic; }
-        .table-responsive { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
-        th { background: #00ffcc; color: #000; padding: 12px; text-align: left; font-weight: bold; }
-        td { padding: 12px; border-bottom: 1px solid #333; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .card { background: #1a1a1a; border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s; border: 1px solid #333; }
+        .card:hover { transform: translateY(-5px); border-color: #00ffcc; }
+        .card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .tabla-container { overflow-x: auto; background: #1a1a1a; border-radius: 10px; padding: 15px; border: 1px solid #333; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; font-size: 0.9rem; }
+        th { color: #00ffcc; font-weight: 600; position: sticky; top: 0; background: #1a1a1a; }
         tr:hover { background: #252525; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin: 20px 0; }
-        .card { background: #1a1a1a; border-radius: 10px; overflow: hidden; border: 1px solid #333; transition: transform 0.3s, border-color 0.3s; aspect-ratio: 3/4; width: 100%; cursor: pointer; }
-        .card:hover { transform: scale(1.02); border-color: #00ffcc; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; cursor: pointer; }
-        .close-modal { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; z-index: 1001; }
-        .modal-content { position: relative; width: 90%; height: 90%; margin: auto; overflow-y: auto; display: flex; justify-content: center; background: #1a1a1a; border-radius: 10px; padding: 20px; cursor: default; }
-        .modal-content img { width: auto; height: auto; max-width: 100%; max-height: none; object-fit: contain; border-radius: 5px; }
-        .btn { background: transparent; border: 2px solid #00ffcc; color: #00ffcc; padding: 12px 30px; border-radius: 30px; cursor: pointer; transition: all 0.3s; font-size: 16px; font-weight: bold; }
-        .btn:hover { background: #00ffcc; color: #000; }
-        .footer { text-align: center; padding: 40px 0; border-top: 1px solid #333; margin-top: 40px; color: #888; }
-        #chinaMap { width: 100%; height: 600px !important; min-height: 500px; background: #1a1a1a; border-radius: 10px; }
-        #barChart { width: 100% !important; height: 500px !important; min-height: 400px !important; background: #1a1a1a; border-radius: 10px; display: block !important; visibility: visible !important; }
-        .metodologia-container { background: #1a1a1a; padding: 30px; border-radius: 10px; width: 100%; }
-        .metodologia-texto { margin: 20px 0; line-height: 1.8; font-size: 16px; color: #ddd; }
+        #chinaMap { width: 100%; height: 600px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333; }
+        #barChart { width: 100%; height: 500px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333; margin-top: 20px; }
+        .metodo { background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #333; line-height: 1.8; }
+        .metodo h3 { color: #00ffcc; margin-bottom: 15px; }
+        .metodo ul { margin-left: 20px; margin-bottom: 15px; }
+        footer { text-align: center; padding: 30px 20px; margin-top: 40px; border-top: 1px solid #333; color: #888; font-size: 0.9rem; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+        #modal.active { display: flex; }
+        #modal-img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 2px solid #00ffcc; }
+        .modal-close { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer; }
+        .modal-close:hover { color: #00ffcc; }
         @media (max-width: 768px) {
-            .title { font-size: 24px; }
-            .logo img { height: 80px; }
-            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            #chinaMap, #barChart { height: 400px !important; }
+            .galeria { grid-template-columns: repeat(2, 1fr); }
+            .card-img { height: 180px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .nav { flex-wrap: wrap; }
+            .nav-item { padding: 8px 15px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">
-                <img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/unnamed.png" alt="Douyin" style="height: 120px; filter: drop-shadow(0 0 15px #00ffcc);">
-                <span>抖音</span>
-            </div>
-            <div class="title">ESTUDIO ETNO-ECOLÓGICO DE NICHOS EN DOUYIN 2026<small>Juan Carlos Delgado</small></div>
-        </div>
+        <header>
+            <h1>Douyin 抖音</h1>
+            <p>ESTUDIO ETNO-ECOLÓGICO DE NICHOS EN DOUYIN 2026</p>
+            <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
+        </header>
+
         <div class="stats">
-            <div class="stat-card"><div class="stat-number" id="total-fichas">0</div><div class="stat-label">Creadoras</div></div>
-            <div class="stat-card"><div class="stat-number" id="max-seguidores">0</div><div class="stat-label">Máx seguidores</div></div>
-            <div class="stat-card"><div class="stat-number" id="max-ratio">0</div><div class="stat-label">Máx ratio</div></div>
-            <div class="stat-card"><div class="stat-number" id="total-regiones">0</div><div class="stat-label">Regiones</div></div>
+            <div class="stat-card"><div class="number" id="total-fichas">0</div><div class="label">Creadoras</div></div>
+            <div class="stat-card"><div class="number" id="max-seguidores">0</div><div class="label">Máx seguidores</div></div>
+            <div class="stat-card"><div class="number" id="max-ratio">0</div><div class="label">Máx ratio</div></div>
+            <div class="stat-card"><div class="number" id="total-regiones">0</div><div class="label">Regiones</div></div>
         </div>
+
         <div class="nav">
             <div class="nav-item active" onclick="showSection('lista')">📋 LISTA</div>
             <div class="nav-item" onclick="showSection('galeria')">🖼️ GALERÍA</div>
             <div class="nav-item" onclick="showSection('ranking')">📊 RANKING</div>
             <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
-            <div class="nav-item" onclick="showSection('metodologia')">📚 MÉTODO</div>
+            <div class="nav-item" onclick="showSection('metodo')">📚 MÉTODO</div>
         </div>
-        <div id="lista" class="section active">
-            <h2 class="section-title">📋 LISTA MAESTRA</h2>
-            <p class="section-subtitle">"Cada creadora es un dato en el ecosistema Douyin"</p>
-            <div class="table-responsive">
+
+        <section id="lista" class="section active">
+            <h2 style="margin-bottom:15px;color:#00ffcc">📋 LISTA MAESTRA</h2>
+            <p style="color:#888;margin-bottom:20px">"Cada creadora es un dato en el ecosistema Douyin"</p>
+            <div class="tabla-container">
                 <table>
                     <thead><tr><th>Nombre</th><th>Seguidores</th><th>Likes</th><th>Ratio</th><th>Origen</th><th>Nicho</th></tr></thead>
                     <tbody id="tabla-body"></tbody>
                 </table>
             </div>
-        </div>
-        <div id="galeria" class="section">
-            <h2 class="section-title">🖼️ GALERÍA</h2>
-            <p class="section-subtitle">"Cada creadora es un portal a un nicho cultural"</p>
-            <div class="gallery" id="galeria-cards"></div>
-        </div>
-        <div id="ranking" class="section">
-            <h2 class="section-title">📊 TOP 10 POR ENGAGEMENT</h2>
-            <p class="section-subtitle">"El engagement revela qué resuena en la cultura china"</p>
-            <div id="barChart" style="width: 100%; height: 500px; min-height: 400px; background: #1a1a1a; border-radius: 10px;"></div>
-            <p style="text-align: center; margin-top: 15px; color: #888; font-size: 13px;">Ratio = Likes ÷ Seguidores (M) • Mayor ratio = más interacción por seguidor</p>
-        </div>
-        <div id="mapa" class="section">
-            <h2 class="section-title">🗺️ MAPA</h2>
-            <p class="section-subtitle">"Cada punto es una ventana a una realidad china"</p>
+        </section>
+
+        <section id="galeria" class="section">
+            <h2 style="margin-bottom:20px;color:#00ffcc">🖼️ GALERÍA</h2>
+            <div id="galeria-cards" class="galeria"></div>
+        </section>
+
+        <section id="ranking" class="section">
+            <h2 style="margin-bottom:20px;color:#00ffcc">📊 RANKING</h2>
+            <div id="barChart"></div>
+        </section>
+
+        <section id="mapa" class="section">
+            <h2 style="margin-bottom:20px;color:#00ffcc">🗺️ MAPA DE CHINA</h2>
             <div id="chinaMap"></div>
-            <p style="text-align: center; margin-top: 20px; color: #888; font-size: 14px;">* Taiwán es una parte inalienable del territorio de China.</p>
-        </div>
-        <div id="metodologia" class="section">
-            <h2 class="section-title">📚 METODOLOGÍA</h2>
-            <p class="section-subtitle">"Observamos proyecciones, no juzgamos identidades"</p>
-            <div class="metodologia-container">
-                <p class="metodologia-texto">Soy biólogo de formación. Pero hace más de 10 años que mi objeto de estudio cambió.</p>
-                <p class="metodologia-texto">Administro un grupo con más de 30,500 personas interesadas en la civilización china, su ciencia, su ingeniería y su cultura.</p>
-                <p class="metodologia-texto">Hablo a diario con chinos en WeChat. He escrito artículos sobre China que circulan en mi comunidad.</p>
-                <p class="metodologia-texto">Llevo más de una década observando, documentando y conversando.</p>
-                <p class="metodologia-texto" style="margin-top: 30px;"><strong>Criterios de selección:</strong><br>• Atracción estética personal del investigador<br>• Talento destacado en disciplinas como baile, wushu, fitness, arte, cocina, viajes</p>
-                <p class="metodologia-texto"><strong>Nota sobre criterios estéticos:</strong><br>Mi apreciación de la belleza no se limita a cánones occidentales. Conozco y aprecio la diversidad estética china.</p>
-                <p class="metodologia-texto" style="margin-top: 30px;"><strong>Fases del estudio:</strong><br>• Fase 1: Observación y registro (18 fichas publicadas)<br>• Fase 2: Análisis descriptivo (próximamente)<br>• Fase 3: Comparación con occidente</p>
-                <p class="metodologia-texto" style="margin-top: 30px;">Comunidad: 30,500+ seguidores.</p>
+        </section>
+
+        <section id="metodo" class="section">
+            <h2 style="margin-bottom:20px;color:#00ffcc">📚 MÉTODO ETNO-ECOLÓGICO</h2>
+            <div class="metodo">
+                <h3>🔍 Enfoque</h3>
+                <ul>
+                    <li>Observación participante en Douyin (2024-2026)</li>
+                    <li>Mapeo de nichos por región, contenido y engagement</li>
+                    <li>Análisis cualitativo + métricas cuantitativas</li>
+                </ul>
+                <h3>📊 Métricas clave</h3>
+                <ul>
+                    <li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li>
+                    <li><strong>Origen:</strong> Provincia/ciudad de la creadora</li>
+                    <li><strong>Nicho:</strong> Categoría principal de contenido</li>
+                </ul>
+                <h3>🌐 Visualización</h3>
+                <ul>
+                    <li>Mapa interactivo con ECharts</li>
+                    <li>Ranking de engagement por creadora</li>
+                    <li>Galería visual con filtros por nicho</li>
+                </ul>
+                <p style="margin-top:20px;color:#888;font-size:0.9rem">
+                    <strong>Nota:</strong> Este estudio documenta tendencias emergentes en Douyin. 
+                    Los datos son públicos y se actualizan mensualmente.
+                </p>
             </div>
-        </div>
-        <div class="modal" id="modal" onclick="cerrarModal()">
-            <span class="close-modal" onclick="cerrarModal()">&times;</span>
-            <div class="modal-content" onclick="event.stopPropagation()">
-                <img id="modal-img" src="" alt="Card">
-            </div>
-        </div>
-        <div class="footer">
+        </section>
+
+        <footer>
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
-            <p>Juan Carlos Delgado · Marzo 2026</p>
-            <p id="footer-fichas">0 creadoras · 30,500+ comunidad</p>
-            <div style="margin:20px auto; max-width:500px; padding:12px; background:#1a1a1a; border-radius:8px; border-left:3px solid #ffaa00;">
-                <p style="color:#ffaa00; font-weight:bold;">📱 VERSIÓN MÓVIL</p>
-                <p style="color:#888; font-size:11px;">Optimizada para computadora. En móvil, la galería se ve en 2 columnas, el mapa puede no cargar.</p>
-            </div>
-            <div style="margin-top:20px;">
-                <img src="https://hitwebcounter.com/counter/counter.php?page=18466857&style=0038&nbdigits=6&type=page&initCount=0" alt="visitas">
-            </div>
-        </div>
+            <p style="margin-top:10px">Juan Carlos Delgado · Marzo 2026</p>
+            <p id="footer-fichas" style="margin-top:10px;color:#666">0 creadoras · 30,500+ comunidad</p>
+            <p style="margin-top:20px;font-size:0.85rem;color:#666">
+                📱 <strong>VERSIÓN MÓVIL:</strong> Optimizada para computadora. 
+                En móvil, la galería se ve en 2 columnas, el mapa puede no cargar.
+            </p>
+            <p style="margin-top:10px;font-size:0.85rem;color:#444">visitas</p>
+        </footer>
     </div>
 
+    <!-- Modal para imágenes -->
+    <div id="modal" onclick="cerrarModal()">
+        <span class="modal-close">&times;</span>
+        <img id="modal-img" src="" alt="Vista ampliada">
+    </div>
+
+    <!-- Scripts: PRIMERO fichas.js (datos), DESPUÉS el resto -->
     <script src="fichas.js"></script>
     <script>
-        if (typeof echarts === 'undefined') {
-            console.error('❌ ECharts no cargó. Verifica tu conexión o CDN.');
+        let cardsVisibles = 12;
+        const cardsPorCarga = 12;
+
+        function actualizarPagina() {
+            if (!fichas || fichas.length === 0) return;
+            const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
+            
+            if (document.getElementById('total-fichas')) document.getElementById('total-fichas').textContent = fichas.length;
+            if (document.getElementById('max-seguidores')) document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
+            if (document.getElementById('max-ratio')) document.getElementById('max-ratio').textContent = Math.max(...fichas.map(f => f.ratio)).toFixed(2);
+            const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
+            if (document.getElementById('total-regiones')) document.getElementById('total-regiones').textContent = regiones.size;
+            if (document.getElementById('footer-fichas')) document.getElementById('footer-fichas').textContent = fichas.length + ' creadoras · 30,500+ comunidad';
+            
+            const tbody = document.getElementById('tabla-body');
+            if (tbody) {
+                tbody.innerHTML = '';
+                porSeguidores.forEach(f => {
+                    tbody.innerHTML += '<tr><td>' + f.nombre + ' (' + f.pinyin + ')</td><td>' + f.seguidores.toFixed(3) + 'M</td><td>' + f.likes + 'M</td><td>' + f.ratio.toFixed(2) + '</td><td>' + f.origen + '</td><td>' + f.nicho + '</td></tr>';
+                });
+            }
+            
+            const galeria = document.getElementById('galeria-cards');
+            if (galeria) {
+                galeria.innerHTML = '';
+                fichas.slice(0, cardsVisibles).forEach(f => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = (e) => { e.stopPropagation(); abrirModal(f.archivo); };
+                    card.innerHTML = '<img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(f.archivo) + '" class="card-img" loading="lazy">';
+                    galeria.appendChild(card);
+                });
+                if (cardsVisibles < fichas.length) {
+                    const btnMas = document.createElement('div');
+                    btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
+                    btnMas.innerHTML = '<button class="nav-item" onclick="cargarMasCards()" style="padding:12px 30px;font-size:16px;cursor:pointer;">📷 Ver más creadoras (' + (fichas.length - cardsVisibles) + ' restantes)</button>';
+                    galeria.appendChild(btnMas);
+                }
+            }
         }
+
+        function cargarMasCards() {
+            cardsVisibles += cardsPorCarga;
+            actualizarPagina();
+            const galeria = document.getElementById('galeria');
+            if (galeria) galeria.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generarMapa() {
+            const mapDiv = document.getElementById('chinaMap');
+            if (!mapDiv) return;
+            let chart = echarts.getInstanceByDom(mapDiv);
+            if (chart) echarts.dispose(chart);
+            chart = echarts.init(mapDiv);
+            
+            const fichasConCoordenadas = fichas.filter(f => f.coord && Array.isArray(f.coord) && f.coord.length === 2);
+            const grupos = {};
+            fichasConCoordenadas.forEach(f => {
+                const key = f.coord[0] + ',' + f.coord[1];
+                if (!grupos[key]) grupos[key] = { coord: f.coord, creadoras: [], total: 0 };
+                grupos[key].creadoras.push(f);
+                grupos[key].total += f.seguidores;
+            });
+            
+            const puntosData = Object.values(grupos).map(g => ({
+                name: g.creadoras.length > 1 ? g.creadoras.length + ' creadoras' : g.creadoras[0].nombre,
+                value: [...g.coord, g.creadoras.length],
+                cantidad: g.creadoras.length,
+                creadoras: g.creadoras.map(c => ({ nombre: c.nombre, pinyin: c.pinyin, origen: c.origen, nicho: c.nicho, seguidores: c.seguidores, ratio: c.ratio })),
+                totalSeguidores: g.total
+            }));
+            
+            const option = {
+                backgroundColor: '#1a1a1a',
+                title: { text: 'Distribución de ' + fichasConCoordenadas.length + ' creadoras', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
+                tooltip: { 
+                    trigger: 'item', 
+                    formatter: (p) => { 
+                        const d = p.data; 
+                        if (!d || !d.creadoras) return ''; 
+                        let h = '<b>' + d.cantidad + ' creadora' + (d.cantidad > 1 ? 's' : '') + '</b><br/>📍 Total: ' + d.totalSeguidores.toFixed(3) + 'M<br/><br/>'; 
+                        d.creadoras.forEach((c, i) => { 
+                            h += (i+1) + '. <b>' + c.nombre + '</b> (' + c.pinyin + ')<br/>   📍 ' + c.origen + '<br/>   🎨 ' + c.nicho + '<br/>   👥 ' + c.seguidores.toFixed(3) + 'M · 📈 ' + c.ratio.toFixed(2) + '<br/><br/>'; 
+                        }); 
+                        return h.slice(0, -4); 
+                    } 
+                },
+                geo: { 
+                    map: 'china', roam: true, zoom: 1.2, 
+                    label: { show: true, color: '#fff', fontSize: 9 }, 
+                    itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 }, 
+                    emphasis: { itemStyle: { areaColor: '#2a2a2a' } } 
+                },
+                series: [{ 
+                    name: 'Puntos', type: 'scatter', coordinateSystem: 'geo', data: puntosData, 
+                    symbol: 'circle', symbolSize: v => Math.max(12, Math.min(60, v[2]*10 + Math.sqrt(v[2])*5)), 
+                    label: { show: true, formatter: p => p.data.cantidad > 1 ? p.data.cantidad : '', position: 'inside', color: '#000', fontSize: 12, fontWeight: 'bold' }, 
+                    itemStyle: { color: p => p.data.cantidad > 1 ? '#ffaa00' : '#00ffcc', borderColor: '#fff', borderWidth: 2, shadowBlur: 10 }, 
+                    emphasis: { itemStyle: { color: p => p.data.cantidad > 1 ? '#ffcc00' : '#00ffff', borderWidth: 4 } } 
+                }]
+            };
+            chart.setOption(option);
+            window.addEventListener('resize', () => chart.resize());
+        }
+
+        function generarRanking() {
+            const chartDiv = document.getElementById('barChart');
+            if (!chartDiv) return;
+            let chart = echarts.getInstanceByDom(chartDiv);
+            if (chart) echarts.dispose(chart);
+            chart = echarts.init(chartDiv);
+            
+            const top10 = [...fichas].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
+            const nombres = top10.map(f => f.nombre + '\n' + f.pinyin);
+            const likesData = top10.map(f => f.likes);
+            const seguidoresData = top10.map(f => f.seguidores);
+            
+            const option = {
+                backgroundColor: '#1a1a1a',
+                title: { text: 'Top 10: Likes vs Seguidores', subtext: 'Cyan = Likes | Naranja = Seguidores', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 }, subtextStyle: { color: '#888', fontSize: 11 } },
+                tooltip: { 
+                    trigger: 'axis', axisPointer: { type: 'shadow' }, 
+                    formatter: p => { 
+                        const f = top10[p[0].dataIndex]; 
+                        return '<b>' + f.nombre + '</b> (' + f.pinyin + ')<br/>📍 ' + f.origen + '<br/>❤️ Likes: <b style="color:#00ffcc">' + f.likes + 'M</b><br/>👥 Seguidores: <b style="color:#ffaa00">' + f.seguidores.toFixed(2) + 'M</b><br/>📈 Ratio: <b style="color:#00ffcc">' + f.ratio.toFixed(2) + '</b>'; 
+                    } 
+                },
+                legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
+                grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
+                xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
+                yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+                series: [
+                    { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
+                    { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
+                ]
+            };
+            chart.setOption(option);
+            setTimeout(() => chart.resize(), 100);
+        }
+
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
@@ -151,23 +298,44 @@
             if (sectionId === 'ranking') { setTimeout(() => { if (typeof echarts !== 'undefined' && typeof generarRanking === 'function') generarRanking(); }, 200); }
             if (sectionId === 'galeria') { setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); }
         }
+
         function abrirModal(archivo) {
             const img = document.getElementById('modal-img');
             const modal = document.getElementById('modal');
             if (img && modal) {
                 img.src = 'https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(archivo);
                 modal.style.display = 'block';
+                modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
         }
+
         function cerrarModal() {
             const modal = document.getElementById('modal');
-            if (modal) { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+            if (modal) { 
+                modal.style.display = 'none'; 
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; 
+            }
         }
+
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModal(); });
+        document.getElementById('modal')?.addEventListener('click', function(e) { if (e.target === this) cerrarModal(); });
+
+        // ✅ INICIO DE LA APP: Cargar todo al iniciar
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Iniciando aplicación...');
             console.log('📊 ECharts cargado:', typeof echarts !== 'undefined');
+            
+            // ✅ ACTUALIZAR PÁGINA CON LOS DATOS (esto faltaba)
+            if (typeof fichas !== 'undefined' && typeof actualizarPagina === 'function') {
+                actualizarPagina();
+                console.log('✅ Página actualizada con', fichas.length, 'creadoras');
+            } else {
+                console.error('❌ fichas.js no cargó o actualizarPagina no existe');
+            }
+            
+            // Cargar mapa si está disponible
             if (typeof echarts !== 'undefined') {
                 fetch('china.json')
                     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
