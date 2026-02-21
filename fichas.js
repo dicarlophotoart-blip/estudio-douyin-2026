@@ -22,6 +22,7 @@ const fichas = [
     { nombre: "小鹤 owo", pinyin: "Xiǎo Hè owo", seguidores: 1.531, likes: 20.08, ratio: 13.12, origen: "Xiamen, Fujian", provincia: "福建省", coord: [119.30, 26.08], archivo: "owo (2).jpg", nicho: "Cosplay de alta precisión + análisis de videojuegos" },
     { nombre: "缘妙妙", pinyin: "Yuán Miàomiào", seguidores: 0.003562, likes: 0.032, ratio: 8.98, origen: "Anhui", provincia: "安徽省", coord: [117.28, 31.86], archivo: "miaoma.jpg", nicho: "Pintura budista + patrimonio inmaterial" },
     { nombre: "林苒", pinyin: "Lín Rǎn", seguidores: 0.063, likes: 0.247, ratio: 3.92, origen: "Jiangsu", provincia: "江苏省", coord: [120.00, 32.00], archivo: "linra.jpg", nicho: "Hanfu + danza tradicional + cinematografía" }
+    { nombre: "拿铁笛子", pinyin: "Nátiě Dízǐ", seguidores: 1975, likes: 19695, ratio: 9.97, origen: "辽宁省", provincia: "辽宁省", coord: [121.61, 38.91], archivo: "barbiepesas.jpg", nicho: "Fitness • IFBB Pro • AGP 2023 Champion • 金刚芭比" }    
 ];
 
 function actualizarPagina() {
