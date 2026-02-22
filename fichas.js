@@ -307,3 +307,4 @@ const fichas = [
     "Nicho": "Danza latina Olímpica",
     "tematica_principal": "danza"
   }
+];
