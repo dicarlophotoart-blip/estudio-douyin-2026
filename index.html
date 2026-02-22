@@ -64,7 +64,7 @@
             <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
         </header>
 
-        <!-- ✅ PANEL TOP 3 - Versión final -->
+        <!-- ✅ PANEL TOP 3 -->
         <div class="top3-panel">
             <h3>TOP 3 TEMÁTICAS - CREADORAS DESTACADAS</h3>
             <div id="top3-tematicas"><p style="text-align:center;color:#888">Cargando datos...</p></div>
@@ -85,6 +85,16 @@
             
             <p class="top3-note" style="margin-top:10px">* Muestra preliminar: Sujetos a ampliación</p>
         </div>
+
+        <!-- ✅ CÁLCULO AUTOMÁTICO DE PREFERENCIAS TEMÁTICAS -->
+        <div style="margin-top:25px;padding:20px;background:linear-gradient(135deg, rgba(0,255,204,0.05) 0%, rgba(255,170,0,0.05) 100%);border-radius:10px;border:2px solid #00ffcc;">
+            <h3 style="color:#00ffcc;margin-bottom:15px;text-align:center;">📊 Preferencias Temáticas en Douyin</h3>
+            <p style="text-align:center;color:#888;font-size:0.85rem;margin-bottom:15px;">Cálculo automático basado en muestra actual</p>
+            <div id="gustos-chinos-container">
+                <p style="text-align:center;color:#666">Cargando datos...</p>
+            </div>
+        </div>
+        <!-- ✅ FIN CÁLCULO AUTOMÁTICO -->
 
         <div class="stats">
             <div class="stat-card"><div class="number" id="total-fichas">0</div><div class="label">Creadoras</div></div>
@@ -130,7 +140,6 @@
         <section id="metodo" class="section">
             <h2 style="margin-bottom:20px;color:#00ffcc">MÉTODO ETNO-ECOLÓGICO</h2>
             <div class="metodo">
-                <!-- ✅ Limitaciones metodológicas -->
                 <h3>Limitaciones metodológicas</h3>
                 <div style="padding:12px;background:rgba(255,100,100,0.05);border-radius:6px;border-left:3px solid #ff6464;font-size:0.82rem;color:#aaa;line-height:1.6;margin-bottom:20px;">
                     <strong style="color:#ff6464">Variables no disponibles en Douyin:</strong><br>
@@ -274,6 +283,43 @@
             }
         }
 
+        function calcularGustosChinos() {
+            const datos = window.fichas || [];
+            if (!datos || datos.length === 0) return;
+            
+            const conteo = {};
+            datos.forEach(f => {
+                const tematica = getVal(f, 'tematica_principal') || 'Otros';
+                if (!conteo[tematica]) conteo[tematica] = 0;
+                conteo[tematica]++;
+            });
+            
+            const total = datos.length;
+            const porcentajes = Object.entries(conteo)
+                .map(([tematica, count]) => ({
+                    tematica,
+                    count,
+                    porcentaje: ((count / total) * 100).toFixed(1)
+                }))
+                .sort((a, b) => b.porcentaje - a.porcentaje);
+            
+            const container = document.getElementById('gustos-chinos-container');
+            if (container) {
+                let html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px;">';
+                porcentajes.forEach(item => {
+                    const color = item.porcentaje >= 25 ? '#00ffcc' : item.porcentaje >= 15 ? '#ffaa00' : '#888';
+                    html += `<div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:6px;text-align:center;border-left:3px solid ${color};">
+                        <div style="font-size:1.5rem;font-weight:bold;color:${color}">${item.porcentaje}%</div>
+                        <div style="font-size:0.8rem;color:#aaa;margin-top:5px">${item.tematica}</div>
+                        <div style="font-size:0.7rem;color:#666;margin-top:3px">${item.count} de ${total}</div>
+                    </div>`;
+                });
+                html += '</div>';
+                html += `<p style="font-size:0.75rem;color:#666;margin-top:10px;text-align:center;">Actualizado automáticamente · ${total} creadoras</p>`;
+                container.innerHTML = html;
+            }
+        }
+
         function actualizarPagina() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
@@ -315,6 +361,7 @@
             
             calcularTop3Tematicas();
             actualizarComposicionMuestra();
+            calcularGustosChinos();
         }
 
         function cargarMasCards() {
@@ -415,7 +462,7 @@
                 legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
                 grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
                 xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-                yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+                yAxis: { type: 'category',  nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
                 series: [
                     { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
                     { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
