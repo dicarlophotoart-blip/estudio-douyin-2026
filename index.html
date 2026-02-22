@@ -13,15 +13,16 @@
         header h1 { font-size: 1.8rem; margin-bottom: 10px; color: #00ffcc; }
         header p { color: #888; font-size: 0.95rem; }
         
-        .top3-panel { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 25px; border-radius: 15px; margin: 25px 0; border: 1px solid #00ffcc; }
-        .top3-panel h3 { text-align: center; color: #00ffcc; margin-bottom: 20px; font-size: 1.3rem; }
-        .top3-item { display: flex; align-items: center; padding: 12px 20px; margin: 10px 0; background: rgba(0,255,204,0.08); border-radius: 10px; border-left: 3px solid #00ffcc; }
-        .medal { font-size: 1.8rem; margin-right: 15px; width: 40px; text-align: center; }
+        /* ✅ TOP 3 - Académico pero destacado */
+        .top3-panel { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px; border-radius: 10px; margin: 25px 0; border: 2px solid #00ffcc; }
+        .top3-panel h3 { text-align: center; color: #00ffcc; margin-bottom: 15px; font-size: 1.2rem; font-weight: 600; }
+        .top3-item { display: flex; align-items: center; padding: 10px 15px; margin: 8px 0; background: rgba(0,255,204,0.05); border-radius: 8px; border-left: 3px solid #00ffcc; }
+        .medal { font-size: 1.3rem; margin-right: 12px; width: 35px; text-align: center; font-weight: bold; color: #ffaa00; }
         .top3-info { flex: 1; }
-        .top3-name { font-weight: bold; color: #fff; font-size: 1.1rem; }
-        .top3-desc { font-size: 0.85rem; color: #888; margin-top: 3px; }
-        .percentage { font-size: 1.5rem; font-weight: bold; color: #ffaa00; }
-        .top3-note { text-align: center; font-size: 0.8rem; color: #666; margin-top: 15px; }
+        .top3-name { font-weight: 600; color: #fff; font-size: 1rem; }
+        .top3-desc { font-size: 0.8rem; color: #888; margin-top: 2px; }
+        .percentage { font-size: 1.3rem; font-weight: bold; color: #ffaa00; }
+        .top3-note { text-align: center; font-size: 0.75rem; color: #666; margin-top: 12px; font-style: italic; }
         
         .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
         .stat-card { background: #1a1a1a; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #333; }
@@ -64,10 +65,11 @@
             <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
         </header>
 
+        <!-- ✅ TOP 3 TEMÁTICAS - Académico, sin emojis -->
         <div class="top3-panel">
-            <h3>🏆 TOP 3 Temáticas - Influencers Famosas (+1M seguidores)</h3>
-            <div id="top3-tematicas"><p style="text-align:center;color:#888">Cargando...</p></div>
-            <p class="top3-note">* Famosas = +1M seguidores en Douyin</p>
+            <h3>TOP 3 TEMÁTICAS - INFLUENCERS FAMOSAS</h3>
+            <div id="top3-tematicas"><p style="text-align:center;color:#888">Cargando datos...</p></div>
+            <p class="top3-note">* Influencers con más de 1 millón de seguidores en Douyin</p>
         </div>
 
         <div class="stats">
@@ -78,15 +80,15 @@
         </div>
 
         <div class="nav">
-            <div class="nav-item active" onclick="showSection('lista')">📋 LISTA</div>
-            <div class="nav-item" onclick="showSection('galeria')">🖼️ GALERÍA</div>
-            <div class="nav-item" onclick="showSection('ranking')">📊 RANKING</div>
-            <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
-            <div class="nav-item" onclick="showSection('metodo')">📚 MÉTODO</div>
+            <div class="nav-item active" onclick="showSection('lista')">LISTA</div>
+            <div class="nav-item" onclick="showSection('galeria')">GALERÍA</div>
+            <div class="nav-item" onclick="showSection('ranking')">RANKING</div>
+            <div class="nav-item" onclick="showSection('mapa')">MAPA</div>
+            <div class="nav-item" onclick="showSection('metodo')">MÉTODO</div>
         </div>
 
         <section id="lista" class="section active">
-            <h2 style="margin-bottom:15px;color:#00ffcc">📋 LISTA MAESTRA</h2>
+            <h2 style="margin-bottom:15px;color:#00ffcc">LISTA MAESTRA</h2>
             <p style="color:#888;margin-bottom:20px">"Cada creadora es un dato en el ecosistema Douyin"</p>
             <div class="tabla-container">
                 <table>
@@ -97,28 +99,28 @@
         </section>
 
         <section id="galeria" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">🖼️ GALERÍA</h2>
+            <h2 style="margin-bottom:20px;color:#00ffcc">GALERÍA</h2>
             <div id="galeria-cards" class="galeria"></div>
         </section>
 
         <section id="ranking" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">📊 RANKING</h2>
+            <h2 style="margin-bottom:20px;color:#00ffcc">RANKING</h2>
             <div id="barChart"></div>
         </section>
 
         <section id="mapa" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">🗺️ MAPA DE CHINA</h2>
+            <h2 style="margin-bottom:20px;color:#00ffcc">MAPA DE CHINA</h2>
             <div id="chinaMap"></div>
         </section>
 
         <section id="metodo" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">📚 MÉTODO ETNO-ECOLÓGICO</h2>
+            <h2 style="margin-bottom:20px;color:#00ffcc">MÉTODO ETNO-ECOLÓGICO</h2>
             <div class="metodo">
-                <h3>🔍 Enfoque</h3>
+                <h3>Enfoque</h3>
                 <ul><li>Observación participante en Douyin (2024-2026)</li><li>Mapeo de nichos por región, contenido y engagement</li><li>Análisis cualitativo + métricas cuantitativas</li></ul>
-                <h3>📊 Métricas clave</h3>
+                <h3>Métricas clave</h3>
                 <ul><li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li><li><strong>Origen:</strong> Provincia/ciudad de la creadora</li><li><strong>Nicho:</strong> Categoría principal de contenido</li></ul>
-                <h3>🌐 Visualización</h3>
+                <h3>Visualización</h3>
                 <ul><li>Mapa interactivo con ECharts</li><li>Ranking de engagement por creadora</li><li>Galería visual con filtros por nicho</li></ul>
             </div>
         </section>
@@ -140,7 +142,6 @@
         let cardsVisibles = 12;
         const cardsPorCarga = 12;
 
-        // ✅ FUNCIÓN PARA OBTENER PROPIEDADES (maneja espacios y mayúsculas)
         function getVal(obj, key) {
             if (!obj) return '';
             const keys = [key, key + ' ', key.toLowerCase(), key.toLowerCase() + ' ', 
@@ -157,14 +158,14 @@
             return typeof val === 'number' ? val : parseFloat(val) || 0;
         }
 
-        // ✅ TOP 3 TEMÁTICAS
+        // ✅ TOP 3 TEMÁTICAS - SIN EMOJIS
         function calcularTop3Tematicas() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
             
             const famosas = datos.filter(f => getNum(f, 'seguidores') >= 1);
             if (famosas.length === 0) {
-                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">📊 Sin influencers famosas (+1M)</p>';
+                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin influencers famosas (+1M seguidores)</p>';
                 return;
             }
             
@@ -181,14 +182,12 @@
                 .sort((a, b) => b.porcentaje - a.porcentaje)
                 .slice(0, 3);
             
-            const emojis = { danza: '💃', tradicional: '🎭', lifestyle: '👗', deportes: '🏃', musica: '🎵', arte: '🎨', cocina: '🍳', belleza: '💄', otras: '⭐' };
-            const medallas = ['🥇', '🥈', '🥉'];
+            const medallas = ['1.', '2.', '3.'];
             
             let html = '';
             top3.forEach((item, i) => {
-                const emoji = emojis[item.tematica] || '⭐';
                 const nombre = item.tematica.charAt(0).toUpperCase() + item.tematica.slice(1);
-                html += `<div class="top3-item"><div class="medal">${medallas[i]}</div><div class="top3-info"><div class="top3-name">${emoji} ${nombre}</div><div class="top3-desc">${item.count} de ${total} influencers famosas</div></div><div class="percentage">${item.porcentaje}%</div></div>`;
+                html += `<div class="top3-item"><div class="medal">${medallas[i]}</div><div class="top3-info"><div class="top3-name">${nombre}</div><div class="top3-desc">${item.count} de ${total} influencers famosas</div></div><div class="percentage">${item.porcentaje}%</div></div>`;
             });
             
             document.getElementById('top3-tematicas').innerHTML = html;
@@ -228,7 +227,7 @@
                 if (cardsVisibles < datos.length) {
                     const btnMas = document.createElement('div');
                     btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
-                    btnMas.innerHTML = `<button class="nav-item" onclick="cargarMasCards()" style="padding:12px 30px;font-size:16px;cursor:pointer;">📷 Ver más (${datos.length - cardsVisibles})</button>`;
+                    btnMas.innerHTML = `<button class="nav-item" onclick="cargarMasCards()" style="padding:12px 30px;font-size:16px;cursor:pointer;">Ver más (${datos.length - cardsVisibles})</button>`;
                     galeria.appendChild(btnMas);
                 }
             }
@@ -282,9 +281,9 @@
                     formatter: (p) => { 
                         const d = p.data; 
                         if (!d || !d.creadoras) return ''; 
-                        let h = '<b>' + d.cantidad + ' creadora' + (d.cantidad > 1 ? 's' : '') + '</b><br/>📍 Total: ' + d.totalSeguidores.toFixed(3) + 'M<br/><br/>'; 
+                        let h = '<b>' + d.cantidad + ' creadora' + (d.cantidad > 1 ? 's' : '') + '</b><br/>Total: ' + d.totalSeguidores.toFixed(3) + 'M<br/><br/>'; 
                         d.creadoras.forEach((c, i) => { 
-                            h += (i+1) + '. <b>' + c.nombre + '</b> (' + c.pinyin + ')<br/>   📍 ' + c.origen + '<br/>   🎨 ' + c.nicho + '<br/>   👥 ' + c.seguidores.toFixed(3) + 'M · 📈 ' + c.ratio.toFixed(2) + '<br/><br/>'; 
+                            h += (i+1) + '. <b>' + c.nombre + '</b> (' + c.pinyin + ')<br/>   ' + c.origen + '<br/>   ' + c.nicho + '<br/>   ' + c.seguidores.toFixed(3) + 'M · ' + c.ratio.toFixed(2) + '<br/><br/>'; 
                         }); 
                         return h.slice(0, -4); 
                     } 
@@ -328,7 +327,7 @@
                     trigger: 'axis', axisPointer: { type: 'shadow' }, 
                     formatter: p => { 
                         const f = top10[p[0].dataIndex]; 
-                        return '<b>' + getVal(f, 'nombre') + '</b> (' + getVal(f, 'pinyin') + ')<br/>📍 ' + getVal(f, 'origen') + '<br/>❤️ Likes: <b style="color:#00ffcc">' + getNum(f, 'like') + 'M</b><br/>👥 Seguidores: <b style="color:#ffaa00">' + getNum(f, 'seguidores').toFixed(2) + 'M</b><br/>📈 Ratio: <b style="color:#00ffcc">' + getNum(f, 'ratio').toFixed(2) + '</b>'; 
+                        return '<b>' + getVal(f, 'nombre') + '</b> (' + getVal(f, 'pinyin') + ')<br/>' + getVal(f, 'origen') + '<br/>Likes: <b style="color:#00ffcc">' + getNum(f, 'like') + 'M</b><br/>Seguidores: <b style="color:#ffaa00">' + getNum(f, 'seguidores').toFixed(2) + 'M</b><br/>Ratio: <b style="color:#00ffcc">' + getNum(f, 'ratio').toFixed(2) + '</b>'; 
                     } 
                 },
                 legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
@@ -377,15 +376,14 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
         document.getElementById('modal')?.addEventListener('click', function(e) { if (e.target === this) cerrarModal(); });
 
-        // ✅ INICIO - Esperar datos
         function iniciarApp() {
             if (typeof window.fichas === 'undefined' || !window.fichas || window.fichas.length === 0) {
-                console.log('⏳ Esperando datos...');
+                console.log('Esperando datos...');
                 setTimeout(iniciarApp, 100);
                 return;
             }
             
-            console.log('✅ Datos cargados:', window.fichas.length, 'creadoras');
+            console.log('Datos cargados:', window.fichas.length, 'creadoras');
             actualizarPagina();
             
             if (typeof echarts !== 'undefined') {
@@ -393,11 +391,11 @@
                     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
                     .then(chinaJson => {
                         echarts.registerMap('china', chinaJson);
-                        console.log('✅ Mapa registrado - Features:', chinaJson.features?.length);
+                        console.log('Mapa registrado - Features:', chinaJson.features?.length);
                     })
                     .catch(error => {
-                        console.error('❌ Error cargando china.json:', error);
-                        document.getElementById('chinaMap').innerHTML = '<div style="text-align:center;padding:80px;color:#ffaa00;"><h3>⚠️ Error mapa</h3><p>' + error.message + '</p></div>';
+                        console.error('Error cargando china.json:', error);
+                        document.getElementById('chinaMap').innerHTML = '<div style="text-align:center;padding:80px;color:#ffaa00;"><h3>Error mapa</h3><p>' + error.message + '</p></div>';
                     });
             }
         }
