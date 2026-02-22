@@ -1,4 +1,4 @@
-const fichas = [
+window.fichas = [
   {
     "nombre": "钱冰",
     "pinyin": "Qián Bīng",
