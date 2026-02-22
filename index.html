@@ -358,5 +358,78 @@
             }
         });
     </script>
+    <!-- PANEL TOP 3 TEMÁTICAS -->
+<div class="panel-top3">
+  <h3>🏆 TOP 3 Temáticas - Influencers Famosas</h3>
+  <div id="top3-tematicas"></div>
+  <small>* Famosas = +1M seguidores en Douyin</small>
+</div>
+
+<style>
+.panel-top3 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  color: white;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.panel-top3 h3 { margin: 0 0 1.5rem 0; font-size: 1.5rem; text-align: center; }
+.top3-item {
+  display: flex; align-items: center; margin: 1rem 0; padding: 1rem;
+  background: rgba(255,255,255,0.15); border-radius: 10px;
+  transition: transform 0.3s;
+}
+.top3-item:hover { transform: translateX(10px); }
+.medalla { font-size: 2.5rem; margin-right: 1rem; width: 50px; text-align: center; }
+.tematica-info { flex: 1; }
+.tematica-nombre { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.3rem; }
+.tematica-detalles { font-size: 0.9rem; opacity: 0.9; }
+.porcentaje { font-size: 2.5rem; font-weight: bold; color: #FFD700; }
+.panel-top3 small { display: block; text-align: center; margin-top: 1rem; opacity: 0.8; }
+</style>
+
+<script>
+function calcularTop3Tematicas() {
+  const cards = window.fichas || [];
+  const famosas = cards.filter(card => (card.seguidores_douyin || 0) >= 1000000);
+  
+  const conteo = {};
+  famosas.forEach(card => {
+    const t = card.tematica_principal || 'otras';
+    if (!conteo[t]) conteo[t] = { count: 0 };
+    conteo[t].count++;
+  });
+  
+  const total = famosas.length;
+  const top3 = Object.entries(conteo)
+    .map(([tematica, datos]) => ({
+      tematica,
+      count: datos.count,
+      porcentaje: Math.round((datos.count / total) * 100)
+    }))
+    .sort((a, b) => b.porcentaje - a.porcentaje)
+    .slice(0, 3);
+  
+  const emojis = { danza: '💃', tradicional: '🎭', lifestyle: '👗', deportes: '🏃', musica: '🎵', arte: '🎨', otras: '⭐' };
+  const medallas = ['🥇', '🥈', '🥉'];
+  
+  let html = total === 0 ? '<p style="text-align:center;padding:2rem">📊 Sin datos suficientes</p>' : '';
+  top3.forEach((item, i) => {
+    const emoji = emojis[item.tematica] || '⭐';
+    html += `<div class="top3-item"><div class="medalla">${medallas[i]}</div><div class="tematica-info"><div class="tematica-nombre">${emoji} ${item.tematica.charAt(0).toUpperCase()+item.tematica.slice(1)}</div><div class="tematica-detalles">${item.count} de ${total} influencers famosas</div></div><div class="porcentaje">${item.porcentaje}%</div></div>`;
+  });
+  
+  document.getElementById('top3-tematicas').innerHTML = html;
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', calcularTop3Tematicas);
+} else {
+  calcularTop3Tematicas();
+}
+setInterval(calcularTop3Tematicas, 30000);
+</script>
 </body>
 </html>
