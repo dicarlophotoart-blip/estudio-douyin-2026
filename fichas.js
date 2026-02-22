@@ -11,7 +11,9 @@ window.fichas = [
     "coord_y": 30.57,
     "archivo": "Giovanna.jpg",
     "nicho": "Alto impacto",
-    "tematica_principal": "lifestyle"
+    "tematica_principal": "lifestyle",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "隙晓暮",
@@ -25,7 +27,9 @@ window.fichas = [
     "coord_y": 39.9,
     "archivo": "pipa.jpg",
     "nicho": "Pipa + Hanfu",
-    "tematica_principal": "tradicional"
+    "tematica_principal": "tradicional",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "Mimi 蛋儿",
@@ -39,7 +43,9 @@ window.fichas = [
     "coord_y": 22.27,
     "archivo": "mimi.jpg",
     "nicho": "Jazz dance",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "妮老师",
@@ -53,7 +59,9 @@ window.fichas = [
     "coord_y": 26.08,
     "archivo": "bailarina.jpg",
     "nicho": "Humor/Musical 搞怪",
-    "tematica_principal": "musica"
+    "tematica_principal": "musica",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "刘太阳",
@@ -67,7 +75,9 @@ window.fichas = [
     "coord_y": 40.82,
     "archivo": "Han Liang.jpg",
     "nicho": "Fitness étnico",
-    "tematica_principal": "deportes"
+    "tematica_principal": "deportes",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "飞天小麻花",
@@ -81,7 +91,9 @@ window.fichas = [
     "coord_y": 39.9,
     "archivo": "wusguiajpg.jpg",
     "nicho": "Wushu competitivo",
-    "tematica_principal": "deportes"
+    "tematica_principal": "deportes",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "郭喆喆",
@@ -95,7 +107,9 @@ window.fichas = [
     "coord_y": 29.56,
     "archivo": "zhezhe.jpg",
     "nicho": "Danza Han/Tang",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "猫姨",
@@ -109,7 +123,9 @@ window.fichas = [
     "coord_y": 30.57,
     "archivo": "Miaomiao.jpg",
     "nicho": "Baile urbano 微胖御姐",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "Angier 安琦",
@@ -123,7 +139,9 @@ window.fichas = [
     "coord_y": 41.8,
     "archivo": "ngjkkm.jpg",
     "nicho": "Baile urbano + hime-cut",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "卢柔伊",
@@ -137,7 +155,9 @@ window.fichas = [
     "coord_y": 30.28,
     "archivo": "guzheng.jpg",
     "nicho": "Guzheng innovador",
-    "tematica_principal": "musica"
+    "tematica_principal": "musica",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "小白狮杨姐",
@@ -151,7 +171,9 @@ window.fichas = [
     "coord_y": 34.34,
     "archivo": "leon blanco.jpg",
     "nicho": "Danza león blanco",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "墨尔本获宝",
@@ -165,7 +187,9 @@ window.fichas = [
     "coord_y": 31.23,
     "archivo": "cocinera.jpg",
     "nicho": "Contenido lifestyle",
-    "tematica_principal": "lifestyle"
+    "tematica_principal": "lifestyle",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "小七。",
@@ -179,7 +203,9 @@ window.fichas = [
     "coord_y": 30.57,
     "archivo": "xiao qi.jpg",
     "nicho": "Contenido lifestyle",
-    "tematica_principal": "lifestyle"
+    "tematica_principal": "lifestyle",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "刘书含",
@@ -193,7 +219,9 @@ window.fichas = [
     "coord_y": 41.8,
     "archivo": "Rose.jpg",
     "nicho": "Ópera moderna 戏腔",
-    "tematica_principal": "musica"
+    "tematica_principal": "musica",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "秋月凉 L",
@@ -207,7 +235,9 @@ window.fichas = [
     "coord_y": 30.57,
     "archivo": "liang.jpg",
     "nicho": "Hanfu cinematográfico + cosplay",
-    "tematica_principal": "tradicional"
+    "tematica_principal": "tradicional",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "刘荇羽",
@@ -221,7 +251,9 @@ window.fichas = [
     "coord_y": 29.56,
     "archivo": "muralista.jpg",
     "nicho": "Murales en relieve",
-    "tematica_principal": "arte"
+    "tematica_principal": "arte",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "潇洒小柴",
@@ -235,7 +267,9 @@ window.fichas = [
     "coord_y": 28.23,
     "archivo": "pesakawai.jpg",
     "nicho": "Fitness kawaii",
-    "tematica_principal": "deportes"
+    "tematica_principal": "deportes",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "小鹤 owo",
@@ -249,7 +283,9 @@ window.fichas = [
     "coord_y": 26.08,
     "archivo": "owo (2).jpg",
     "nicho": "Cosplay + gaming",
-    "tematica_principal": "otras"
+    "tematica_principal": "otras",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "缘妙妙",
@@ -263,7 +299,9 @@ window.fichas = [
     "coord_y": 31.86,
     "archivo": "miaoma.jpg",
     "nicho": "Pintura budista",
-    "tematica_principal": "arte"
+    "tematica_principal": "arte",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "林苒",
@@ -277,7 +315,9 @@ window.fichas = [
     "coord_y": 32,
     "archivo": "linra.jpg",
     "nicho": "Hanfu + danza tradicional",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "拿铁笛子",
@@ -291,7 +331,9 @@ window.fichas = [
     "coord_y": 38.91,
     "archivo": "barbiepesas.jpg",
     "nicho": "Fitness IFBB Pro",
-    "tematica_principal": "deportes"
+    "tematica_principal": "deportes",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   },
   {
     "nombre": "罗斯露Rose",
@@ -305,6 +347,24 @@ window.fichas = [
     "coord_y": 30.67,
     "archivo": "Rose.jpg",
     "nicho": "Danza latina Olímpica",
-    "tematica_principal": "danza"
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": 1513
+  },
+  {
+    "nombre": "纸鱼",
+    "pinyin": "Zhǐ Yú",
+    "seguidores": 1.051,
+    "like": 13.936,
+    "ratio": 13.26,
+    "origen": "Zhejiang",
+    "provincia": "浙江省",
+    "coord_x": 120.15,
+    "coord_y": 0.28,
+    "archivo": "pezpapel.jpg",
+    "nicho": "Modelaje/Cosplay",
+    "tematica_principal": "lifestyle",
+    "Fecha inicio": "",
+    "Meses activa": 1513
   }
 ];
