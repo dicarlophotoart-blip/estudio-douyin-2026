@@ -64,16 +64,20 @@
             <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
         </header>
 
-        <!-- ✅ PANEL TOP 3 - Versión corregida -->
+        <!-- ✅ PANEL TOP 3 - Versión final con marco analítico completo -->
         <div class="top3-panel">
-            <h3>TOP 3 TEMÁTICAS - CREADORAS MID-TIER (1-5M)</h3>
+            <h3>TOP 3 TEMÁTICAS - CREADORAS DESTACADAS</h3>
             <div id="top3-tematicas"><p style="text-align:center;color:#888">Cargando datos...</p></div>
             
             <div style="margin-top:15px;padding:12px;background:rgba(0,255,204,0.03);border-radius:6px;border-left:2px solid #00ffcc;font-size:0.72rem;color:#aaa;line-height:1.4;">
-                <strong style="color:#00ffcc">Escala china (Douyin):</strong><br>
-                • 🌟 Mega: ≥10M | 🔷 Macro: 5-10M | 🔹 Mid-tier: 1-5M ← este estudio<br><br>
+                <strong style="color:#00ffcc">Marco analítico (escala china Douyin):</strong><br>
+                • 🌟 Mega: ≥10M | 🔷 Macro: 5-10M | 🔹 Mid-tier: 1-5M | 🔸 Micro: <1M<br>
+                • <em style="color:#aaa">Este estudio aplica esta escala para clasificar y comparar creadoras</em><br><br>
+                <strong style="color:#ffaa00">Composición de la muestra actual:</strong><br>
+                • 16 creadoras Mid-tier (1-5M) + 6 Micro (<1M) = 22 total<br>
+                • Todas seleccionadas por excelencia estética, talento y valor cultural<br><br>
                 <strong style="color:#ffaa00">Hallazgo:</strong><br>
-                Engagement 15-31 en mid-tier sugiere conexión intensa por excelencia.<br>
+                Engagement 15-31 en creadoras destacadas sugiere conexión intensa por excelencia.<br>
                 <em style="color:#888">Nota: Métricas sin ajuste temporal (dato no disponible en Douyin)</em>
             </div>
             
@@ -216,7 +220,7 @@
             
             const famosas = datos.filter(f => getNum(f, 'seguidores') >= 1);
             if (famosas.length === 0) {
-                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin creadoras mid-tier (≥1M seguidores)</p>';
+                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin creadoras destacadas (≥1M seguidores)</p>';
                 return;
             }
             
@@ -347,7 +351,7 @@
                 },
                 series: [{ 
                     name: 'Puntos', type: 'scatter', coordinateSystem: 'geo', 
-                    data: puntosData, 
+                     puntosData, 
                     symbol: 'circle', symbolSize: v => Math.max(12, Math.min(60, v[2]*10 + Math.sqrt(v[2])*5)), 
                     label: { show: true, formatter: p => p.data.cantidad > 1 ? p.data.cantidad : '', position: 'inside', color: '#000', fontSize: 12, fontWeight: 'bold' }, 
                     itemStyle: { color: p => p.data.cantidad > 1 ? '#ffaa00' : '#00ffcc', borderColor: '#fff', borderWidth: 2, shadowBlur: 10 }, 
@@ -384,7 +388,7 @@
                 legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
                 grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
                 xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-                yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+                yAxis: { type: 'category',  nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
                 series: [
                     { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
                     { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
@@ -446,7 +450,7 @@
                     })
                     .catch(error => {
                         console.error('Error cargando china.json:', error);
-                        document.getElementById('chinaMap').innerHTML = '<div style="text-align:center;padding:80px;color:#ffaa00;"><h3>Error mapa</h3><p>' + error.message + '</p></div>';
+                        document.getElementById('chinaMap').innerHTML = '<div style="text-align:center;padding:80px;color:#ffaa00;"><h3>Mapa no disponible</h3><p>china.json no encontrado en el repositorio</p></div>';
                     });
             }
         }
