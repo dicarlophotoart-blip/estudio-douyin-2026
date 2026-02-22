@@ -3,52 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Douyin 抖音 | Estudio Etno-Ecológico de Nichos 2026</title>
+    <title>Douyin 抖音 - Estudio Etno-Ecológico 2026</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; padding: 30px 20px; border-bottom: 1px solid #333; margin-bottom: 30px; }
-        header h1 { font-size: 1.8rem; margin-bottom: 10px; color: #00ffcc; }
-        header p { color: #888; font-size: 0.95rem; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
-        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #333; }
-        .stat-card .number { font-size: 1.8rem; font-weight: bold; color: #00ffcc; }
-        .stat-card .label { font-size: 0.85rem; color: #888; margin-top: 5px; }
-        .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; justify-content: center; }
-        .nav-item { padding: 10px 20px; background: #1a1a1a; border: 1px solid #333; border-radius: 25px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; }
-        .nav-item:hover, .nav-item.active { background: #00ffcc; color: #000; border-color: #00ffcc; }
-        .section { display: none; animation: fadeIn 0.3s ease; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        header { text-align: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 3px solid #667eea; }
+        h1 { color: #667eea; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center; }
+        .stat-card h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .stat-card p { opacity: 0.9; }
+        .nav { display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0; justify-content: center; }
+        .nav button { padding: 1rem 2rem; border: none; border-radius: 10px; background: #667eea; color: white; cursor: pointer; font-size: 1rem; transition: transform 0.2s; }
+        .nav button:hover { transform: translateY(-2px); background: #764ba2; }
+        .nav button.active { background: #764ba2; }
+        .section { display: none; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-        .card { background: #1a1a1a; border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s; border: 1px solid #333; }
-        .card:hover { transform: translateY(-5px); border-color: #00ffcc; }
-        .card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
-        .tabla-container { overflow-x: auto; background: #1a1a1a; border-radius: 10px; padding: 15px; border: 1px solid #333; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; font-size: 0.9rem; }
-        th { color: #00ffcc; font-weight: 600; position: sticky; top: 0; background: #1a1a1a; }
-        tr:hover { background: #252525; }
-        #chinaMap { width: 100%; height: 600px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333; }
-        #barChart { width: 100%; height: 500px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333; margin-top: 20px; }
-        .metodo { background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #333; line-height: 1.8; }
-        .metodo h3 { color: #00ffcc; margin-bottom: 15px; }
-        .metodo ul { margin-left: 20px; margin-bottom: 15px; }
-        footer { text-align: center; padding: 30px 20px; margin-top: 40px; border-top: 1px solid #333; color: #888; font-size: 0.9rem; }
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
-        #modal.active { display: flex; }
-        #modal-img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 2px solid #00ffcc; }
-        .modal-close { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer; }
-        .modal-close:hover { color: #00ffcc; }
-        @media (max-width: 768px) {
-            .galeria { grid-template-columns: repeat(2, 1fr); }
-            .card-img { height: 180px; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .nav { flex-wrap: wrap; }
-            .nav-item { padding: 8px 15px; font-size: 0.85rem; }
-        }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .card { background: #f8f9fa; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card h3 { color: #667eea; margin-bottom: 0.5rem; }
+        .card p { margin: 0.3rem 0; color: #666; }
+        .top3-panel { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 15px; color: white; margin: 2rem auto; max-width: 800px; }
+        .top3-panel h3 { text-align: center; margin-bottom: 1.5rem; }
+        .top3-item { display: flex; align-items: center; margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 10px; }
+        .medal { font-size: 2.5rem; margin-right: 1rem; width: 50px; text-align: center; }
+        .percentage { font-size: 2.5rem; font-weight: bold; color: #FFD700; margin-left: auto; }
+        #map-container { width: 100%; height: 600px; margin: 2rem 0; }
+        .load-more { text-align: center; margin: 2rem 0; }
+        .load-more button { padding: 1rem 3rem; background: #667eea; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1rem; }
+        footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #eee; color: #666; }
     </style>
 </head>
 <body>
@@ -57,316 +42,330 @@
             <h1>Douyin 抖音</h1>
             <p>ESTUDIO ETNO-ECOLÓGICO DE NICHOS EN DOUYIN 2026</p>
             <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
-        </header><!-- PANEL TOP 3 TEMÁTICAS -->
-<div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:2rem;border-radius:15px;color:white;margin:2rem auto;max-width:800px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-  <h3 style="margin:0 0 1.5rem 0;font-size:1.5rem;text-align:center">🏆 TOP 3 Temáticas - Influencers Famosas</h3>
-  <div id="top3-tematicas"></div>
-  <small style="display:block;text-align:center;margin-top:1rem;opacity:0.8">* Famosas = +1M seguidores en Douyin</small>
-</div>
-<script>
-function calcularTop3Tematicas(){const cards=window.fichas||[];const famosas=cards.filter(c=>(c.seguidores||0)>=1);const conteo={};famosas.forEach(c=>{const t=c.tematica_principal||'otras';if(!conteo[t])conteo[t]={count:0};conteo[t].count++;});const total=famosas.length;if(total===0){document.getElementById('top3-tematicas').innerHTML='<p style="text-align:center;padding:2rem">📊 Sin datos suficientes</p>';return;}const top3=Object.entries(conteo).map(([t,d])=>({tematica:t,count:d.count,porcentaje:Math.round((d.count/total)*100)})).sort((a,b)=>b.porcentaje-a.porcentaje).slice(0,3);const emojis={danza:'💃',tradicional:'🎭',lifestyle:'👗',deportes:'🏃',musica:'🎵',arte:'🎨',otras:'⭐'};const medallas=['🥇','🥈','🥉'];let html='';top3.forEach((item,i)=>{const emoji=emojis[item.tematica]||'⭐';html+='<div style="display:flex;align-items:center;margin:1rem 0;padding:1rem;background:rgba(255,255,255,0.15);border-radius:10px;"><div style="font-size:2.5rem;margin-right:1rem;width:50px;text-align:center">'+medallas[i]+'</div><div style="flex:1"><div style="font-size:1.2rem;font-weight:bold;margin-bottom:0.3rem">'+emoji+' '+item.tematica.charAt(0).toUpperCase()+item.tematica.slice(1)+'</div><div style="font-size:0.9rem;opacity:0.9">'+item.count+' de '+total+' influencers famosas</div></div><div style="font-size:2.5rem;font-weight:bold;color:#FFD700">'+item.porcentaje+'%</div></div>';});document.getElementById('top3-tematicas').innerHTML=html;}
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',calcularTop3Tematicas);}else{calcularTop3Tematicas();}
-setInterval(calcularTop3Tematicas,30000);
-</script>
+        </header>
+
+        <!-- PANEL TOP 3 TEMÁTICAS -->
+        <div class="top3-panel">
+            <h3>🏆 TOP 3 Temáticas - Influencers Famosas</h3>
+            <div id="top3-tematicas"></div>
+            <small style="display:block;text-align:center;margin-top:1rem;opacity:0.8">* Famosas = +1M seguidores en Douyin</small>
+        </div>
 
         <div class="stats">
-            <div class="stat-card"><div class="number" id="total-fichas">0</div><div class="label">Creadoras</div></div>
-            <div class="stat-card"><div class="number" id="max-seguidores">0</div><div class="label">Máx seguidores</div></div>
-            <div class="stat-card"><div class="number" id="max-ratio">0</div><div class="label">Máx ratio</div></div>
-            <div class="stat-card"><div class="number" id="total-regiones">0</div><div class="label">Regiones</div></div>
+            <div class="stat-card">
+                <h3 id="total-creadoras">0</h3>
+                <p>Creadoras</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="max-seguidores">0</h3>
+                <p>Máx seguidores</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="max-ratio">0</h3>
+                <p>Máx ratio</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="total-regiones">0</h3>
+                <p>Regiones</p>
+            </div>
         </div>
 
         <div class="nav">
-            <div class="nav-item active" onclick="showSection('lista')">📋 LISTA</div>
-            <div class="nav-item" onclick="showSection('galeria')">🖼️ GALERÍA</div>
-            <div class="nav-item" onclick="showSection('ranking')">📊 RANKING</div>
-            <div class="nav-item" onclick="showSection('mapa')">🗺️ MAPA</div>
-            <div class="nav-item" onclick="showSection('metodo')">📚 MÉTODO</div>
+            <button class="active" onclick="showSection('lista')">📋 LISTA</button>
+            <button onclick="showSection('galeria')">🖼️ GALERÍA</button>
+            <button onclick="showSection('ranking')">📊 RANKING</button>
+            <button onclick="showSection('mapa')">🗺️ MAPA</button>
         </div>
 
-        <section id="lista" class="section active">
-            <h2 style="margin-bottom:15px;color:#00ffcc">📋 LISTA MAESTRA</h2>
-            <p style="color:#888;margin-bottom:20px">"Cada creadora es un dato en el ecosistema Douyin"</p>
-            <div class="tabla-container">
-                <table>
-                    <thead><tr><th>Nombre</th><th>Seguidores</th><th>Likes</th><th>Ratio</th><th>Origen</th><th>Nicho</th></tr></thead>
-                    <tbody id="tabla-body"></tbody>
-                </table>
+        <div id="lista" class="section active">
+            <h2>📋 LISTA MAESTRA</h2>
+            <p style="color:#666;margin:1rem 0">"Cada creadora es un dato en el ecosistema Douyin"</p>
+            <div class="cards-grid" id="cards-container"></div>
+            <div class="load-more">
+                <button onclick="loadMore()">Cargar más</button>
             </div>
-        </section>
+        </div>
 
-        <section id="galeria" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">🖼️ GALERÍA</h2>
-            <div id="galeria-cards" class="galeria"></div>
-        </section>
+        <div id="galeria" class="section">
+            <h2>🖼️ GALERÍA</h2>
+            <div class="cards-grid" id="galeria-container"></div>
+        </div>
 
-        <section id="ranking" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">📊 RANKING</h2>
-            <div id="barChart"></div>
-        </section>
+        <div id="ranking" class="section">
+            <h2>📊 RANKING</h2>
+            <div id="ranking-container"></div>
+        </div>
 
-        <section id="mapa" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">🗺️ MAPA DE CHINA</h2>
-            <div id="chinaMap"></div>
-        </section>
-
-        <section id="metodo" class="section">
-            <h2 style="margin-bottom:20px;color:#00ffcc">📚 MÉTODO ETNO-ECOLÓGICO</h2>
-            <div class="metodo">
-                <h3>🔍 Enfoque</h3>
-                <ul>
-                    <li>Observación participante en Douyin (2024-2026)</li>
-                    <li>Mapeo de nichos por región, contenido y engagement</li>
-                    <li>Análisis cualitativo + métricas cuantitativas</li>
-                </ul>
-                <h3>📊 Métricas clave</h3>
-                <ul>
-                    <li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li>
-                    <li><strong>Origen:</strong> Provincia/ciudad de la creadora</li>
-                    <li><strong>Nicho:</strong> Categoría principal de contenido</li>
-                </ul>
-                <h3>🌐 Visualización</h3>
-                <ul>
-                    <li>Mapa interactivo con ECharts</li>
-                    <li>Ranking de engagement por creadora</li>
-                    <li>Galería visual con filtros por nicho</li>
-                </ul>
-                <p style="margin-top:20px;color:#888;font-size:0.9rem">
-                    <strong>Nota:</strong> Este estudio documenta tendencias emergentes en Douyin. 
-                    Los datos son públicos y se actualizan mensualmente.
-                </p>
-            </div>
-        </section>
+        <div id="mapa" class="section">
+            <h2>🗺️ MAPA DE DISTRIBUCIÓN</h2>
+            <div id="map-container"></div>
+        </div>
 
         <footer>
             <p>Estudio Etno-Ecológico de Nichos en Douyin 2026</p>
-            <p style="margin-top:10px">Juan Carlos Delgado · Marzo 2026</p>
-            <p id="footer-fichas" style="margin-top:10px;color:#666">0 creadoras · 30,500+ comunidad</p>
-            <p style="margin-top:20px;font-size:0.85rem;color:#666">
-                📱 <strong>VERSIÓN MÓVIL:</strong> Optimizada para computadora. 
-                En móvil, la galería se ve en 2 columnas, el mapa puede no cargar.
-            </p>
-            <p style="margin-top:10px;font-size:0.85rem;color:#444">visitas</p>
+            <p>Juan Carlos Delgado · Marzo 2026</p>
         </footer>
-    </div>
-
-    <!-- Modal para imágenes -->
-    <div id="modal" onclick="cerrarModal()">
-        <span class="modal-close">&times;</span>
-        <img id="modal-img" src="" alt="Vista ampliada">
     </div>
 
     <!-- Scripts: PRIMERO fichas.js (datos), DESPUÉS el resto -->
     <script src="fichas.js"></script>
     <script>
+        // ============================================
+        // FUNCIONES AUXILIARES - Manejan espacios en propiedades
+        // ============================================
+        function getProp(card, key) {
+            return card[key] || card[key + ' '] || card[key.toLowerCase()] || card[key.toLowerCase() + ' '] || '';
+        }
+        
+        function getNum(card, key) {
+            const val = getProp(card, key);
+            return typeof val === 'number' ? val : parseFloat(val) || 0;
+        }
+
+        // ============================================
+        // VARIABLES GLOBALES
+        // ============================================
         let cardsVisibles = 12;
         const cardsPorCarga = 12;
+        let mapInstance = null;
 
+        // ============================================
+        // ACTUALIZAR PÁGINA - Stats principales
+        // ============================================
         function actualizarPagina() {
-            if (!fichas || fichas.length === 0) return;
-            const porSeguidores = [...fichas].sort((a, b) => b.seguidores - a.seguidores);
+            const cards = window.fichas || [];
             
-            if (document.getElementById('total-fichas')) document.getElementById('total-fichas').textContent = fichas.length;
-            if (document.getElementById('max-seguidores')) document.getElementById('max-seguidores').textContent = porSeguidores[0].seguidores.toFixed(2) + 'M';
-            if (document.getElementById('max-ratio')) document.getElementById('max-ratio').textContent = Math.max(...fichas.map(f => f.ratio)).toFixed(2);
-            const regiones = new Set(fichas.map(f => f.origen.split(',')[0].trim()));
-            if (document.getElementById('total-regiones')) document.getElementById('total-regiones').textContent = regiones.size;
-            if (document.getElementById('footer-fichas')) document.getElementById('footer-fichas').textContent = fichas.length + ' creadoras · 30,500+ comunidad';
+            document.getElementById('total-creadoras').textContent = cards.length;
             
-            const tbody = document.getElementById('tabla-body');
-            if (tbody) {
-                tbody.innerHTML = '';
-                porSeguidores.forEach(f => {
-                    tbody.innerHTML += '<tr><td>' + f.nombre + ' (' + f.pinyin + ')</td><td>' + f.seguidores.toFixed(3) + 'M</td><td>' + f.likes + 'M</td><td>' + f.ratio.toFixed(2) + '</td><td>' + f.origen + '</td><td>' + f.nicho + '</td></tr>';
-                });
-            }
+            const maxSeguidores = cards.reduce((max, c) => {
+                const seg = getNum(c, 'seguidores');
+                return seg > max ? seg : max;
+            }, 0);
+            document.getElementById('max-seguidores').textContent = maxSeguidores.toFixed(2) + 'M';
             
-            const galeria = document.getElementById('galeria-cards');
-            if (galeria) {
-                galeria.innerHTML = '';
-                fichas.slice(0, cardsVisibles).forEach(f => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.onclick = (e) => { e.stopPropagation(); abrirModal(f.archivo); };
-                    card.innerHTML = '<img src="https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(f.archivo) + '" class="card-img" loading="lazy">';
-                    galeria.appendChild(card);
-                });
-                if (cardsVisibles < fichas.length) {
-                    const btnMas = document.createElement('div');
-                    btnMas.style.cssText = 'grid-column: 1/-1; text-align: center; margin: 30px 0;';
-                    btnMas.innerHTML = '<button class="nav-item" onclick="cargarMasCards()" style="padding:12px 30px;font-size:16px;cursor:pointer;">📷 Ver más creadoras (' + (fichas.length - cardsVisibles) + ' restantes)</button>';
-                    galeria.appendChild(btnMas);
-                }
-            }
+            const maxRatio = cards.reduce((max, c) => {
+                const ratio = getNum(c, 'ratio');
+                return ratio > max ? ratio : max;
+            }, 0);
+            document.getElementById('max-ratio').textContent = maxRatio.toFixed(2) + '%';
+            
+            const regiones = new Set(cards.map(c => getProp(c, 'provincia') || 'Sin confirmar'));
+            document.getElementById('total-regiones').textContent = regiones.size;
+            
+            renderCards(cards.slice(0, cardsVisibles));
         }
 
-        function cargarMasCards() {
-            cardsVisibles += cardsPorCarga;
-            actualizarPagina();
-            const galeria = document.getElementById('galeria');
-            if (galeria) galeria.scrollIntoView({ behavior: 'smooth' });
+        // ============================================
+        // RENDERIZAR CARDS
+        // ============================================
+        function renderCards(cards) {
+            const container = document.getElementById('cards-container');
+            if (!container) return;
+            
+            container.innerHTML = cards.map(c => `
+                <div class="card">
+                    <h3>${getProp(c, 'nombre') || 'Sin nombre'}</h3>
+                    <p><strong>Pinyin:</strong> ${getProp(c, 'pinyin') || 'N/A'}</p>
+                    <p><strong>Seguidores:</strong> ${getNum(c, 'seguidores').toFixed(2)}M</p>
+                    <p><strong>Likes:</strong> ${getNum(c, 'like').toFixed(1)}M</p>
+                    <p><strong>Ratio:</strong> ${getNum(c, 'ratio').toFixed(2)}%</p>
+                    <p><strong>Origen:</strong> ${getProp(c, 'origen') || 'N/A'}</p>
+                    <p><strong>Provincia:</strong> ${getProp(c, 'provincia') || 'N/A'}</p>
+                    <p><strong>Nicho:</strong> ${getProp(c, 'nicho') || 'N/A'}</p>
+                    <p><strong>Temática:</strong> ${getProp(c, 'tematica_principal') || 'N/A'}</p>
+                </div>
+            `).join('');
         }
 
+        // ============================================
+        // GALERÍA
+        // ============================================
+        function renderGaleria() {
+            const cards = window.fichas || [];
+            const container = document.getElementById('galeria-container');
+            if (!container) return;
+            
+            container.innerHTML = cards.map(c => `
+                <div class="card">
+                    <h3>${getProp(c, 'nombre') || 'Sin nombre'}</h3>
+                    <p><strong>Archivo:</strong> ${getProp(c, 'archivo') || 'N/A'}</p>
+                    <p><strong>Seguidores:</strong> ${getNum(c, 'seguidores').toFixed(2)}M</p>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // RANKING
+        // ============================================
+        function generarRanking() {
+            const cards = window.fichas || [];
+            const container = document.getElementById('ranking-container');
+            if (!container) return;
+            
+            const ranking = [...cards].sort((a, b) => getNum(b, 'seguidores') - getNum(a, 'seguidores'));
+            
+            container.innerHTML = `
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#667eea;color:white;">
+                            <th style="padding:1rem;text-align:left;">#</th>
+                            <th style="padding:1rem;text-align:left;">Nombre</th>
+                            <th style="padding:1rem;text-align:right;">Seguidores</th>
+                            <th style="padding:1rem;text-align:right;">Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${ranking.map((c, i) => `
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:1rem;">${i + 1}</td>
+                                <td style="padding:1rem;">${getProp(c, 'nombre') || 'Sin nombre'}</td>
+                                <td style="padding:1rem;text-align:right;">${getNum(c, 'seguidores').toFixed(2)}M</td>
+                                <td style="padding:1rem;text-align:right;">${getNum(c, 'ratio').toFixed(2)}%</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // ============================================
+        // MAPA
+        // ============================================
         function generarMapa() {
-            const mapDiv = document.getElementById('chinaMap');
-            if (!mapDiv) return;
-            let chart = echarts.getInstanceByDom(mapDiv);
-            if (chart) echarts.dispose(chart);
-            chart = echarts.init(mapDiv);
+            const cards = window.fichas || [];
+            const container = document.getElementById('map-container');
+            if (!container) return;
             
-            const fichasConCoordenadas = fichas.filter(f => f.coord && Array.isArray(f.coord) && f.coord.length === 2);
-            const grupos = {};
-            fichasConCoordenadas.forEach(f => {
-                const key = f.coord[0] + ',' + f.coord[1];
-                if (!grupos[key]) grupos[key] = { coord: f.coord, creadoras: [], total: 0 };
-                grupos[key].creadoras.push(f);
-                grupos[key].total += f.seguidores;
-            });
+            if (mapInstance) {
+                mapInstance.dispose();
+            }
             
-            const puntosData = Object.values(grupos).map(g => ({
-                name: g.creadoras.length > 1 ? g.creadoras.length + ' creadoras' : g.creadoras[0].nombre,
-                value: [...g.coord, g.creadoras.length],
-                cantidad: g.creadoras.length,
-                creadoras: g.creadoras.map(c => ({ nombre: c.nombre, pinyin: c.pinyin, origen: c.origen, nicho: c.nicho, seguidores: c.seguidores, ratio: c.ratio })),
-                totalSeguidores: g.total
-            }));
+            mapInstance = echarts.init(container);
+            
+            const data = cards.map(c => ({
+                name: getProp(c, 'nombre') || 'Sin nombre',
+                value: [getNum(c, 'coord_x'), getNum(c, 'coord_y'), getNum(c, 'seguidores')]
+            })).filter(d => d.value[0] && d.value[1]);
             
             const option = {
-                backgroundColor: '#1a1a1a',
-                title: { text: 'Distribución de ' + fichasConCoordenadas.length + ' creadoras', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
-                tooltip: { 
-                    trigger: 'item', 
-                    formatter: (p) => { 
-                        const d = p.data; 
-                        if (!d || !d.creadoras) return ''; 
-                        let h = '<b>' + d.cantidad + ' creadora' + (d.cantidad > 1 ? 's' : '') + '</b><br/>📍 Total: ' + d.totalSeguidores.toFixed(3) + 'M<br/><br/>'; 
-                        d.creadoras.forEach((c, i) => { 
-                            h += (i+1) + '. <b>' + c.nombre + '</b> (' + c.pinyin + ')<br/>   📍 ' + c.origen + '<br/>   🎨 ' + c.nicho + '<br/>   👥 ' + c.seguidores.toFixed(3) + 'M · 📈 ' + c.ratio.toFixed(2) + '<br/><br/>'; 
-                        }); 
-                        return h.slice(0, -4); 
-                    } 
+                geo: {
+                    map: 'china',
+                    roam: true,
+                    label: { show: true, color: '#333' },
+                    itemStyle: {
+                        areaColor: '#f0f0f0',
+                        borderColor: '#667eea',
+                        borderWidth: 1
+                    }
                 },
-                geo: { 
-                    map: 'china', roam: true, zoom: 1.2, 
-                    label: { show: true, color: '#fff', fontSize: 9 }, 
-                    itemStyle: { areaColor: '#1a1a1a', borderColor: '#00ffcc', borderWidth: 1 }, 
-                    emphasis: { itemStyle: { areaColor: '#2a2a2a' } } 
-                },
-                series: [{ 
-                    name: 'Puntos', type: 'scatter', coordinateSystem: 'geo', data: puntosData, 
-                    symbol: 'circle', symbolSize: v => Math.max(12, Math.min(60, v[2]*10 + Math.sqrt(v[2])*5)), 
-                    label: { show: true, formatter: p => p.data.cantidad > 1 ? p.data.cantidad : '', position: 'inside', color: '#000', fontSize: 12, fontWeight: 'bold' }, 
-                    itemStyle: { color: p => p.data.cantidad > 1 ? '#ffaa00' : '#00ffcc', borderColor: '#fff', borderWidth: 2, shadowBlur: 10 }, 
-                    emphasis: { itemStyle: { color: p => p.data.cantidad > 1 ? '#ffcc00' : '#00ffff', borderWidth: 4 } } 
+                series: [{
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: data,
+                    symbolSize: 12,
+                    itemStyle: { color: '#667eea' },
+                    label: { show: true, formatter: '{b}', position: 'right' }
                 }]
             };
-            chart.setOption(option);
-            window.addEventListener('resize', () => chart.resize());
+            
+            mapInstance.setOption(option);
         }
 
-        function generarRanking() {
-            const chartDiv = document.getElementById('barChart');
-            if (!chartDiv) return;
-            let chart = echarts.getInstanceByDom(chartDiv);
-            if (chart) echarts.dispose(chart);
-            chart = echarts.init(chartDiv);
+        // ============================================
+        // TOP 3 TEMÁTICAS
+        // ============================================
+        function calcularTop3Tematicas() {
+            const cards = window.fichas || [];
+            const famosas = cards.filter(c => getNum(c, 'seguidores') >= 1);
+            const conteo = {};
             
-            const top10 = [...fichas].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
-            const nombres = top10.map(f => f.nombre + '\n' + f.pinyin);
-            const likesData = top10.map(f => f.likes);
-            const seguidoresData = top10.map(f => f.seguidores);
+            famosas.forEach(c => {
+                const t = getProp(c, 'tematica_principal') || 'otras';
+                if (!conteo[t]) conteo[t] = { count: 0 };
+                conteo[t].count++;
+            });
             
-            const option = {
-                backgroundColor: '#1a1a1a',
-                title: { text: 'Top 10: Likes vs Seguidores', subtext: 'Cyan = Likes | Naranja = Seguidores', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 }, subtextStyle: { color: '#888', fontSize: 11 } },
-                tooltip: { 
-                    trigger: 'axis', axisPointer: { type: 'shadow' }, 
-                    formatter: p => { 
-                        const f = top10[p[0].dataIndex]; 
-                        return '<b>' + f.nombre + '</b> (' + f.pinyin + ')<br/>📍 ' + f.origen + '<br/>❤️ Likes: <b style="color:#00ffcc">' + f.likes + 'M</b><br/>👥 Seguidores: <b style="color:#ffaa00">' + f.seguidores.toFixed(2) + 'M</b><br/>📈 Ratio: <b style="color:#00ffcc">' + f.ratio.toFixed(2) + '</b>'; 
-                    } 
-                },
-                legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
-                grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-                xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-                yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
-                series: [
-                    { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
-                    { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
-                ]
-            };
-            chart.setOption(option);
-            setTimeout(() => chart.resize(), 100);
+            const total = famosas.length;
+            if (total === 0) {
+                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;padding:2rem">📊 Sin datos suficientes</p>';
+                return;
+            }
+            
+            const top3 = Object.entries(conteo)
+                .map(([t, d]) => ({ tematica: t, count: d.count, porcentaje: Math.round((d.count / total) * 100) }))
+                .sort((a, b) => b.porcentaje - a.porcentaje)
+                .slice(0, 3);
+            
+            const emojis = { danza: '💃', tradicional: '🎭', lifestyle: '👗', deportes: '🏃', musica: '🎵', arte: '🎨', otras: '⭐' };
+            const medallas = ['🥇', '🥈', '🥉'];
+            
+            let html = '';
+            top3.forEach((item, i) => {
+                const emoji = emojis[item.tematica] || '⭐';
+                html += `
+                    <div class="top3-item">
+                        <div class="medal">${medallas[i]}</div>
+                        <div style="flex:1">
+                            <div style="font-size:1.2rem;font-weight:bold;margin-bottom:0.3rem">
+                                ${emoji} ${item.tematica.charAt(0).toUpperCase() + item.tematica.slice(1)}
+                            </div>
+                            <div style="font-size:0.9rem;opacity:0.9">${item.count} de ${total} influencers famosas</div>
+                        </div>
+                        <div class="percentage">${item.porcentaje}%</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('top3-tematicas').innerHTML = html;
         }
 
+        // ============================================
+        // NAVEGACIÓN
+        // ============================================
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            
             document.getElementById(sectionId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
-            if (sectionId === 'mapa') { setTimeout(() => { if (typeof echarts !== 'undefined' && typeof generarMapa === 'function') generarMapa(); }, 200); }
-            if (sectionId === 'ranking') { setTimeout(() => { if (typeof echarts !== 'undefined' && typeof generarRanking === 'function') generarRanking(); }, 200); }
-            if (sectionId === 'galeria') { setTimeout(() => { if (typeof actualizarPagina === 'function') actualizarPagina(); }, 200); }
-        }
-
-        function abrirModal(archivo) {
-            const img = document.getElementById('modal-img');
-            const modal = document.getElementById('modal');
-            if (img && modal) {
-                img.src = 'https://raw.githubusercontent.com/dicarlophotoart-blip/estudio-douyin-2026/main/cards/' + encodeURIComponent(archivo);
-                modal.style.display = 'block';
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function cerrarModal() {
-            const modal = document.getElementById('modal');
-            if (modal) { 
-                modal.style.display = 'none'; 
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto'; 
-            }
-        }
-
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModal(); });
-        document.getElementById('modal')?.addEventListener('click', function(e) { if (e.target === this) cerrarModal(); });
-
-        // ✅ INICIO DE LA APP: Cargar todo al iniciar
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Iniciando aplicación...');
-            console.log('📊 ECharts cargado:', typeof echarts !== 'undefined');
             
-            // ✅ ACTUALIZAR PÁGINA CON LOS DATOS (esto faltaba)
-            if (typeof fichas !== 'undefined' && typeof actualizarPagina === 'function') {
-                actualizarPagina();
-                console.log('✅ Página actualizada con', fichas.length, 'creadoras');
-            } else {
-                console.error('❌ fichas.js no cargó o actualizarPagina no existe');
+            if (sectionId === 'mapa') {
+                setTimeout(generarMapa, 100);
             }
-            
-            // Cargar mapa si está disponible
-            if (typeof echarts !== 'undefined') {
-                fetch('china.json')
-                    .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
-                    .then(chinaJson => {
-                        echarts.registerMap('china', chinaJson);
-                        console.log('✅ Mapa registrado - Features:', chinaJson.features?.length);
-                        if (document.getElementById('mapa')?.classList.contains('active')) {
-                            setTimeout(() => { if (typeof generarMapa === 'function') generarMapa(); }, 300);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('❌ Error cargando china.json:', error);
-                        const mapDiv = document.getElementById('chinaMap');
-                        if (mapDiv) {
-                            mapDiv.innerHTML = '<div style="text-align:center;padding:80px 20px;color:#ffaa00;"><h3>⚠️ Error cargando mapa</h3><p>' + error.message + '</p><p style="margin-top:20px;font-size:12px;">Verifica que china.json está en la raíz del repo</p></div>';
-                        }
-                    });
-            } else {
-                console.error('❌ ECharts no está disponible. El mapa y ranking no funcionarán.');
-            }
-        });
+        }
+
+        function loadMore() {
+            cardsVisibles += cardsPorCarga;
+            const cards = window.fichas || [];
+            renderCards(cards.slice(0, cardsVisibles));
+        }
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('🚀 Iniciando aplicación...');
+                console.log('📊 ECharts cargado:', typeof echarts !== 'undefined');
+                
+                if (typeof window.fichas !== 'undefined') {
+                    actualizarPagina();
+                    renderGaleria();
+                    generarRanking();
+                    calcularTop3Tematicas();
+                    console.log('✅ Datos cargados:', window.fichas.length, 'cards');
+                } else {
+                    console.log('❌ fichas.js no cargó o actualizarPagina no existe');
+                }
+            });
+        } else {
+            actualizarPagina();
+            renderGaleria();
+            generarRanking();
+            calcularTop3Tematicas();
+        }
+
+        setInterval(calcularTop3Tematicas, 30000);
     </script>
 </body>
 </html>
