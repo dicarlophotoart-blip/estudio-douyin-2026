@@ -360,7 +360,7 @@ window.fichas = [
     "origen": "Zhejiang",
     "provincia": "浙江省",
     "coord_x": 120.15,
-    "coord_y": 0.28,
+    "coord_y": 30.28,
     "archivo": "pezpapel.jpg",
     "nicho": "Modelaje/Cosplay",
     "tematica_principal": "lifestyle",
