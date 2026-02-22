@@ -13,7 +13,6 @@
         header h1 { font-size: 1.8rem; margin-bottom: 10px; color: #00ffcc; }
         header p { color: #888; font-size: 0.95rem; }
         
-        /* ✅ TOP 3 - Académico pero destacado */
         .top3-panel { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px; border-radius: 10px; margin: 25px 0; border: 2px solid #00ffcc; }
         .top3-panel h3 { text-align: center; color: #00ffcc; margin-bottom: 15px; font-size: 1.2rem; font-weight: 600; }
         .top3-item { display: flex; align-items: center; padding: 10px 15px; margin: 8px 0; background: rgba(0,255,204,0.05); border-radius: 8px; border-left: 3px solid #00ffcc; }
@@ -65,11 +64,20 @@
             <p style="color:#666;margin-top:5px">Juan Carlos Delgado</p>
         </header>
 
-        <!-- ✅ TOP 3 TEMÁTICAS - Académico, sin emojis -->
+        <!-- ✅ PANEL TOP 3 - Versión corregida -->
         <div class="top3-panel">
-            <h3>TOP 3 TEMÁTICAS - INFLUENCERS FAMOSAS</h3>
+            <h3>TOP 3 TEMÁTICAS - CREADORAS MID-TIER (1-5M)</h3>
             <div id="top3-tematicas"><p style="text-align:center;color:#888">Cargando datos...</p></div>
-            <p class="top3-note">* Influencers con más de 1 millón de seguidores en Douyin</p>
+            
+            <div style="margin-top:15px;padding:12px;background:rgba(0,255,204,0.03);border-radius:6px;border-left:2px solid #00ffcc;font-size:0.72rem;color:#aaa;line-height:1.4;">
+                <strong style="color:#00ffcc">Escala china (Douyin):</strong><br>
+                • 🌟 Mega: ≥10M | 🔷 Macro: 5-10M | 🔹 Mid-tier: 1-5M ← este estudio<br><br>
+                <strong style="color:#ffaa00">Hallazgo:</strong><br>
+                Engagement 15-31 en mid-tier sugiere conexión intensa por excelencia.<br>
+                <em style="color:#888">Nota: Métricas sin ajuste temporal (dato no disponible en Douyin)</em>
+            </div>
+            
+            <p class="top3-note" style="margin-top:10px">* Muestra preliminar: 22 creadoras · Sujetos a ampliación</p>
         </div>
 
         <div class="stats">
@@ -116,10 +124,54 @@
         <section id="metodo" class="section">
             <h2 style="margin-bottom:20px;color:#00ffcc">MÉTODO ETNO-ECOLÓGICO</h2>
             <div class="metodo">
+                <!-- ✅ Limitaciones metodológicas -->
+                <h3>Limitaciones metodológicas</h3>
+                <div style="padding:12px;background:rgba(255,100,100,0.05);border-radius:6px;border-left:3px solid #ff6464;font-size:0.82rem;color:#aaa;line-height:1.6;margin-bottom:20px;">
+                    <strong style="color:#ff6464">Variables no disponibles en Douyin:</strong><br>
+                    • Fecha de creación de cuenta (no pública)<br>
+                    • Historial completo de publicaciones (contenido curado dinámicamente)<br>
+                    • Distinción entre contenido original y re-subido<br><br>
+                    <strong style="color:#00ffcc">Implicación:</strong><br>
+                    Las métricas de engagement reflejan conexión acumulada, pero no pueden 
+                    distinguir entre crecimiento reciente y trayectoria consolidada. 
+                    Los hallazgos se enfocan en patrones temáticos y engagement relativo, 
+                    no en evolución temporal.
+                </div>
+
+                <h3>Pregunta de investigación</h3>
+                <p style="color:#aaa;font-size:0.95rem;margin-bottom:20px;line-height:1.6;">
+                    <strong>¿Qué temáticas promueven las creadoras chinas seleccionadas por excelencia estética, 
+                    talento excepcional y valor cultural en Douyin, y qué patrones de preferencia de audiencia 
+                    revelan sus métricas de engagement?</strong>
+                </p>
+
+                <h3>Criterios de selección de la muestra</h3>
+                <p style="color:#aaa;font-size:0.9rem;margin-bottom:15px;">
+                    Este estudio emplea <strong>muestreo intencional cualitativo</strong>. 
+                    Las creadoras fueron seleccionadas manualmente según:
+                </p>
+                <ul style="color:#aaa;font-size:0.9rem;line-height:1.8;">
+                    <li><strong>Habilidades excepcionales:</strong> Destrezas artísticas, físicas o performativas de nivel técnico sobresaliente o singularidad distintiva</li>
+                    <li><strong>Excelencia estética:</strong> Belleza, presencia visual o narrativa que genera impacto y reconocimiento</li>
+                    <li><strong>Valor cultural:</strong> Contenido que preserva, reinterpreta o difunde elementos de la cultura china (tradicional o contemporánea)</li>
+                    <li><strong>Capacidad de atención:</strong> Contenido que logra capturar y sostener la mirada en un entorno de alta competencia visual</li>
+                </ul>
+                <p style="color:#888;font-size:0.85rem;margin:15px 0;font-style:italic;">
+                    <strong>Importante:</strong> La cantidad de seguidores y el tiempo de actividad NO fueron criterios de inclusión. 
+                    El análisis de creadoras con ≥1M seguidores es una capa analítica secundaria para observar patrones 
+                    en creadoras de alto alcance, no la base del muestreo.
+                </p>
+
                 <h3>Enfoque</h3>
-                <ul><li>Observación participante en Douyin (2024-2026)</li><li>Mapeo de nichos por región, contenido y engagement</li><li>Análisis cualitativo + métricas cuantitativas</li></ul>
+                <ul><li>Observación participante en Douyin (2024-2026)</li><li>Selección intencional de casos emblemáticos</li><li>Análisis cualitativo de contenido + métricas cuantitativas complementarias</li></ul>
+                
                 <h3>Métricas clave</h3>
-                <ul><li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li><li><strong>Origen:</strong> Provincia/ciudad de la creadora</li><li><strong>Nicho:</strong> Categoría principal de contenido</li></ul>
+                <ul>
+                    <li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li>
+                    <li><strong>Origen:</strong> Provincia/ciudad de la creadora</li>
+                    <li><strong>Nicho:</strong> Categoría principal de contenido</li>
+                </ul>
+                
                 <h3>Visualización</h3>
                 <ul><li>Mapa interactivo con ECharts</li><li>Ranking de engagement por creadora</li><li>Galería visual con filtros por nicho</li></ul>
             </div>
@@ -158,14 +210,13 @@
             return typeof val === 'number' ? val : parseFloat(val) || 0;
         }
 
-        // ✅ TOP 3 TEMÁTICAS - SIN EMOJIS
         function calcularTop3Tematicas() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
             
             const famosas = datos.filter(f => getNum(f, 'seguidores') >= 1);
             if (famosas.length === 0) {
-                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin influencers famosas (+1M seguidores)</p>';
+                document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin creadoras mid-tier (≥1M seguidores)</p>';
                 return;
             }
             
@@ -187,7 +238,7 @@
             let html = '';
             top3.forEach((item, i) => {
                 const nombre = item.tematica.charAt(0).toUpperCase() + item.tematica.slice(1);
-                html += `<div class="top3-item"><div class="medal">${medallas[i]}</div><div class="top3-info"><div class="top3-name">${nombre}</div><div class="top3-desc">${item.count} de ${total} influencers famosas</div></div><div class="percentage">${item.porcentaje}%</div></div>`;
+                html += `<div class="top3-item"><div class="medal">${medallas[i]}</div><div class="top3-info"><div class="top3-name">${nombre}</div><div class="top3-desc">${item.count} de ${total} creadoras</div></div><div class="percentage">${item.porcentaje}%</div></div>`;
             });
             
             document.getElementById('top3-tematicas').innerHTML = html;
