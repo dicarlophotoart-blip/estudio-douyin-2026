@@ -74,15 +74,12 @@
                 • 🌟 Mega: ≥10M | 🔷 Macro: 5-10M | 🔹 Mid-tier: 1-5M | 🔸 Micro: <1M<br>
                 • <em style="color:#aaa">Este estudio aplica esta escala para clasificar y comparar creadoras</em><br><br>
                 <strong style="color:#ffaa00">Composición de la muestra actual:</strong><br>
-                <div id="composicion-muestra">
-                    • Cargando composición...
-                </div>
+                <div id="composicion-muestra">• Cargando composición...</div>
                 <br>
                 <strong style="color:#ffaa00">Hallazgo:</strong><br>
                 Engagement 15-31 en creadoras con Belleza ≥3 + Destreza ≥3 sugiere conexión intensa por combinación estética-performativa.<br>
                 <em style="color:#888">Nota: Métricas sin ajuste temporal (dato no disponible en Douyin)</em>
             </div>
-            
             <p class="top3-note" style="margin-top:10px">* Muestra preliminar: Sujetos a ampliación</p>
         </div>
 
@@ -90,17 +87,13 @@
         <div style="margin-top:25px;padding:20px;background:linear-gradient(135deg, rgba(0,255,204,0.05) 0%, rgba(255,170,0,0.05) 100%);border-radius:10px;border:2px solid #00ffcc;">
             <h3 style="color:#00ffcc;margin-bottom:15px;text-align:center;">📊 Preferencias Temáticas en Douyin</h3>
             <p style="text-align:center;color:#888;font-size:0.85rem;margin-bottom:15px;">Cálculo automático basado en muestra actual</p>
-            <div id="gustos-chinos-container">
-                <p style="text-align:center;color:#666">Cargando datos...</p>
-            </div>
+            <div id="gustos-chinos-container"><p style="text-align:center;color:#666">Cargando datos...</p></div>
         </div>
-        <!-- ✅ FIN CÁLCULO AUTOMÁTICO -->
 
         <!-- ✅ CONTEXTO MACRO: Douyin en China -->
         <div style="margin-top:25px;padding:20px;background:linear-gradient(135deg, rgba(100,100,255,0.05) 0%, rgba(0,255,204,0.05) 100%);border-radius:10px;border:2px solid #6464ff;">
             <h3 style="color:#6464ff;margin-bottom:15px;text-align:center;">🌏 Douyin en el Ecosistema Digital Chino</h3>
             <p style="text-align:center;color:#888;font-size:0.85rem;margin-bottom:15px;">Datos de mercado 2024-2026</p>
-            
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
                 <div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;text-align:center;border-top:3px solid #00ffcc;">
                     <div style="font-size:1.8rem;font-weight:bold;color:#00ffcc;">766.5M</div>
@@ -123,7 +116,6 @@
                     <div style="font-size:0.7rem;color:#666;margin-top:3px;">Highest in China</div>
                 </div>
             </div>
-            
             <p style="font-size:0.8rem;color:#aaa;line-height:1.6;margin-top:15px;text-align:center;">
                 <strong style="color:#6464ff">Implicación para este estudio:</strong><br>
                 Los patrones identificados en nuestra muestra de 22 creadoras operan dentro 
@@ -131,7 +123,6 @@
                 preferencia voluntaria de casi 1 de cada 3 usuarios de redes sociales.
             </p>
         </div>
-        <!-- ✅ FIN CONTEXTO MACRO -->
 
         <div class="stats">
             <div class="stat-card"><div class="number" id="total-fichas">0</div><div class="label">Creadoras</div></div>
@@ -146,6 +137,7 @@
             <div class="nav-item" onclick="showSection('ranking')">RANKING</div>
             <div class="nav-item" onclick="showSection('mapa')">MAPA</div>
             <div class="nav-item" onclick="showSection('metodo')">MÉTODO</div>
+            <div class="nav-item" onclick="showSection('temporal')">TEMPORAL</div>
         </div>
 
         <section id="lista" class="section active">
@@ -189,12 +181,10 @@
                     Los hallazgos se enfocan en patrones temáticos y engagement relativo, 
                     no en evolución temporal.
                 </div>
-
                 <h3>Pregunta de investigación</h3>
                 <p style="color:#aaa;font-size:0.95rem;margin-bottom:20px;line-height:1.6;">
                     <strong>¿Qué temáticas promueven las creadoras chinas con Belleza ≥3 y Destreza ≥3 en Douyin, y qué patrones de preferencia de audiencia revelan sus métricas de engagement?</strong>
                 </p>
-
                 <h3>Criterios de selección de la muestra</h3>
                 <p style="color:#aaa;font-size:0.9rem;margin-bottom:15px;">
                     Este estudio emplea <strong>muestreo intencional cualitativo</strong>. 
@@ -212,19 +202,41 @@
                     El análisis de creadoras con ≥1M seguidores es una capa analítica secundaria para observar patrones 
                     en creadoras de alto alcance, no la base del muestreo.
                 </p>
-
                 <h3>Enfoque</h3>
                 <ul><li>Observación participante en Douyin (2024-2026)</li><li>Selección intencional de casos con Belleza+Destreza alta</li><li>Análisis cualitativo de contenido + métricas cuantitativas complementarias</li></ul>
-                
                 <h3>Métricas clave</h3>
                 <ul>
                     <li><strong>Ratio:</strong> Likes ÷ Seguidores (engagement relativo)</li>
                     <li><strong>Origen:</strong> Provincia/ciudad de la creadora</li>
                     <li><strong>Nicho:</strong> Categoría principal de contenido</li>
                 </ul>
-                
                 <h3>Visualización</h3>
                 <ul><li>Mapa interactivo con ECharts</li><li>Ranking de engagement por creadora</li><li>Galería visual con filtros por nicho</li></ul>
+            </div>
+        </section>
+
+        <!-- ✅ NUEVA SECCIÓN: ANÁLISIS TEMPORAL -->
+        <section id="temporal" class="section">
+            <h2 style="margin-bottom:20px;color:#00ffcc">ANÁLISIS TEMPORAL</h2>
+            <p style="color:#888;margin-bottom:20px">Engagement y antigüedad verificada vía 日期筛选</p>
+            
+            <div class="stats" id="temporal-stats"></div>
+            
+            <div style="background:#1a1a1a;padding:20px;border-radius:10px;border:1px solid #333;margin-top:20px;">
+                <h3 style="color:#00ffcc;margin-bottom:15px;">📈 Top Engagement Ratio</h3>
+                <div id="top-ratio-list" style="display:grid;gap:8px;"></div>
+            </div>
+            
+            <div style="background:#1a1a1a;padding:20px;border-radius:10px;border:1px solid #333;margin-top:20px;">
+                <h3 style="color:#00ffcc;margin-bottom:15px;">📅 Distribución por Año de Inicio</h3>
+                <div id="year-distribution" style="display:grid;gap:10px;"></div>
+            </div>
+            
+            <div style="padding:15px;background:rgba(0,255,204,0.05);border-radius:8px;border-left:3px solid #00ffcc;margin-top:20px;font-size:0.85rem;color:#aaa;line-height:1.6;">
+                <strong style="color:#00ffcc">Hallazgo clave:</strong><br>
+                Belleza ≥3 + Destreza ≥3 = Engagement 14-31+<br>
+                Independiente de antigüedad (2018-2025)<br>
+                <em style="color:#888">Datos temporales verificados cuando el acceso a Douyin lo permitió</em>
             </div>
         </section>
 
@@ -264,43 +276,35 @@
         function calcularTop3Tematicas() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
-            
             const famosas = datos.filter(f => getNum(f, 'seguidores') >= 1);
             if (famosas.length === 0) {
                 document.getElementById('top3-tematicas').innerHTML = '<p style="text-align:center;color:#888">Sin creadoras destacadas (≥1M seguidores)</p>';
                 return;
             }
-            
             const conteo = {};
             famosas.forEach(f => {
                 const t = (getVal(f, 'tematica_principal') || 'otras').toLowerCase();
                 if (!conteo[t]) conteo[t] = 0;
                 conteo[t]++;
             });
-            
             const total = famosas.length;
             const top3 = Object.entries(conteo)
                 .map(([tematica, count]) => ({ tematica, count, porcentaje: Math.round((count / total) * 100) }))
                 .sort((a, b) => b.porcentaje - a.porcentaje)
                 .slice(0, 3);
-            
             const medallas = ['1.', '2.', '3.'];
-            
             let html = '';
             top3.forEach((item, i) => {
                 const nombre = item.tematica.charAt(0).toUpperCase() + item.tematica.slice(1);
                 html += `<div class="top3-item"><div class="medal">${medallas[i]}</div><div class="top3-info"><div class="top3-name">${nombre}</div><div class="top3-desc">${item.count} de ${total} creadoras</div></div><div class="percentage">${item.porcentaje}%</div></div>`;
             });
-            
             document.getElementById('top3-tematicas').innerHTML = html;
         }
 
         function actualizarComposicionMuestra() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
-            
             let mega = 0, macro = 0, midtier = 0, micro = 0;
-            
             datos.forEach(f => {
                 const seg = getNum(f, 'seguidores');
                 if (seg >= 10) mega++;
@@ -308,7 +312,6 @@
                 else if (seg >= 1) midtier++;
                 else micro++;
             });
-            
             const composicionDiv = document.getElementById('composicion-muestra');
             if (composicionDiv) {
                 let texto = `• ${midtier} Mid-tier (1-5M) + ${micro} Micro (<1M)`;
@@ -322,14 +325,12 @@
         function calcularGustosChinos() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
-            
             const conteo = {};
             datos.forEach(f => {
                 const tematica = getVal(f, 'tematica_principal') || 'Otros';
                 if (!conteo[tematica]) conteo[tematica] = 0;
                 conteo[tematica]++;
             });
-            
             const total = datos.length;
             const porcentajes = Object.entries(conteo)
                 .map(([tematica, count]) => ({
@@ -338,7 +339,6 @@
                     porcentaje: ((count / total) * 100).toFixed(1)
                 }))
                 .sort((a, b) => b.porcentaje - a.porcentaje);
-            
             const container = document.getElementById('gustos-chinos-container');
             if (container) {
                 let html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px;">';
@@ -359,16 +359,13 @@
         function actualizarPagina() {
             const datos = window.fichas || [];
             if (!datos || datos.length === 0) return;
-            
             const porSeguidores = [...datos].sort((a, b) => getNum(b, 'seguidores') - getNum(a, 'seguidores'));
-            
             document.getElementById('total-fichas').textContent = datos.length;
             document.getElementById('max-seguidores').textContent = getNum(porSeguidores[0], 'seguidores').toFixed(2) + 'M';
             document.getElementById('max-ratio').textContent = Math.max(...datos.map(f => getNum(f, 'ratio'))).toFixed(2);
             const regiones = new Set(datos.map(f => (getVal(f, 'provincia') || getVal(f, 'origen') || '').split(',')[0].trim()));
             document.getElementById('total-regiones').textContent = regiones.size;
             document.getElementById('footer-fichas').textContent = datos.length + ' creadoras · 30,500+ comunidad';
-            
             const tbody = document.getElementById('tabla-body');
             if (tbody) {
                 tbody.innerHTML = '';
@@ -376,7 +373,6 @@
                     tbody.innerHTML += `<tr><td>${getVal(f, 'nombre')} (${getVal(f, 'pinyin')})</td><td>${getNum(f, 'seguidores').toFixed(3)}M</td><td>${getNum(f, 'like')}M</td><td>${getNum(f, 'ratio').toFixed(2)}</td><td>${getVal(f, 'origen')}</td><td>${getVal(f, 'nicho')}</td></tr>`;
                 });
             }
-            
             const galeria = document.getElementById('galeria-cards');
             if (galeria) {
                 galeria.innerHTML = '';
@@ -394,7 +390,6 @@
                     galeria.appendChild(btnMas);
                 }
             }
-            
             calcularTop3Tematicas();
             actualizarComposicionMuestra();
             calcularGustosChinos();
@@ -412,14 +407,12 @@
             let chart = echarts.getInstanceByDom(mapDiv);
             if (chart) echarts.dispose(chart);
             chart = echarts.init(mapDiv);
-            
             const datos = window.fichas || [];
             const conCoord = datos.filter(f => {
                 const x = getNum(f, 'coord_x') || getNum(f, 'Coord x');
                 const y = getNum(f, 'coord_y') || getNum(f, 'Coord y');
                 return x && y;
             });
-            
             const grupos = {};
             conCoord.forEach(f => {
                 const x = getNum(f, 'coord_x') || getNum(f, 'Coord x');
@@ -429,7 +422,6 @@
                 grupos[key].creadoras.push(f);
                 grupos[key].total += getNum(f, 'seguidores');
             });
-            
             const puntosData = Object.values(grupos).map(g => ({
                 name: g.creadoras.length > 1 ? g.creadoras.length + ' creadoras' : getVal(g.creadoras[0], 'nombre'),
                 value: [...g.coord, g.creadoras.length],
@@ -437,7 +429,6 @@
                 creadoras: g.creadoras.map(c => ({ nombre: getVal(c, 'nombre'), pinyin: getVal(c, 'pinyin'), origen: getVal(c, 'origen'), nicho: getVal(c, 'nicho'), seguidores: getNum(c, 'seguidores'), ratio: getNum(c, 'ratio') })),
                 totalSeguidores: g.total
             }));
-            
             const option = {
                 backgroundColor: '#1a1a1a',
                 title: { text: 'Distribución de ' + conCoord.length + ' creadoras', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 } },
@@ -478,13 +469,11 @@
             let chart = echarts.getInstanceByDom(chartDiv);
             if (chart) echarts.dispose(chart);
             chart = echarts.init(chartDiv);
-            
             const datos = window.fichas || [];
             const top10 = [...datos].sort((a, b) => getNum(b, 'ratio') - getNum(a, 'ratio')).slice(0, 10);
             const nombres = top10.map(f => getVal(f, 'nombre') + '\n' + getVal(f, 'pinyin'));
             const likesData = top10.map(f => getNum(f, 'like'));
             const seguidoresData = top10.map(f => getNum(f, 'seguidores'));
-            
             const option = {
                 backgroundColor: '#1a1a1a',
                 title: { text: 'Top 10: Likes vs Seguidores', subtext: 'Cyan = Likes | Naranja = Seguidores', left: 'center', textStyle: { color: '#00ffcc', fontSize: 16 }, subtextStyle: { color: '#888', fontSize: 11 } },
@@ -498,7 +487,7 @@
                 legend: { data: ['Likes (M)', 'Seguidores (M)'], textStyle: { color: '#fff' }, top: 40 },
                 grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
                 xAxis: { type: 'value', name: 'Millones', axisLine: { lineStyle: { color: '#00ffcc' } }, axisLabel: { color: '#888' }, splitLine: { lineStyle: { color: '#333', type: 'dashed' } } },
-                yAxis: { type: 'category',  nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
+                yAxis: { type: 'category', data: nombres, axisLabel: { color: '#fff', fontSize: 11, margin: 15 } },
                 series: [
                     { name: 'Likes (M)', type: 'bar', data: likesData, itemStyle: { color: '#00ffcc', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#00ffcc', fontSize: 10, formatter: p => p.value + 'M' } },
                     { name: 'Seguidores (M)', type: 'bar', data: seguidoresData, itemStyle: { color: '#ffaa00', borderRadius: [0, 3, 3, 0] }, label: { show: true, position: 'right', color: '#ffaa00', fontSize: 10, formatter: p => p.value.toFixed(2) + 'M' } }
@@ -516,6 +505,7 @@
             if (sectionId === 'mapa') setTimeout(() => generarMapa(), 200);
             if (sectionId === 'ranking') setTimeout(() => generarRanking(), 200);
             if (sectionId === 'galeria') setTimeout(() => actualizarPagina(), 200);
+            if (sectionId === 'temporal') setTimeout(() => generarSeccionTemporal(), 200);
         }
 
         function abrirModal(archivo) {
@@ -541,16 +531,101 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
         document.getElementById('modal')?.addEventListener('click', function(e) { if (e.target === this) cerrarModal(); });
 
+        // ============================================
+        // DATOS TEMPORALES - 23 CREADORAS
+        // ============================================
+        const creadorasTemporal = [
+          { nombre: "Angier 安琪", pinyin: "Angier", seguidores: 2.92, likes: 86.07, ratio: 29.56, origen: "Zhejiang", nicho: "Danza", año: 2022, meses: 48, likesMes: 1.79, clasificacion: "confirmada" },
+          { nombre: "妮老师", pinyin: "Ni Lao Shi", seguidores: 3.49, likes: 110, ratio: 31.56, origen: "Fujian", nicho: "Performance", año: 2022, meses: 48, likesMes: 2.29, clasificacion: "confirmada" },
+          { nombre: "大佬甜Giovanna", pinyin: "Da Lao Tian", seguidores: 4.98, likes: 130, ratio: 26.12, origen: "Sichuan", nicho: "Lifestyle", año: 2018, meses: 96, likesMes: 1.35, clasificacion: "confirmada" },
+          { nombre: "隙晓暮（琵琶工作室）", pinyin: "Xi Xiao Mu", seguidores: 0.05, likes: 0.714, ratio: 14.28, origen: "Inner Mongolia", nicho: "Pipa", año: 2024, meses: 24, likesMes: 0.03, clasificacion: "confirmada" },
+          { nombre: "猫姨", pinyin: "Mao Yi", seguidores: 2.96, likes: 75.94, ratio: 25.66, origen: "Sichuan", nicho: "Performance", año: 2022, meses: 48, likesMes: 1.58, clasificacion: "confirmada" },
+          { nombre: "卢柔伊", pinyin: "Lu Rou Yi", seguidores: 2.62, likes: 49.48, ratio: 18.89, origen: "Zhejiang", nicho: "Guzheng", año: 2021, meses: 60, likesMes: 0.825, clasificacion: "confirmada" },
+          { nombre: "刘书含Rose.", pinyin: "Liu Shu Han", seguidores: 0.999, likes: 17.03, ratio: 17.05, origen: "Liaoning", nicho: "Opera", año: 2018, meses: 96, likesMes: 0.177, clasificacion: "confirmada" },
+          { nombre: "秋月凉", pinyin: "Qiu Yue Liang", seguidores: 0.944, likes: 15.33, ratio: 16.24, origen: "Sichuan", nicho: "Lifestyle", año: 2023, meses: 36, likesMes: 0.426, clasificacion: "confirmada" },
+          { nombre: "潇洒小柴", pinyin: "Xiao Sa Xiao Chai", seguidores: 0.468, likes: 6.60, ratio: 14.10, origen: "Hunan", nicho: "Gaming", año: 2023, meses: 36, likesMes: 0.183, clasificacion: "confirmada" },
+          { nombre: "小白狮杨姐", pinyin: "Xiao Bai Shi Yang Jie", seguidores: 2.24, likes: 22.70, ratio: 10.13, origen: "Shaanxi", nicho: "Live", año: 2022, meses: 48, likesMes: 0.473, clasificacion: "fronteriza" },
+          { nombre: "拿铁笛子", pinyin: "Na Tie Dizi", seguidores: 2.27, likes: 26.16, ratio: 11.52, origen: "Liaoning", nicho: "Fitness", año: 2021, meses: 60, likesMes: 0.436, clasificacion: "fronteriza" },
+          { nombre: "罗斯露Rose", pinyin: "Luo Si Lu", seguidores: 1.56, likes: 12.30, ratio: 7.88, origen: "Sichuan", nicho: "Danza Atletica", año: 2020, meses: 72, likesMes: 0.171, clasificacion: "fronteriza" },
+          { nombre: "小鹤owo", pinyin: "Xiao He", seguidores: 1.56, likes: 20.66, ratio: 13.24, origen: "Zhejiang", nicho: "Lifestyle", año: 2022, meses: 48, likesMes: 0.430, clasificacion: "fronteriza" },
+          { nombre: "刘葕羽", pinyin: "Liu Han Yu", seguidores: 0.232, likes: 1.49, ratio: 6.44, origen: "Malasia", nicho: "Murales", año: 2023, meses: 36, likesMes: 0.041, clasificacion: "fronteriza" },
+          { nombre: "小七。", pinyin: "Xiao Qi", seguidores: 0.998, likes: 5.69, ratio: 5.70, origen: "Sichuan", nicho: "Artesania", año: 2023, meses: 36, likesMes: 0.158, clasificacion: "contraste" },
+          { nombre: "缘妙妙", pinyin: "Yuan Miao Miao", seguidores: 0.004, likes: 0.032, ratio: 8.93, origen: "Anhui", nicho: "Patrimonio", año: 2025, meses: 12, likesMes: 0.003, clasificacion: "fronteriza" },
+          { nombre: "林苒☀️ ⁹²⁵⁰", pinyin: "Lin Ran", seguidores: 0.064, likes: 0.251, ratio: 3.92, origen: "Jiangsu", nicho: "Lifestyle", año: 2023, meses: 36, likesMes: 0.007, clasificacion: "contraste" },
+          { nombre: "Mimi", pinyin: "Mimi", seguidores: 0.16, likes: 0.714, ratio: 4.35, origen: "?", nicho: "Lifestyle", año: 2022, meses: 48, likesMes: 0.015, clasificacion: "contraste" },
+          { nombre: "178的刘太阳", pinyin: "Liu Tai Yang", seguidores: 3.29, likes: 19.76, ratio: 6.01, origen: "Inner Mongolia", nicho: "Fitness", año: 2018, meses: 96, likesMes: 0.206, clasificacion: "fronteriza" },
+          { nombre: "飞天小麻花", pinyin: "Fei Tian Xiao Ma Hua", seguidores: 3.20, likes: 39.03, ratio: 12.20, origen: "Liaoning", nicho: "Wushu", año: 2022, meses: 48, likesMes: 0.813, clasificacion: "fronteriza" },
+          { nombre: "郭喆喆", pinyin: "Guo Zhe Zhe", seguidores: 3.10, likes: 28.86, ratio: 9.31, origen: "Hubei", nicho: "Guofeng", año: 2020, meses: 72, likesMes: 0.401, clasificacion: "fronteriza" },
+          { nombre: "获获糖看点", pinyin: "Huo Huo Tang", seguidores: 0.008, likes: 0.047, ratio: 5.66, origen: "?", nicho: "Repost", año: 2024, meses: 24, likesMes: 0.002, clasificacion: "contraste" },
+          { nombre: "纸鱼", pinyin: "Zhi Yu", seguidores: 1.05, likes: 13.93, ratio: 13.26, origen: "Zhejiang", nicho: "Viajes", año: 2022, meses: 48, likesMes: 0.290, clasificacion: "fronteriza" }
+        ];
+
+        function calcularEstadisticasTemporales() {
+          const total = creadorasTemporal.length;
+          const confirmadas = creadorasTemporal.filter(c => c.clasificacion === "confirmada").length;
+          const fronterizas = creadorasTemporal.filter(c => c.clasificacion === "fronteriza").length;
+          const contraste = creadorasTemporal.filter(c => c.clasificacion === "contraste").length;
+          const porAno = {};
+          creadorasTemporal.forEach(c => {
+            if (!porAno[c.año]) porAno[c.año] = { count: 0, totalRatio: 0, creators: [] };
+            porAno[c.año].count++;
+            porAno[c.año].totalRatio += c.ratio;
+            porAno[c.año].creators.push(c.nombre);
+          });
+          Object.keys(porAno).forEach(año => {
+            porAno[año].avgRatio = (porAno[año].totalRatio / porAno[año].count).toFixed(2);
+          });
+          const topRatio = [...creadorasTemporal].sort((a, b) => b.ratio - a.ratio).slice(0, 10);
+          const avgRatio = (creadorasTemporal.reduce((sum, c) => sum + c.ratio, 0) / total).toFixed(2);
+          const avgMeses = Math.round(creadorasTemporal.reduce((sum, c) => sum + c.meses, 0) / total);
+          return { total, confirmadas, fronterizas, contraste, pctConfirmadas: ((confirmadas/total)*100).toFixed(1), porAno, topRatio, avgRatio, avgMeses };
+        }
+
+        function generarSeccionTemporal() {
+          const stats = calcularEstadisticasTemporales();
+          const statsDiv = document.getElementById('temporal-stats');
+          if (statsDiv) {
+            statsDiv.innerHTML = `
+              <div class="stat-card"><div class="number" style="color:#4ade80">${stats.confirmadas} (${stats.pctConfirmadas}%)</div><div class="label">Confirman (14-31+)</div></div>
+              <div class="stat-card"><div class="number" style="color:#fbbf24">${stats.fronterizas}</div><div class="label">Fronterizas (6-13.9)</div></div>
+              <div class="stat-card"><div class="number" style="color:#f87171">${stats.contraste}</div><div class="label">Contraste (&lt;6)</div></div>
+              <div class="stat-card"><div class="number">${stats.avgRatio}</div><div class="label">Ratio Promedio</div></div>
+            `;
+          }
+          const topList = document.getElementById('top-ratio-list');
+          if (topList) {
+            topList.innerHTML = stats.topRatio.map((c, i) => `
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;">
+                <div><strong style="color:#fff">${i+1}. ${c.nombre}</strong><span style="color:#888;font-size:0.8rem;margin-left:8px">(${c.año})</span></div>
+                <div style="font-weight:bold;color:#00ffcc">${c.ratio}</div>
+              </div>
+            `).join('');
+          }
+          const yearDiv = document.getElementById('year-distribution');
+          if (yearDiv) {
+            yearDiv.innerHTML = Object.entries(stats.porAno).sort((a,b) => a[0] - b[0]).map(([año, data]) => `
+              <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:6px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <strong style="color:#00ffcc;font-size:1.1rem">${año}</strong>
+                  <div style="text-align:right;">
+                    <div style="font-weight:bold;color:#fff">${data.count} creadoras</div>
+                    <div style="font-size:0.8rem;color:#aaa">Ratio prom: ${data.avgRatio}</div>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem;color:#888;margin-top:5px;opacity:0.9">${data.creators.slice(0,3).join(', ')}${data.creators.length > 3 ? '...' : ''}</div>
+              </div>
+            `).join('');
+          }
+        }
+
         function iniciarApp() {
             if (typeof window.fichas === 'undefined' || !window.fichas || window.fichas.length === 0) {
                 console.log('Esperando datos...');
                 setTimeout(iniciarApp, 100);
                 return;
             }
-            
             console.log('Datos cargados:', window.fichas.length, 'creadoras');
             actualizarPagina();
-            
             if (typeof echarts !== 'undefined') {
                 fetch('china.json')
                     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
