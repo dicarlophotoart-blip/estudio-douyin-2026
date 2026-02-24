@@ -335,21 +335,22 @@ window.fichas = [
     "Fecha inicio": "",
     "Meses activa": 1513
   },
-  {
-    "nombre": "罗斯露Rose",
-    "pinyin": "Luósīlù Rose",
-    "seguidores": 1.562,
-    "like": 0,
-    "ratio": 0,
-    "origen": "四川",
-    "provincia": "四川",
-    "coord_x": 104.06,
-    "coord_y": 30.67,
-    "archivo": "Rose.jpg",
-    "nicho": "Danza latina Olímpica",
-    "tematica_principal": "danza",
-    "Fecha inicio": "",
-    "Meses activa": 1513
+ {
+  "nombre": "罗斯露Rose",
+  "pinyin": "Luósīlù Rose",
+  "seguidores": 1.562,
+  "like": 12.31,
+  "ratio": 7.89,
+  "origen": "四川",
+  "provincia": "四川",
+  "coord_x": 104.06,
+  "coord_y": 30.67,
+  "archivo": "Rose.jpg",
+  "nicho": "Danza latina Olímpica",
+  "tematica_principal": "danza",
+  "Fecha inicio": "",
+  "Meses activa": 1513
+}
   },
   {
     "nombre": "纸鱼",
