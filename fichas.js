@@ -13,7 +13,7 @@ window.fichas = [
     "nicho": "Alto impacto",
     "tematica_principal": "lifestyle",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "隙晓暮",
@@ -29,7 +29,7 @@ window.fichas = [
     "nicho": "Pipa + Hanfu",
     "tematica_principal": "tradicional",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "Mimi 蛋儿",
@@ -45,7 +45,7 @@ window.fichas = [
     "nicho": "Jazz dance",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "妮老师",
@@ -61,7 +61,7 @@ window.fichas = [
     "nicho": "Humor/Musical 搞怪",
     "tematica_principal": "musica",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "刘太阳",
@@ -77,7 +77,7 @@ window.fichas = [
     "nicho": "Fitness étnico",
     "tematica_principal": "deportes",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "飞天小麻花",
@@ -93,7 +93,7 @@ window.fichas = [
     "nicho": "Wushu competitivo",
     "tematica_principal": "deportes",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "郭喆喆",
@@ -109,7 +109,7 @@ window.fichas = [
     "nicho": "Danza Han/Tang",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "猫姨",
@@ -125,7 +125,7 @@ window.fichas = [
     "nicho": "Baile urbano 微胖御姐",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "Angier 安琦",
@@ -141,7 +141,7 @@ window.fichas = [
     "nicho": "Baile urbano + hime-cut",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "卢柔伊",
@@ -157,7 +157,7 @@ window.fichas = [
     "nicho": "Guzheng innovador",
     "tematica_principal": "musica",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "小白狮杨姐",
@@ -173,7 +173,7 @@ window.fichas = [
     "nicho": "Danza león blanco",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "墨尔本获宝",
@@ -189,7 +189,7 @@ window.fichas = [
     "nicho": "Contenido lifestyle",
     "tematica_principal": "lifestyle",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "小七。",
@@ -205,7 +205,7 @@ window.fichas = [
     "nicho": "Contenido lifestyle",
     "tematica_principal": "lifestyle",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "刘书含",
@@ -221,7 +221,7 @@ window.fichas = [
     "nicho": "Ópera moderna 戏腔",
     "tematica_principal": "musica",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "秋月凉 L",
@@ -237,7 +237,7 @@ window.fichas = [
     "nicho": "Hanfu cinematográfico + cosplay",
     "tematica_principal": "tradicional",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "刘荇羽",
@@ -253,7 +253,7 @@ window.fichas = [
     "nicho": "Murales en relieve",
     "tematica_principal": "arte",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "潇洒小柴",
@@ -269,7 +269,7 @@ window.fichas = [
     "nicho": "Fitness kawaii",
     "tematica_principal": "deportes",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "小鹤 owo",
@@ -285,7 +285,7 @@ window.fichas = [
     "nicho": "Cosplay + gaming",
     "tematica_principal": "otras",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "缘妙妙",
@@ -301,7 +301,7 @@ window.fichas = [
     "nicho": "Pintura budista",
     "tematica_principal": "arte",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "林苒",
@@ -317,7 +317,7 @@ window.fichas = [
     "nicho": "Hanfu + danza tradicional",
     "tematica_principal": "danza",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
   {
     "nombre": "拿铁笛子",
@@ -333,24 +333,23 @@ window.fichas = [
     "nicho": "Fitness IFBB Pro",
     "tematica_principal": "deportes",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   },
- {
-  "nombre": "罗斯露Rose",
-  "pinyin": "Luósīlù Rose",
-  "seguidores": 1.562,
-  "like": 12.31,
-  "ratio": 7.89,
-  "origen": "四川",
-  "provincia": "四川",
-  "coord_x": 104.06,
-  "coord_y": 30.67,
-  "archivo": "Rose.jpg",
-  "nicho": "Danza latina Olímpica",
-  "tematica_principal": "danza",
-  "Fecha inicio": "",
-  "Meses activa": 1513
-}
+  {
+    "nombre": "罗斯露Rose",
+    "pinyin": "Luósīlù Rose",
+    "seguidores": 1.562,
+    "like": 12.31,
+    "ratio": 7.89,
+    "origen": "四川",
+    "provincia": "四川",
+    "coord_x": 104.06,
+    "coord_y": 30.67,
+    "archivo": "Rose.jpg",
+    "nicho": "Danza latina Olímpica",
+    "tematica_principal": "danza",
+    "Fecha inicio": "",
+    "Meses activa": ""
   },
   {
     "nombre": "纸鱼",
@@ -366,6 +365,6 @@ window.fichas = [
     "nicho": "Modelaje/Cosplay",
     "tematica_principal": "lifestyle",
     "Fecha inicio": "",
-    "Meses activa": 1513
+    "Meses activa": ""
   }
 ];
